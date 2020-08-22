@@ -233,4 +233,24 @@ class StrTest extends TestCase
         self::assertEquals('ab', $str->cut(2));
         self::assertEquals('cd', $str->cut(2, 2));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::isUpper
+     */
+    public function testIsUpper(): void
+    {
+        self::assertFalse(Str::make('tEsT')->isUpper());
+        self::assertFalse(Str::make('test')->isUpper());
+        self::assertTrue(Str::make('TEST')->isUpper());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::isLower
+     */
+    public function testIsLower(): void
+    {
+        self::assertFalse(Str::make('tEsT')->isLower());
+        self::assertTrue(Str::make('test')->isLower());
+        self::assertFalse(Str::make('TEST')->isLower());
+    }
 }

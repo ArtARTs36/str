@@ -45,7 +45,7 @@ class Str implements \Countable
      * @param string $delimiter
      * @return $this
      */
-    public function multiply(int $count, string $delimiter = ''): self
+    public function multiply(int $count, string $delimiter = ''): Str
     {
         $newString = '';
 
@@ -175,6 +175,8 @@ class Str implements \Countable
             return $string;
         } elseif (is_object($string) && method_exists($string, '__toString')) {
             return $string->__toString();
+        } elseif (is_numeric($string)) {
+            return (string) $string;
         } else {
             throw new \LogicException('Type not access');
         }
@@ -189,6 +191,14 @@ class Str implements \Countable
     }
 
     /**
+     * @return bool
+     */
+    public function isUpper(): bool
+    {
+        return mb_strtoupper($this->string, static::DEFAULT_ENCODING) === $this->string;
+    }
+
+    /**
      * @return string
      */
     public function toLower(): string
@@ -197,7 +207,15 @@ class Str implements \Countable
     }
 
     /**
-     * @param string|Str|object $string
+     * @return bool
+     */
+    public function isLower(): bool
+    {
+        return mb_strtolower($this->string, static::DEFAULT_ENCODING) === $this->string;
+    }
+
+    /**
+     * @param string|Str|object|array|object[] $string
      * @param string $delimiter
      * @return Str
      */
@@ -207,6 +225,8 @@ class Str implements \Countable
             return $this->createWithAppend($string, $delimiter);
         } elseif (is_object($string) && method_exists($string, '__toString')) {
             return $this->createWithAppend($string->__toString(), $delimiter);
+        } elseif (is_numeric($string)) {
+            return $this->createWithAppend((string) $string, $delimiter);
         } elseif (is_array($string)) {
             $appends = implode($delimiter, array_map('strval', $string));
 
