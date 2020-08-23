@@ -68,6 +68,8 @@ class StrTest extends TestCase
     public function testEquals(): void
     {
         self::assertTrue(Str::make('test')->equals('test'));
+        self::assertFalse(Str::make('php')->equals('pHp'));
+        self::assertTrue(Str::make('php')->equals('pHp', true));
     }
 
     /**

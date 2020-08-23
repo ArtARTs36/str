@@ -94,11 +94,16 @@ class Str implements \Countable
 
     /**
      * @param Str|string|object $string
+     * @param bool $ignoreCase
      * @return bool
      */
-    public function equals($string): bool
+    public function equals($string, bool $ignoreCase = false): bool
     {
-        return $this->prepare($string) === $string;
+        if ($ignoreCase) {
+            return $this->prepare($this->prepareToLower($string)) === $this->prepareToLower($this->string);
+        }
+
+        return $this->prepare($string) === $this->string;
     }
 
     /**
@@ -166,6 +171,15 @@ class Str implements \Countable
     }
 
     /**
+     * @param string $string
+     * @return string
+     */
+    final protected function prepareToLower(string $string): string
+    {
+        return mb_strtolower($string, static::DEFAULT_ENCODING);
+    }
+
+    /**
      * @param Str|string|object $string
      * @return string
      */
@@ -183,9 +197,9 @@ class Str implements \Countable
     }
 
     /**
-     * @return string
+     * @return Str
      */
-    public function toUpper(): string
+    public function toUpper(): Str
     {
         return new static(mb_strtoupper($this->string, static::DEFAULT_ENCODING));
     }
@@ -199,11 +213,11 @@ class Str implements \Countable
     }
 
     /**
-     * @return string
+     * @return Str
      */
-    public function toLower(): string
+    public function toLower(): Str
     {
-        return new static(mb_strtolower($this->string, static::DEFAULT_ENCODING));
+        return new static($this->prepareToLower($this->string));
     }
 
     /**
@@ -211,7 +225,7 @@ class Str implements \Countable
      */
     public function isLower(): bool
     {
-        return mb_strtolower($this->string, static::DEFAULT_ENCODING) === $this->string;
+        return $this->prepareToLower($this->string) === $this->string;
     }
 
     /**
