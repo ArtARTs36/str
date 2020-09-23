@@ -132,6 +132,19 @@ class StrTest extends TestCase
         self::assertEquals('e', $chars[1]);
         self::assertEquals('s', $chars[2]);
         self::assertEquals('t', $chars[3]);
+
+        //
+
+        $string = Str::make('Водка');
+
+        $chars = $string->chars();
+
+        self::assertCount(5, $chars);
+        self::assertEquals('В', $chars[0]);
+        self::assertEquals('о', $chars[1]);
+        self::assertEquals('д', $chars[2]);
+        self::assertEquals('к', $chars[3]);
+        self::assertEquals('а', $chars[4]);
     }
 
     /**

@@ -145,8 +145,12 @@ class Str implements \Countable
     {
         $chars = [];
 
+        if (function_exists('mb_str_split')) {
+            return mb_str_split($this->string);
+        }
+
         for ($i = 0; $i < $this->count(); $i++) {
-            $chars[] = $this->string[$i];
+            $chars[] = mb_substr($this->string, $i, 1);
         }
 
         return $chars;
