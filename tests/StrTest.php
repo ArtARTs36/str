@@ -268,4 +268,21 @@ class StrTest extends TestCase
         self::assertTrue(Str::make('test')->isLower());
         self::assertFalse(Str::make('TEST')->isLower());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::substring
+     */
+    public function testSubstring(): void
+    {
+        self::assertEquals('Te', Str::make('Test')->substring(0, 2)->__toString());
+        self::assertEquals('Testin', Str::make('Testing')->substring(0, 6)->__toString());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::deleteLastSymbol
+     */
+    public function testDeleteLastSymbol(): void
+    {
+        self::assertEquals('Testin', Str::make('Testing')->deleteLastSymbol()->__toString());
+    }
 }

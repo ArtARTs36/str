@@ -284,6 +284,16 @@ class Str implements \Countable
         return new static(mb_strcut($this->string, $start, $length));
     }
 
+    public function substring(int $start, int $length): Str
+    {
+        return new static(mb_substr($this->string, $start, $length, 'UTF-8'));
+    }
+
+    public function deleteLastSymbol(): Str
+    {
+        return new static(mb_substr($this->string, 0, -1));
+    }
+
     /**
      * @param string $string
      * @param string $delimiter
