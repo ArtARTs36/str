@@ -294,6 +294,37 @@ class Str implements \Countable
         return new static(mb_substr($this->string, 0, -1));
     }
 
+    public function deleteRepeatSymbolInEnding(string $symbol): Str
+    {
+        if ($this->lastSymbol() !== $symbol) {
+            return $this;
+        }
+
+        $sequences = array_slice($this->getSequencesByRepeatSymbols(), 0, -1);
+
+        return new static(implode('', array_map(function (array $part) {
+            return implode('', $part);
+        }, $sequences)));
+    }
+
+    public function getSequencesByRepeatSymbols(): array
+    {
+        $prev = '';
+        $lastSequence = 0;
+        $sequences = [];
+
+        foreach ($this->chars() as $char) {
+            if ($prev !== $char) {
+                $lastSequence++;
+            }
+
+            $sequences[$lastSequence][] = $char;
+            $prev = $char;
+        }
+
+        return array_values($sequences);
+    }
+
     /**
      * @param string $string
      * @param string $delimiter

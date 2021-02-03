@@ -285,4 +285,55 @@ class StrTest extends TestCase
     {
         self::assertEquals('Testin', Str::make('Testing')->deleteLastSymbol()->__toString());
     }
+
+    public function testDeleteRepeatSymbolInEnding(): void
+    {
+        self::assertEquals('Hello//Dev', Str::make('Hello//Dev////')->deleteRepeatSymbolInEnding('/'));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::getSequencesByRepeatSymbols
+     */
+    public function testGetSequencesByRepeatSymbols(): void
+    {
+        $string = 'AAAA, Abcd OOOO';
+
+        $expected = [
+            [
+                'A',
+                'A',
+                'A',
+                'A',
+            ],
+            [
+                ',',
+            ],
+            [
+                ' ',
+            ],
+            [
+                'A',
+            ],
+            [
+                'b',
+            ],
+            [
+                'c',
+            ],
+            [
+                'd',
+            ],
+            [
+                ' ',
+            ],
+            [
+                'O',
+                'O',
+                'O',
+                'O',
+            ]
+        ];
+
+        self::assertEquals($expected, Str::make($string)->getSequencesByRepeatSymbols());
+    }
 }
