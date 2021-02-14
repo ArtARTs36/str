@@ -16,7 +16,8 @@ class Str implements \Countable, \IteratorAggregate
     use Sortable;
     use HasChars;
 
-    public const WORD_SEPARATOR = ' ';
+    public const SEPARATOR_WORD = ' ';
+    public const REGEX_SENTENCE = '/([^\\'. Symbol::DOT . ']*)/';
 
     protected const DEFAULT_ENCODING = 'UTF-8';
 
@@ -77,7 +78,19 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function words(): array
     {
-        return $this->explode(static::WORD_SEPARATOR);
+        return $this->explode(static::SEPARATOR_WORD);
+    }
+
+    /**
+     * @return array<static>
+     */
+    public function sentences(): array
+    {
+        $matches = [];
+
+        preg_match_all(static::REGEX_SENTENCE, $this->string, $matches);
+
+        return $this->arrayToSelfInstances(array_values(array_filter($matches[0])));
     }
 
     /**

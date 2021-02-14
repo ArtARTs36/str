@@ -517,4 +517,13 @@ class StrTest extends TestCase
         self::assertEquals('Hello', Str::make('hello')->upFirstSymbol());
         self::assertEquals('Артем', Str::make('артем')->upFirstSymbol());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::sentences
+     */
+    public function testSentences(): void
+    {
+        self::assertEquals(['hello', 'artem'], Str::make('hello.artem')->sentences());
+        self::assertEquals(['hello', 'artem'], Str::make('hello.artem.')->sentences());
+    }
 }

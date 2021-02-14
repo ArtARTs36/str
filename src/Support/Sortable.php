@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\Str\Support;
 
+use ArtARTs36\Str\Symbol;
+
 trait Sortable
 {
     /**
@@ -22,7 +24,7 @@ trait Sortable
 
     public function sortByWordsLengths(int $direction = SORT_ASC, bool $excludeDots = false): self
     {
-        $str = $excludeDots ? str_replace('.', '', $this->__toString()) : $this->__toString();
+        $str = $excludeDots ? str_replace(Symbol::DOT, '', $this->__toString()) : $this->__toString();
 
         $words = Arr::sort(explode(' ', $str), $direction);
 

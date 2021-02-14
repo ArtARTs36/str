@@ -275,3 +275,13 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('слово')->sortByWordsLengths());
 // "Слово"
 ```
+---
+
+### Str::sentences()__
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->sentences());
+// ['hello', 'dev']
+```
