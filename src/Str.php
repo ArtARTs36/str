@@ -337,6 +337,11 @@ class Str implements \Countable
         return $positions;
     }
 
+    public function reverse(): Str
+    {
+        return new static(strrev($this->string));
+    }
+
     /**
      * @param string $string
      * @param string $delimiter

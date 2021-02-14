@@ -350,4 +350,23 @@ class StrTest extends TestCase
         self::assertEquals([18, 30, 42, 48], $str->positions('artem', true));
         self::assertEquals([0, 6, 12, 24, 36], $str->positions('Hello'));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::reverse
+     * @dataProvider reverseDataProvider
+     */
+    public function testReverse(string $input, string $output): void
+    {
+        self::assertEquals($output, Str::make($input)->reverse()->__toString());
+    }
+
+    public function reverseDataProvider(): array
+    {
+        return [
+            [
+                'Artem',
+                'metrA',
+            ],
+        ];
+    }
 }
