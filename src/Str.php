@@ -175,29 +175,28 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function append($string, string $delimiter = ''): Str
     {
-        if (is_string($string)) {
-            return $this->createWithAppend($string, $delimiter);
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $this->createWithAppend($string->__toString(), $delimiter);
-        } elseif (is_numeric($string)) {
-            return $this->createWithAppend((string) $string, $delimiter);
-        } elseif (is_array($string)) {
-            return $this->createWithAppend($this->joinStrings($string, $delimiter), $delimiter);
-        }
-
-        throw new \LogicException('Type not access');
+        return $this->edit($string, [$this, 'createWithAppend'], $delimiter);
     }
 
-    public function prepend($string, string $delimiter): Str
+    public function prepend($string, string $delimiter = ''): Str
+    {
+        return $this->edit($string, [$this, 'createWithPrepend'], $delimiter);
+    }
+
+    /**
+     * @param callable $edit
+     * @return Str
+     */
+    protected function edit($string, callable $edit, string $delimiter = ''): Str
     {
         if (is_string($string)) {
-            return $this->createWithPrepend($string, $delimiter);
+            return $edit($string, $delimiter);
         } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $this->createWithPrepend($string->__toString(), $delimiter);
+            return $edit($string->__toString(), $delimiter);
         } elseif (is_numeric($string)) {
-            return $this->createWithPrepend((string) $string, $delimiter);
+            return $edit((string) $string, $delimiter);
         } elseif (is_array($string)) {
-            return $this->createWithPrepend($this->joinStrings($string, $delimiter), $delimiter);
+            return $edit($this->joinStrings($string, $delimiter), $delimiter);
         }
 
         throw new \LogicException('Type not access');
