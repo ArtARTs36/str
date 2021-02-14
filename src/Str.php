@@ -5,6 +5,7 @@ namespace ArtARTs36\Str;
 use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
 use ArtARTs36\Str\Support\HasChars;
 use ArtARTs36\Str\Support\LettersStat;
+use ArtARTs36\Str\Support\Sortable;
 
 /**
  * Class Str
@@ -12,7 +13,10 @@ use ArtARTs36\Str\Support\LettersStat;
  */
 class Str implements \Countable, \IteratorAggregate
 {
+    use Sortable;
     use HasChars;
+
+    public const WORD_SEPARATOR = ' ';
 
     protected const DEFAULT_ENCODING = 'UTF-8';
 
@@ -73,7 +77,7 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function words(): array
     {
-        return $this->arrayToSelfInstances(explode(' ', $this->string));
+        return $this->explode(static::WORD_SEPARATOR);
     }
 
     /**
@@ -233,6 +237,14 @@ class Str implements \Countable, \IteratorAggregate
         }, $sequences)));
     }
 
+    /**
+     * @return array<static>
+     */
+    public function explode(string $sep): array
+    {
+        return $this->arrayToSelfInstances(explode($sep, $this->string));
+    }
+
     public function getSequencesByRepeatSymbols(): array
     {
         $prev = '';
@@ -280,7 +292,7 @@ class Str implements \Countable, \IteratorAggregate
         return new static(strrev($this->string));
     }
 
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->chars());
     }
@@ -292,11 +304,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static($trim ? trim($deleted) : $deleted);
     }
 
-    /**
-     * @param string $string
-     * @param string $delimiter
-     * @return $this
-     */
+    public function upWords(): Str
+    {
+        return new static(ucwords($this->string));
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);

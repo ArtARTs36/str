@@ -11,7 +11,7 @@ trait HasChars
     abstract public function count(): int;
 
     /**
-     * @return array
+     * @return array<string>
      */
     public function chars(): array
     {

@@ -220,3 +220,47 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('AABBBCCC')->getLettersStat()->getDict());
 // [A => 2, B => 3, C => 3]
 ```
+
+---
+
+### Str::upWords()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello dev')->upWords());
+// "Hello Dev"
+```
+
+---
+
+### Str::upWords()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->explode('.'));
+// ['Hello', 'Dev']
+```
+
+---
+
+### Str::sortByChars()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->sortByChars('ABCD'));
+// CDBA
+```
+
+---
+
+### Str::sortByWordsLengths()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('BBB A DDDDD CCCC')->sortByWordsLengths());
+// A BBB CCCC DDDDD
+```

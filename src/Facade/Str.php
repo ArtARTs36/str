@@ -40,6 +40,10 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static bool isEmpty(string $string)
  * @method static string[] usingLetters()
  * @method static LettersStat getLettersStat()
+ * @method static string upWords(string $string)
+ * @method static Root[] explode(string $string, string $sep)
+ * @method static string sortByChars(int $direction = SORT_ASC)
+ * @method static string sortByWordsLengths(int $direction = SORT_ASC, bool $excludeDots = false)
  */
 class Str
 {

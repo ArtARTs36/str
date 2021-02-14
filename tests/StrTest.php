@@ -475,4 +475,46 @@ class StrTest extends TestCase
             'B' => 3,
         ], Str::make('AABBB')->getLettersStat()->getDict());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::upWords
+     * @dataProvider upWordsDataProvider
+     */
+    public function testUpWords(string $input, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->upWords());
+    }
+
+    public function upWordsDataProvider(): array
+    {
+        return [
+            [
+                'hello artem',
+                'Hello Artem',
+            ],
+            [
+                'Hello Artem',
+                'Hello Artem',
+            ]
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::sortByChars
+     */
+    public function testSortByChars(): void
+    {
+        self::assertEquals('ABCD', Str::make('CDBA')->sortByChars());
+        self::assertEquals('DCBA', Str::make('ABCD')->sortByChars(SORT_DESC));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::sortByWordsLengths
+     */
+    public function testSortByWordsLengths(): void
+    {
+        self::assertEquals('A BBB CCCC DDDDD', Str::make('BBB A DDDDD CCCC')->sortByWordsLengths());
+        self::assertEquals('DDDDD CCCC BBB A', Str::make('BBB A DDDDD CCCC')
+            ->sortByWordsLengths(SORT_DESC));
+    }
 }
