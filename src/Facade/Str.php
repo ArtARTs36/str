@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static string multiply(string $string, int $count, string $delimiter = '')
  * @method static int count(string $string)
  * @method static int linesCount(string $string)
- * @method static Str[] lines(string $string)
+ * @method static Root[] lines(string $string)
  * @method static bool equals(string $one, string $two)
  * @method static string toStudlyCaps(string $string)
  * @method static bool isStudlyCaps(string $string)
@@ -35,6 +35,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static \Traversable getIterator(string $string)
  * @method static string delete(string $string, array $subs, bool $trim = false)
  * @method static string trim(string $string)
+ * @method static Root[] words(string $string)
  */
 class Str
 {

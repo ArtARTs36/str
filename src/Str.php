@@ -73,13 +73,20 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return Str[]
+     * @return array<static>
      */
     public function lines(): array
     {
-        return array_map(function (string $line) {
-            return new static($line);
-        }, $this->explodeLines());
+        return $this->arrayToSelfInstances($this->explodeLines());
+    }
+
+
+    /**
+     * @return array<static>
+     */
+    public function words(): array
+    {
+        return $this->arrayToSelfInstances(explode(' ', $this->string));
     }
 
     /**
@@ -181,25 +188,6 @@ class Str implements \Countable, \IteratorAggregate
     public function prepend($string, string $delimiter = ''): Str
     {
         return $this->edit($string, [$this, 'createWithPrepend'], $delimiter);
-    }
-
-    /**
-     * @param callable $edit
-     * @return Str
-     */
-    protected function edit($string, callable $edit, string $delimiter = ''): Str
-    {
-        if (is_string($string)) {
-            return $edit($string, $delimiter);
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $edit($string->__toString(), $delimiter);
-        } elseif (is_numeric($string)) {
-            return $edit((string) $string, $delimiter);
-        } elseif (is_array($string)) {
-            return $edit($this->joinStrings($string, $delimiter), $delimiter);
-        }
-
-        throw new \LogicException('Type not access');
     }
 
     /**
@@ -394,5 +382,35 @@ class Str implements \Countable, \IteratorAggregate
     protected function prepareArray(array $array): array
     {
         return array_map('strval', $array);
+    }
+
+    /**
+     * @param string|\Stringable|int|float|array $string
+     * @param callable $edit
+     * @return Str
+     */
+    protected function edit($string, callable $edit, string $delimiter = ''): Str
+    {
+        if (is_string($string)) {
+            return $edit($string, $delimiter);
+        } elseif (is_object($string) && method_exists($string, '__toString')) {
+            return $edit($string->__toString(), $delimiter);
+        } elseif (is_numeric($string)) {
+            return $edit((string) $string, $delimiter);
+        } elseif (is_array($string)) {
+            return $edit($this->joinStrings($string, $delimiter), $delimiter);
+        }
+
+        throw new \LogicException('Type not access');
+    }
+
+    /**
+     * @return array<static>
+     */
+    protected function arrayToSelfInstances(array $array): array
+    {
+        return array_map(function (string $string) {
+            return new static($string);
+        }, $array);
     }
 }

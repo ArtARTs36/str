@@ -437,4 +437,9 @@ class StrTest extends TestCase
     {
         self::assertEquals("Test", Str::make(" Test  ")->trim());
     }
+
+    public function testWords(): void
+    {
+        self::assertEquals(['Test', '123'], Str::make('Test 123')->words());
+    }
 }
