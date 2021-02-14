@@ -242,9 +242,22 @@ class Str implements \Countable
         } elseif (is_numeric($string)) {
             return $this->createWithAppend((string) $string, $delimiter);
         } elseif (is_array($string)) {
-            $appends = implode($delimiter, array_map('strval', $string));
+            return $this->createWithAppend($this->joinStrings($string, $delimiter), $delimiter);
+        }
 
-            return new static($this->string . $delimiter . $appends);
+        throw new \LogicException('Type not access');
+    }
+
+    public function prepend($string, string $delimiter): Str
+    {
+        if (is_string($string)) {
+            return $this->createWithPrepend($string, $delimiter);
+        } elseif (is_object($string) && method_exists($string, '__toString')) {
+            return $this->createWithPrepend($string->__toString(), $delimiter);
+        } elseif (is_numeric($string)) {
+            return $this->createWithPrepend((string) $string, $delimiter);
+        } elseif (is_array($string)) {
+            return $this->createWithPrepend($this->joinStrings($string, $delimiter), $delimiter);
         }
 
         throw new \LogicException('Type not access');
@@ -350,5 +363,15 @@ class Str implements \Countable
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
+    }
+
+    protected function createWithPrepend(string $string, string $delimiter = ''): self
+    {
+        return new static($string . $delimiter . $this->string);
+    }
+
+    protected function joinStrings(array $stringable, string $delimiter = ''): string
+    {
+        return implode($delimiter, array_map('strval', $stringable));
     }
 }

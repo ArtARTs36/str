@@ -369,4 +369,14 @@ class StrTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::prepend
+     */
+    public function testPrepend(): void
+    {
+        $str = Str::make('Artem')->prepend('Hello,', ' ');
+
+        self::assertEquals('Hello, Artem', $str->__toString());
+    }
 }
