@@ -277,7 +277,7 @@ var_dump(Str::make('слово')->sortByWordsLengths());
 ```
 ---
 
-### Str::sentences()__
+### Str::sentences()
 
 ```php
 use ArtARTs36\Str\Str;
