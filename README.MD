@@ -264,3 +264,14 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('BBB A DDDDD CCCC')->sortByWordsLengths());
 // A BBB CCCC DDDDD
 ```
+
+---
+
+### Str::upFirstSymbol()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('слово')->sortByWordsLengths());
+// "Слово"
+```

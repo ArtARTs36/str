@@ -309,6 +309,15 @@ class Str implements \Countable, \IteratorAggregate
         return new static(ucwords($this->string));
     }
 
+    public function upFirstSymbol(): Str
+    {
+        $str = trim($this->string);
+
+        $first = mb_strtoupper(mb_substr($str, 0, 1));
+
+        return new static($first . mb_substr($str, 1));
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);

@@ -44,6 +44,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static Root[] explode(string $string, string $string, string $sep)
  * @method static string sortByChars(string $string, int $direction = SORT_ASC)
  * @method static string sortByWordsLengths(string $string, int $direction = SORT_ASC, bool $excludeDots = false)
+ * @method static string upFirstSymbol(string $string)
  */
 class Str
 {

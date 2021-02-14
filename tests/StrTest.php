@@ -517,4 +517,13 @@ class StrTest extends TestCase
         self::assertEquals('DDDDD CCCC BBB A', Str::make('BBB A DDDDD CCCC')
             ->sortByWordsLengths(SORT_DESC));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::upFirstSymbol
+     */
+    public function testUpFirstSymbol(): void
+    {
+        self::assertEquals('Hello', Str::make('hello')->upFirstSymbol());
+        self::assertEquals('Артем', Str::make('артем')->upFirstSymbol());
+    }
 }
