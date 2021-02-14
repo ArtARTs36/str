@@ -429,4 +429,12 @@ class StrTest extends TestCase
         self::assertEquals('  B', Str::make($string)->delete($subs));
         self::assertEquals('B', Str::make($string)->delete($subs, true));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::trim
+     */
+    public function testTrim(): void
+    {
+        self::assertEquals("Test", Str::make(" Test  ")->trim());
+    }
 }

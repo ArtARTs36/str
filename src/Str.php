@@ -298,6 +298,11 @@ class Str implements \Countable, \IteratorAggregate
         return $positions;
     }
 
+    public function trim(): Str
+    {
+        return new static(trim($this->string));
+    }
+
     public function reverse(): Str
     {
         return new static(strrev($this->string));

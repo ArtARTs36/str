@@ -144,6 +144,16 @@ var_dump(Str::make('Test A B')->delete(['Test', 'A'], true)); // "B"
 
 ---
 
+### Str::trim
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('  TEST ')->trim()); // "TEST"
+```
+
+---
+
 ### Iterable
 
 ```php
