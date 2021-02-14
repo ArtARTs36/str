@@ -3,6 +3,7 @@
 namespace ArtARTs36\Str\Facade;
 
 use ArtARTs36\Str\Str as Root;
+use ArtARTs36\Str\Support\LettersStat;
 
 /**
  * @method static bool contains($haystack, $needle)
@@ -38,7 +39,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static Root[] words(string $string)
  * @method static bool isEmpty(string $string)
  * @method static string[] usingLetters()
- * @method static string[] getLettersStat()
+ * @method static LettersStat getLettersStat()
  */
 class Str
 {
