@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\Str\Support;
 
-class LettersStat implements \Countable
+class LettersStat implements \Countable, \IteratorAggregate
 {
     protected $dict;
 
@@ -19,24 +19,54 @@ class LettersStat implements \Countable
         return $this->dict[$letter] ?? 0;
     }
 
-    public function getLetterByMaxInputs(): ?string
+    /**
+     * @return array<string, int>
+     */
+    public function getByMaxInputs(): array
     {
-        $max = -1;
-        $letter = null;
+        $max = $this->getMaxInputs();
 
-        foreach ($this->dict as $index => $inputs) {
-            if ($max < $inputs) {
-                $max = $inputs;
-                $letter = $index;
+        return $this->findBy(function (string $letter, int $inputs) use ($max) {
+            return $inputs === $max;
+        });
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function getByMinInputs(): array
+    {
+        $min = $this->getMinInputs();
+
+        return $this->findBy(function (string $letter, int $inputs) use ($min) {
+            return $inputs === $min;
+        });
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function findBy(callable $criteria): array
+    {
+        $letters = [];
+
+        foreach ($this->dict as $letter => $inputs) {
+            if ($criteria($letter, $inputs)) {
+                $letters[$letter] = $inputs;
             }
         }
 
-        return $letter;
+        return $letters;
     }
 
     public function getMaxInputs(): int
     {
         return max(...array_values($this->dict));
+    }
+
+    public function getMinInputs(): int
+    {
+        return min(...array_values($this->dict));
     }
 
     public function count(): int
@@ -47,5 +77,10 @@ class LettersStat implements \Countable
     public function getDict(): array
     {
         return $this->dict;
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->dict);
     }
 }

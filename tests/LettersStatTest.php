@@ -23,18 +23,35 @@ class LettersStatTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\Str\Support\LettersStat::getLetterByMaxInputs
+     * @covers \ArtARTs36\Str\Support\LettersStat::getByMaxInputs
      */
-    public function testGetLetterByMaxInputs(): void
+    public function testGetByMaxInputs(): void
     {
         $stat = new LettersStat([
             'A' => 1,
             'B' => 2,
             'C' => 3,
             'D' => 4,
+            'E' => 4,
         ]);
 
-        self::assertEquals('D', $stat->getLetterByMaxInputs());
+        self::assertEquals(['D' => 4, 'E' => 4], $stat->getByMaxInputs());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Support\LettersStat::getByMinInputs
+     */
+    public function testGetByMinInputs(): void
+    {
+        $stat = new LettersStat([
+            'A' => 1,
+            'B' => 2,
+            'C' => 3,
+            'D' => 0,
+            'E' => 0,
+        ]);
+
+        self::assertEquals(['D' => 0, 'E' => 0], $stat->getByMinInputs());
     }
 
     /**
@@ -49,5 +66,19 @@ class LettersStatTest extends TestCase
         ]);
 
         self::assertEquals(3, $stat->getMaxInputs());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Support\LettersStat::getMinInputs
+     */
+    public function testGetMinInputs(): void
+    {
+        $stat = new LettersStat([
+            'A' => 1,
+            'B' => 2,
+            'C' => 3,
+        ]);
+
+        self::assertEquals(1, $stat->getMinInputs());
     }
 }
