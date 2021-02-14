@@ -133,6 +133,17 @@ var_dump(Str::make('Dev')->deleteFirstSymbol()); // ev
 
 ---
 
+### Str::delete
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Test A B')->delete(['Test', 'A'])); // "  B"
+var_dump(Str::make('Test A B')->delete(['Test', 'A'], true)); // "B"
+```
+
+---
+
 ### Iterable
 
 ```php

@@ -413,4 +413,20 @@ class StrTest extends TestCase
     {
         self::assertEquals('ev', Str::make('Dev')->deleteFirstSymbol());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::delete
+     */
+    public function testDelete(): void
+    {
+        $subs = [
+            'Test',
+            'A',
+        ];
+
+        $string = 'Test A B';
+
+        self::assertEquals('  B', Str::make($string)->delete($subs));
+        self::assertEquals('B', Str::make($string)->delete($subs, true));
+    }
 }

@@ -279,6 +279,9 @@ class Str implements \Countable, \IteratorAggregate
         return array_values($sequences);
     }
 
+    /**
+     * @return array<int>
+     */
     public function positions(string $find, bool $ignoreCase = false): array
     {
         $my = $ignoreCase ? mb_strtolower($this->string) : $this->string;
@@ -300,6 +303,18 @@ class Str implements \Countable, \IteratorAggregate
         return new static(strrev($this->string));
     }
 
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->chars());
+    }
+
+    public function delete(array $subs, bool $trim = false): Str
+    {
+        $deleted = str_replace($this->prepareArray($subs), '', $this->string);
+
+        return new static($trim ? trim($deleted) : $deleted);
+    }
+
     /**
      * @param string $string
      * @param string $delimiter
@@ -317,7 +332,7 @@ class Str implements \Countable, \IteratorAggregate
 
     protected function joinStrings(array $stringable, string $delimiter = ''): string
     {
-        return implode($delimiter, array_map('strval', $stringable));
+        return implode($delimiter, $this->prepareArray($stringable));
     }
 
     /**
@@ -369,8 +384,11 @@ class Str implements \Countable, \IteratorAggregate
         return explode("\n", $this->string);
     }
 
-    public function getIterator()
+    /**
+     * @return array<string>
+     */
+    protected function prepareArray(array $array): array
     {
-        return new \ArrayIterator($this->chars());
+        return array_map('strval', $array);
     }
 }

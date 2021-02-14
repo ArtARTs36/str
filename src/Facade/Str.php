@@ -33,6 +33,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static string prepend(string $string)
  * @method static string testDeleteFirstSymbol(string $string)
  * @method static \Traversable getIterator(string $string)
+ * @method static string delete(array $subs, bool $trim = false)
  */
 class Str
 {
