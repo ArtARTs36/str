@@ -2,12 +2,16 @@
 
 namespace ArtARTs36\Str;
 
+use ArtARTs36\Str\Support\HasChars;
+
 /**
  * Class Str
  * @package ArtARTs36\Str
  */
 class Str implements \Countable
 {
+    use HasChars;
+
     protected const DEFAULT_ENCODING = 'UTF-8';
 
     /** @var string */
@@ -33,7 +37,7 @@ class Str implements \Countable
      */
     public function contains($needle): bool
     {
-        return (bool) preg_match("/{$this->prepare($needle)}/i", $this->string);
+        return preg_match("/{$this->prepare($needle)}/i", $this->string) !== false;
     }
 
     /**
@@ -65,9 +69,7 @@ class Str implements \Countable
      */
     public function linesCount(): int
     {
-        $lines = explode("\n", $this->string);
-
-        return count($lines);
+        return count($this->explodeLines());
     }
 
     /**
@@ -77,7 +79,7 @@ class Str implements \Countable
     {
         return array_map(function (string $line) {
             return new static($line);
-        }, explode("\n", $this->string));
+        }, $this->explodeLines());
     }
 
     /**
@@ -132,68 +134,6 @@ class Str implements \Countable
     public function isCamelCase(): bool
     {
         return $this->prepareCamelCase($this->string) === $this->string;
-    }
-
-    /**
-     * @return array
-     */
-    public function chars(): array
-    {
-        $chars = [];
-
-        if (function_exists('mb_str_split')) {
-            return mb_str_split($this->string);
-        }
-
-        for ($i = 0; $i < $this->count(); $i++) {
-            $chars[] = mb_substr($this->string, $i, 1);
-        }
-
-        return $chars;
-    }
-
-    /**
-     * @param string $string
-     * @return string
-     */
-    final protected function prepareStudlyCaps(string $string): string
-    {
-        return str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $string)));
-    }
-
-    /**
-     * @param string $string
-     * @return string
-     */
-    final protected function prepareCamelCase(string $string): string
-    {
-        return lcfirst($this->prepareStudlyCaps($string));
-    }
-
-    /**
-     * @param string $string
-     * @return string
-     */
-    final protected function prepareToLower(string $string): string
-    {
-        return mb_strtolower($string, static::DEFAULT_ENCODING);
-    }
-
-    /**
-     * @param Str|string|object $string
-     * @return string
-     */
-    protected static function prepare($string): string
-    {
-        if (is_string($string)) {
-            return $string;
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $string->__toString();
-        } elseif (is_numeric($string)) {
-            return (string) $string;
-        } else {
-            throw new \LogicException('Type not access');
-        }
     }
 
     /**
@@ -373,5 +313,54 @@ class Str implements \Countable
     protected function joinStrings(array $stringable, string $delimiter = ''): string
     {
         return implode($delimiter, array_map('strval', $stringable));
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    final protected function prepareStudlyCaps(string $string): string
+    {
+        return str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $string)));
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    final protected function prepareCamelCase(string $string): string
+    {
+        return lcfirst($this->prepareStudlyCaps($string));
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    final protected function prepareToLower(string $string): string
+    {
+        return mb_strtolower($string, static::DEFAULT_ENCODING);
+    }
+
+    /**
+     * @param Str|string|object $string
+     * @return string
+     */
+    protected static function prepare($string): string
+    {
+        if (is_string($string)) {
+            return $string;
+        } elseif (is_object($string) && method_exists($string, '__toString')) {
+            return $string->__toString();
+        } elseif (is_numeric($string)) {
+            return (string) $string;
+        } else {
+            throw new \LogicException('Type not access');
+        }
+    }
+
+    protected function explodeLines(): array
+    {
+        return explode("\n", $this->string);
     }
 }
