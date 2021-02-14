@@ -13,13 +13,9 @@ class Str implements \Countable
     /** @var string */
     protected $string;
 
-    /**
-     * String constructor.
-     * @param string|object $string
-     */
-    public function __construct($string)
+    public function __construct(string $string)
     {
-        $this->string = $this->prepare($string);
+        $this->string = $string;
     }
 
     /**
@@ -28,7 +24,7 @@ class Str implements \Countable
      */
     public static function make($string): self
     {
-        return new static($string);
+        return new static(static::prepare($string));
     }
 
     /**
@@ -187,7 +183,7 @@ class Str implements \Countable
      * @param Str|string|object $string
      * @return string
      */
-    protected function prepare($string): string
+    protected static function prepare($string): string
     {
         if (is_string($string)) {
             return $string;
