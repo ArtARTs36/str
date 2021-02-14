@@ -8,7 +8,7 @@ use ArtARTs36\Str\Support\HasChars;
  * Class Str
  * @package ArtARTs36\Str
  */
-class Str implements \Countable
+class Str implements \Countable, \IteratorAggregate
 {
     use HasChars;
 
@@ -362,5 +362,10 @@ class Str implements \Countable
     protected function explodeLines(): array
     {
         return explode("\n", $this->string);
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->chars());
     }
 }

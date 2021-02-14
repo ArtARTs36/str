@@ -43,7 +43,7 @@ var_dump(Str::make("test")->chars());
 ```php
 use ArtARTs36\Str\Str;
 
-var_dump(Str::make("test")->chars()); // 4
+var_dump(Str::make("test")->count()); // 4
 ```
 
 ---
@@ -98,4 +98,39 @@ var_dump(Str::make('Hello')->append('Artem', ' ')); // Hello Artem
 use ArtARTs36\Str\Str;
 
 var_dump(Str::make('Dev')->prepend('Hello', ' ')); // Hello Dev 
+```
+
+---
+
+### Str::equals
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Dev')->equals('dev')); // false
+var_dump(Str::make('Dev')->equals('Dev')); // true
+```
+
+---
+
+### Str::deleteLastSymbol
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Dev')->deleteLastSymbol()); // De
+```
+
+### Iterable
+
+```php
+use ArtARTs36\Str\Str;
+
+foreach (Str::make('test') as $char) {
+    var_dump($char);
+}
+// t
+// e
+// s
+// t
 ```

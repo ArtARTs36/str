@@ -379,4 +379,30 @@ class StrTest extends TestCase
 
         self::assertEquals('Hello, Artem', $str->__toString());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::getIterator
+     * @dataProvider getIteratorProvider
+     */
+    public function testGetIterator(string $input, array $chars): void
+    {
+        $str = Str::make($input);
+
+        self::assertEquals($chars, $str->getIterator()->getArrayCopy());
+    }
+
+    public function getIteratorProvider(): array
+    {
+        return [
+            [
+                'test',
+                [
+                    't',
+                    'e',
+                    's',
+                    't',
+                ],
+            ],
+        ];
+    }
 }
