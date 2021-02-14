@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\Str\Tests;
 
+use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
 use ArtARTs36\Str\Str;
 use PHPUnit\Framework\TestCase;
 
@@ -233,7 +234,7 @@ class StrTest extends TestCase
 
         $str = Str::make('');
 
-        self::expectException(\LogicException::class);
+        self::expectException(EmptyStringNotAllowedOperation::class);
 
         $str->firstSymbol();
     }
