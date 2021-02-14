@@ -98,7 +98,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Str|string|object $string
+     * @param Str|string|\Stringable $string
      * @param bool $ignoreCase
      * @return bool
      */
@@ -176,15 +176,16 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param string|Str|object|array|object[] $string
-     * @param string $delimiter
-     * @return Str
+     * @param string|Str|\Stringable|array|object[] $string
      */
     public function append($string, string $delimiter = ''): Str
     {
         return $this->edit($string, [$this, 'createWithAppend'], $delimiter);
     }
 
+    /**
+     * @param string|Str|\Stringable|array|object[] $string
+     */
     public function prepend($string, string $delimiter = ''): Str
     {
         return $this->edit($string, [$this, 'createWithPrepend'], $delimiter);
@@ -215,11 +216,6 @@ class Str implements \Countable, \IteratorAggregate
         return empty(trim($this->string));
     }
 
-    /**
-     * @param int $length
-     * @param int $start
-     * @return Str
-     */
     public function cut(int $length, int $start = 0): Str
     {
         return new static(mb_strcut($this->string, $start, $length));
