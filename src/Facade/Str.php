@@ -6,7 +6,7 @@ use ArtARTs36\Str\Str as Root;
 
 /**
  * @method static bool contains($haystack, $needle)
- * @method static Root multiply(string $string, int $count, string $delimiter = '')
+ * @method static string multiply(string $string, int $count, string $delimiter = '')
  * @method static int count(string $string)
  * @method static int linesCount(string $string)
  * @method static Str[] lines(string $string)
