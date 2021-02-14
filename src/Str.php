@@ -16,7 +16,6 @@ class Str implements \Countable, \IteratorAggregate
 
     protected const DEFAULT_ENCODING = 'UTF-8';
 
-    /** @var string */
     protected $string;
 
     public function __construct(string $string)
@@ -26,7 +25,6 @@ class Str implements \Countable, \IteratorAggregate
 
     /**
      * @param string|object|integer $string
-     * @return static
      */
     public static function make($string): self
     {
@@ -34,19 +32,13 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Str $needle
-     * @return bool
+     * @param \Stringable|string|int|float $needle
      */
     public function contains($needle): bool
     {
         return preg_match("/{$this->prepare($needle)}/i", $this->string) !== false;
     }
 
-    /**
-     * @param int $count
-     * @param string $delimiter
-     * @return $this
-     */
     public function multiply(int $count, string $delimiter = ''): Str
     {
         $newString = '';
@@ -58,17 +50,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static($newString);
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->string;
     }
 
-    /**
-     * @return int
-     */
     public function linesCount(): int
     {
         return count($this->explodeLines());
@@ -100,8 +86,6 @@ class Str implements \Countable, \IteratorAggregate
 
     /**
      * @param Str|string|\Stringable $string
-     * @param bool $ignoreCase
-     * @return bool
      */
     public function equals($string, bool $ignoreCase = false): bool
     {
@@ -112,41 +96,26 @@ class Str implements \Countable, \IteratorAggregate
         return $this->prepare($string) === $this->string;
     }
 
-    /**
-     * @return Str
-     */
     public function toStudlyCaps(): Str
     {
         return new static($this->prepareStudlyCaps($this->string));
     }
 
-    /**
-     * @return bool
-     */
     public function isStudlyCaps(): bool
     {
         return $this->prepareStudlyCaps($this->string) === $this->string;
     }
 
-    /**
-     * @return Str
-     */
     public function toCamelCase(): Str
     {
         return new static($this->prepareCamelCase($this->string));
     }
 
-    /**
-     * @return bool
-     */
     public function isCamelCase(): bool
     {
         return $this->prepareCamelCase($this->string) === $this->string;
     }
 
-    /**
-     * @return Str
-     */
     public function toUpper(): Str
     {
         return new static(mb_strtoupper($this->string, static::DEFAULT_ENCODING));
@@ -175,25 +144,16 @@ class Str implements \Countable, \IteratorAggregate
         return new LettersStat($stat);
     }
 
-    /**
-     * @return bool
-     */
     public function isUpper(): bool
     {
         return mb_strtoupper($this->string, static::DEFAULT_ENCODING) === $this->string;
     }
 
-    /**
-     * @return Str
-     */
     public function toLower(): Str
     {
         return new static($this->prepareToLower($this->string));
     }
 
-    /**
-     * @return bool
-     */
     public function isLower(): bool
     {
         return $this->prepareToLower($this->string) === $this->string;
@@ -411,8 +371,6 @@ class Str implements \Countable, \IteratorAggregate
 
     /**
      * @param string|\Stringable|int|float|array $string
-     * @param callable $edit
-     * @return Str
      */
     protected function edit($string, callable $edit, string $delimiter = ''): Str
     {

@@ -22,11 +22,11 @@ trait HasChars
         $chars = [];
 
         if (function_exists('mb_str_split')) {
-            return $this->chars = mb_str_split($this->string);
+            return $this->chars = mb_str_split($this->__toString());
         }
 
         for ($i = 0; $i < $this->count(); $i++) {
-            $chars[] = mb_substr($this->string, $i, 1);
+            $chars[] = mb_substr($this->__toString(), $i, 1);
         }
 
         return $this->chars = $chars;
