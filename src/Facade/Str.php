@@ -36,6 +36,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static string delete(string $string, array $subs, bool $trim = false)
  * @method static string trim(string $string)
  * @method static Root[] words(string $string)
+ * @method static bool isEmpty(string $string)
  */
 class Str
 {

@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\Str;
 
+use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
 use ArtARTs36\Str\Support\HasChars;
 
 /**
@@ -79,7 +80,6 @@ class Str implements \Countable, \IteratorAggregate
     {
         return $this->arrayToSelfInstances($this->explodeLines());
     }
-
 
     /**
      * @return array<static>
@@ -203,11 +203,16 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function firstSymbol(): string
     {
-        if (empty($this->string)) {
-            throw new \LogicException('String empty');
+        if ($this->isEmpty()) {
+            throw new EmptyStringNotAllowedOperation();
         }
 
         return $this->string[0];
+    }
+
+    public function isEmpty(): bool
+    {
+        return empty(trim($this->string));
     }
 
     /**

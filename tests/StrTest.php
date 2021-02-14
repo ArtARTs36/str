@@ -438,8 +438,18 @@ class StrTest extends TestCase
         self::assertEquals("Test", Str::make(" Test  ")->trim());
     }
 
+    /**
+     * @covers \ArtARTs36\Str\Str::words
+     */
     public function testWords(): void
     {
         self::assertEquals(['Test', '123'], Str::make('Test 123')->words());
+    }
+
+    public function testIsEmpty(): void
+    {
+        self::assertTrue(Str::make('')->isEmpty());
+        self::assertTrue(Str::make(' ')->isEmpty());
+        self::assertFalse(Str::make('Hello')->isEmpty());
     }
 }

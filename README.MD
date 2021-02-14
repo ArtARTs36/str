@@ -177,3 +177,24 @@ use ArtARTs36\Str\Str;
 
 var_dump(Str::make('TEST 123')->words()); // ['TEST', '123']
 ```
+
+---
+
+### Str::words
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('TEST 123')->words()); // ['TEST', '123']
+```
+
+---
+
+### Str::isEmpty()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('TEST 123')->isEmpty()); // false
+var_dump(Str::make(' ')->isEmpty()); // true
+```
