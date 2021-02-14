@@ -24,6 +24,10 @@ use ArtARTs36\Str\Str as Root;
  * @method static string firstSymbol(string $string)
  * @method static string cut(string $string)
  * @method static array positions(string $find, bool $ignoreCase = false)
+ * @method static Root substring(int $start, int $length)
+ * @method static Root deleteLastSymbol()
+ * @method static Root deleteRepeatSymbolInEnding(string $symbol)
+ * @method static Root getSequencesByRepeatSymbols()
  */
 class Str
 {
