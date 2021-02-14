@@ -31,6 +31,8 @@ use ArtARTs36\Str\Str as Root;
  * @method static string reverse(string $string)
  * @method static string append(string $string)
  * @method static string prepend(string $string)
+ * @method static string testDeleteFirstSymbol(string $string)
+ * @method static \Traversable getIterator(string $string)
  */
 class Str
 {

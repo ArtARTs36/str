@@ -240,7 +240,12 @@ class Str implements \Countable, \IteratorAggregate
 
     public function deleteLastSymbol(): Str
     {
-        return new static(mb_substr($this->string, 0, -1));
+        return $this->substring(0, -1);
+    }
+
+    public function deleteFirstSymbol(): Str
+    {
+        return $this->substring(1, $this->count());
     }
 
     public function deleteRepeatSymbolInEnding(string $symbol): Str

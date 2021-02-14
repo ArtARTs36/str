@@ -121,6 +121,18 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('Dev')->deleteLastSymbol()); // De
 ```
 
+---
+
+### Str::deleteFirstSymbol
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Dev')->deleteFirstSymbol()); // ev
+```
+
+---
+
 ### Iterable
 
 ```php

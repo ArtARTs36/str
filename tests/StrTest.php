@@ -405,4 +405,12 @@ class StrTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::deleteFirstSymbol
+     */
+    public function testDeleteFirstSymbol(): void
+    {
+        self::assertEquals('ev', Str::make('Dev')->deleteFirstSymbol());
+    }
 }
