@@ -37,6 +37,8 @@ use ArtARTs36\Str\Str as Root;
  * @method static string trim(string $string)
  * @method static Root[] words(string $string)
  * @method static bool isEmpty(string $string)
+ * @method static string[] usingLetters()
+ * @method static string[] getLettersStat()
  */
 class Str
 {

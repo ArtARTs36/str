@@ -456,4 +456,23 @@ class StrTest extends TestCase
         self::assertTrue(Str::make(' ')->isEmpty());
         self::assertFalse(Str::make('Hello')->isEmpty());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::usingLetters
+     */
+    public function testUsingLetters(): void
+    {
+        self::assertEquals(['A', 'B', 'C', 'D',], Str::make('AABBBCCCDDD')->usingLetters());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::getLettersStat
+     */
+    public function testGetLettersStat(): void
+    {
+        self::assertEquals([
+            'A' => 2,
+            'B' => 3,
+        ], Str::make('AABBB')->getLettersStat()->getDict());
+    }
 }

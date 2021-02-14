@@ -198,3 +198,25 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('TEST 123')->isEmpty()); // false
 var_dump(Str::make(' ')->isEmpty()); // true
 ```
+
+---
+
+### Str::usingLetters()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('AABBBCCC')->usingLetters());
+// [A, B, C]
+```
+
+---
+
+### Str::getLettersStat()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('AABBBCCC')->getLettersStat()->getDict());
+// [A => 2, B => 3, C => 3]
+```

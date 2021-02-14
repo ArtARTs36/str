@@ -4,6 +4,7 @@ namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
 use ArtARTs36\Str\Support\HasChars;
+use ArtARTs36\Str\Support\LettersStat;
 
 /**
  * Class Str
@@ -149,6 +150,29 @@ class Str implements \Countable, \IteratorAggregate
     public function toUpper(): Str
     {
         return new static(mb_strtoupper($this->string, static::DEFAULT_ENCODING));
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function usingLetters(): array
+    {
+        return array_values(array_unique($this->chars()));
+    }
+
+    public function getLettersStat(): LettersStat
+    {
+        $stat = [];
+
+        foreach ($this->chars() as $char) {
+            if (! isset($stat[$char])) {
+                $stat[$char] = 0;
+            }
+
+            $stat[$char]++;
+        }
+
+        return new LettersStat($stat);
     }
 
     /**
