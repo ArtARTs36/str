@@ -23,7 +23,7 @@ class Str implements \Countable
     }
 
     /**
-     * @param string|object $string
+     * @param string|object|integer $string
      * @return static
      */
     public static function make($string): self
@@ -87,7 +87,7 @@ class Str implements \Countable
     /**
      * @inheritDoc
      */
-    public function count()
+    public function count(): int
     {
         return mb_strlen($this->string);
     }
@@ -323,6 +323,22 @@ class Str implements \Countable
         }
 
         return array_values($sequences);
+    }
+
+    public function positions(string $find, bool $ignoreCase = false): array
+    {
+        $my = $ignoreCase ? mb_strtolower($this->string) : $this->string;
+        $find = $ignoreCase ? mb_strtolower($find) : $find;
+        $positions = [];
+        $last = 0;
+        $length = mb_strlen($find);
+
+        while (($last = mb_strpos($my, $find, $last)) !== false) {
+            $positions[] = $last;
+            $last = $last + $length;
+        }
+
+        return $positions;
     }
 
     /**

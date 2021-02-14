@@ -336,4 +336,18 @@ class StrTest extends TestCase
 
         self::assertEquals($expected, Str::make($string)->getSequencesByRepeatSymbols());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::positions
+     */
+    public function testPositions(): void
+    {
+        $string = 'Hello Hello Hello Artem Hello Artem Hello Artem Artem';
+
+        $str = Str::make($string);
+
+        self::assertEmpty($str->positions('artem'));
+        self::assertEquals([18, 30, 42, 48], $str->positions('artem', true));
+        self::assertEquals([0, 6, 12, 24, 36], $str->positions('Hello'));
+    }
 }

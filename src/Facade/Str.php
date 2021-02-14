@@ -23,6 +23,7 @@ use ArtARTs36\Str\Str as Root;
  * @method static string lastSymbol(string $string)
  * @method static string firstSymbol(string $string)
  * @method static string cut(string $string)
+ * @method static array positions(string $find, bool $ignoreCase = false)
  */
 class Str
 {
