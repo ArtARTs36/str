@@ -128,11 +128,7 @@ class StrTest extends TestCase
 
         $chars = $string->chars();
 
-        self::assertCount(4, $chars);
-        self::assertEquals('t', $chars[0]);
-        self::assertEquals('e', $chars[1]);
-        self::assertEquals('s', $chars[2]);
-        self::assertEquals('t', $chars[3]);
+        self::assertEquals(['t', 'e', 's', 't'], $chars);
 
         //
 
@@ -140,12 +136,7 @@ class StrTest extends TestCase
 
         $chars = $string->chars();
 
-        self::assertCount(5, $chars);
-        self::assertEquals('В', $chars[0]);
-        self::assertEquals('о', $chars[1]);
-        self::assertEquals('д', $chars[2]);
-        self::assertEquals('к', $chars[3]);
-        self::assertEquals('а', $chars[4]);
+        self::assertEquals(['В', 'о', 'д', 'к', 'а'], $chars);
     }
 
     /**
