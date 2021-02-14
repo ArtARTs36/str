@@ -15,7 +15,7 @@ trait Sortable
     {
         $ords = array_map('ord', $this->chars());
 
-        $sorted = implode('', array_map('chr', $this->sortArray($ords, $direction)));
+        $sorted = implode('', array_map('chr', Arr::sort($ords, $direction)));
 
         return new static($sorted);
     }
@@ -24,19 +24,8 @@ trait Sortable
     {
         $str = $excludeDots ? str_replace('.', '', $this->__toString()) : $this->__toString();
 
-        $words = $this->sortArray(explode(' ', $str), $direction);
+        $words = Arr::sort(explode(' ', $str), $direction);
 
         return new static(implode(' ', $words));
-    }
-
-    private function sortArray(array $ords, int $direction): array
-    {
-        if ($direction === SORT_ASC) {
-            sort($ords);
-        } else {
-            rsort($ords);
-        }
-
-        return $ords;
     }
 }
