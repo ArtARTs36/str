@@ -295,7 +295,7 @@ class Str implements \Countable
 
     public function substring(int $start, int $length): Str
     {
-        return new static(mb_substr($this->string, $start, $length, 'UTF-8'));
+        return new static(mb_substr($this->string, $start, $length, static::DEFAULT_ENCODING));
     }
 
     public function deleteLastSymbol(): Str
