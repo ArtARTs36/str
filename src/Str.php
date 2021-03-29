@@ -44,6 +44,20 @@ class Str implements \Countable, \IteratorAggregate
         return (bool) preg_match("/{$this->prepare($needle)}/i", $this->string);
     }
 
+    /**
+     * @param array<\Stringable|string|int|float> $needles
+     */
+    public function containsAny(array $needles): bool
+    {
+        foreach ($needles as $needle) {
+            if ($this->contains($needle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function multiply(int $count, string $delimiter = ''): Str
     {
         $newString = '';

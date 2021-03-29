@@ -46,6 +46,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string sortByWordsLengths(string $string, int $direction = SORT_ASC, bool $excludeDots = false)
  * @method static string upFirstSymbol(string $string)
  * @method static Root[] sentences(string $string)
+ * @method static bool containsAny(string $string, string[] $needles)
  */
 class Str
 {

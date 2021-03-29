@@ -285,3 +285,15 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->sentences());
 // ['hello', 'dev']
 ```
+---
+
+### Str::containsAny()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->containsAny([
+    'dev',
+]));
+// true
+```

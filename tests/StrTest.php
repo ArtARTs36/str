@@ -526,4 +526,20 @@ class StrTest extends TestCase
         self::assertEquals(['hello', 'artem'], Str::make('hello.artem')->sentences());
         self::assertEquals(['hello', 'artem'], Str::make('hello.artem.')->sentences());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::containsAny
+     */
+    public function testContainsAny(): void
+    {
+        self::assertTrue(Str::make('hello')->containsAny([
+            'he',
+            'ff',
+        ]));
+
+        self::assertFalse(Str::make('ff')->containsAny([
+            'he',
+            'aa',
+        ]));
+    }
 }
