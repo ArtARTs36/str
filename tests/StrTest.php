@@ -542,4 +542,14 @@ class StrTest extends TestCase
             'aa',
         ]));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::match
+     */
+    public function testMatch(): void
+    {
+        $str = Str::make('tests test');
+
+        self::assertEquals('test', $str->match('/test/i')->__toString());
+    }
 }

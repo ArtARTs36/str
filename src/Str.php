@@ -78,6 +78,15 @@ class Str implements \Countable, \IteratorAggregate
         return $matches;
     }
 
+    public function match(string $pattern, int $flags = 0, int $offset = 0): self
+    {
+        $matches = [];
+
+        preg_match($pattern, $this->string, $matches, $flags, $offset);
+
+        return new static(end($matches));
+    }
+
     public function __toString(): string
     {
         return $this->string;
