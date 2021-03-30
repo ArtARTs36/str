@@ -73,7 +73,7 @@ class Str implements \Countable, \IteratorAggregate
     {
         $matches = [];
 
-        preg_match_all($pattern, $this->string, $flags, $offset);
+        preg_match_all($pattern, $this->string, $matches, $flags, $offset);
 
         return $matches;
     }
