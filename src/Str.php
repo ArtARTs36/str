@@ -69,6 +69,15 @@ class Str implements \Countable, \IteratorAggregate
         return new static($newString);
     }
 
+    public function globalMatch(string $pattern, int $flags = PREG_SET_ORDER, int $offset = 0): array
+    {
+        $matches = [];
+
+        preg_match_all($pattern, $this->string, $flags, $offset);
+
+        return $matches;
+    }
+
     public function __toString(): string
     {
         return $this->string;
