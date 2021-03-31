@@ -49,6 +49,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static bool containsAny(string $string, string[] $needles)
  * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
+ * @method static Root replace(string $string, string[] $replaces)
  */
 class Str
 {

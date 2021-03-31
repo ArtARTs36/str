@@ -552,4 +552,16 @@ class StrTest extends TestCase
 
         self::assertEquals('test', $str->match('/test/i')->__toString());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::replace
+     */
+    public function testReplace(): void
+    {
+        $str = Str::make('test.string');
+
+        self::assertEquals('one.string', $str->replace([
+            'test' => 'one',
+        ]));
+    }
 }

@@ -349,6 +349,18 @@ class Str implements \Countable, \IteratorAggregate
         return new static($trim ? trim($deleted) : $deleted);
     }
 
+    /**
+     * @param array<string, string> $replaces
+     */
+    public function replace(array $replaces): Str
+    {
+        return new static(str_replace(
+            array_keys($replaces),
+            array_values($replaces),
+            $this->string
+        ));
+    }
+
     public function upWords(): Str
     {
         return new static(ucwords($this->string));
