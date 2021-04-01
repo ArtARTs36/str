@@ -38,6 +38,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string trim(string $string)
  * @method static Root[] words(string $string)
  * @method static bool isEmpty(string $string)
+ * @method static bool isNotEmpty(string $string)
  * @method static string[] usingLetters()
  * @method static LettersStat getLettersStat()
  * @method static string upWords(string $string)
@@ -50,6 +51,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root replace(string $string, string[] $replaces)
+ * @method static bool hasLine(string $string, string $needle, bool $trim = true)
  */
 class Str
 {

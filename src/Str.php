@@ -366,6 +366,24 @@ class Str implements \Countable, \IteratorAggregate
         return new static(ucwords($this->string));
     }
 
+    /**
+     * @param Str|string|object $needle
+     */
+    public function hasLine($needle, bool $trim = true): bool
+    {
+        $needle = static::prepare($needle);
+
+        foreach ($this->lines() as $line) {
+            $line = $trim ? $line->trim() : $line;
+
+            if ($line->equals($needle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function upFirstSymbol(): Str
     {
         $str = trim($this->string);
@@ -373,6 +391,11 @@ class Str implements \Countable, \IteratorAggregate
         $first = mb_strtoupper(mb_substr($str, 0, 1));
 
         return new static($first . mb_substr($str, 1));
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return ! $this->isEmpty();
     }
 
     protected function createWithAppend(string $string, string $delimiter = ''): self

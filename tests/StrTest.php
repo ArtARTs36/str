@@ -564,4 +564,15 @@ class StrTest extends TestCase
             'test' => 'one',
         ]));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::hasLine
+     */
+    public function testHasLine(): void
+    {
+        $str = Str::make("123\n456\n789");
+
+        self::assertTrue($str->hasLine('456'));
+        self::assertFalse($str->hasLine('111'));
+    }
 }
