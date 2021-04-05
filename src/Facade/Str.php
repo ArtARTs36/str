@@ -52,6 +52,8 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root replace(string $string, string[] $replaces)
  * @method static bool hasLine(string $string, string $needle, bool $trim = true)
+ * @method static string appendEmptyLine(string $append)
+ * @method static string appendLine(string $append, string $line)
  */
 class Str
 {

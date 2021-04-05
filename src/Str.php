@@ -36,6 +36,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(static::prepare($string));
     }
 
+    public static function fromEmpty(): self
+    {
+        return new static('');
+    }
+
     /**
      * @param \Stringable|string|int|float $needle
      */
@@ -396,6 +401,16 @@ class Str implements \Countable, \IteratorAggregate
     public function isNotEmpty(): bool
     {
         return ! $this->isEmpty();
+    }
+
+    public function appendEmptyLine(): Str
+    {
+        return $this->appendLine('');
+    }
+
+    public function appendLine(string $line): Str
+    {
+        return $this->append("\n$line");
     }
 
     protected function createWithAppend(string $string, string $delimiter = ''): self

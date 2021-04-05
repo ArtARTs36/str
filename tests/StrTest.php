@@ -575,4 +575,24 @@ class StrTest extends TestCase
         self::assertTrue($str->hasLine('456'));
         self::assertFalse($str->hasLine('111'));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::appendEmptyLine
+     */
+    public function testAppendEmptyLine(): void
+    {
+        $str = Str::fromEmpty();
+
+        self::assertEquals("\n", $str->appendEmptyLine());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::appendLine
+     */
+    public function testAppendLine(): void
+    {
+        $str = Str::fromEmpty();
+
+        self::assertEquals("\nHello", $str->appendLine('Hello'));
+    }
 }
