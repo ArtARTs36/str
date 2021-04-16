@@ -49,6 +49,26 @@ class Str implements \Countable, \IteratorAggregate
         return (bool) preg_match("/{$this->prepare($needle)}/i", $this->string);
     }
 
+    public function deleteUnnecessarySpaces(): Str
+    {
+        return new static(preg_replace('/[\\s]{2,}/i', ' ', $this->string));
+    }
+
+    public function deleteAllLetters(): Str
+    {
+        return new static(preg_replace('~\D+~', '', $this->string));
+    }
+
+    public function toInteger(): int
+    {
+        return (int) $this->deleteAllLetters()->__toString();
+    }
+
+    public function toFloat(): float
+    {
+        return (float) $this->deleteAllLetters()->__toString();
+    }
+
     /**
      * @param array<\Stringable|string|int|float> $needles
      */
