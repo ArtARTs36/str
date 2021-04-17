@@ -61,12 +61,30 @@ class Str implements \Countable, \IteratorAggregate
 
     public function toInteger(): int
     {
-        return (int) $this->deleteAllLetters()->__toString();
+        return (int) $this->match('/([\+-]?\d+)([eE][\+-]?\d+)?/i')->__toString();
     }
 
-    public function toFloat(): float
+    public function toFloat(): ?float
     {
-        return (float) $this->deleteAllLetters()->__toString();
+        if (is_numeric($this->string) && $this->string == (float) $this->string) {
+            return (float) $this->string;
+        }
+
+        $number = '';
+        $input = false;
+
+        foreach ($this->chars() as $char) {
+            if (is_numeric($char)) {
+                $number .= $char;
+                $input = true;
+            } elseif ($input && $char === '.') {
+                $number .= '.';
+            } elseif ($input) {
+                return $number;
+            }
+        }
+
+        return empty($number) ? null : $number;
     }
 
     /**

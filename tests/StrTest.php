@@ -595,4 +595,66 @@ class StrTest extends TestCase
 
         self::assertEquals("\nHello", $str->appendLine('Hello'));
     }
+
+    public function toIntegerDataProvider(): array
+    {
+        return [
+            [
+                '123.123',
+                123,
+            ],
+            [
+                'dd123.1dd',
+                123,
+            ],
+            [
+                'bab88,eer42',
+                88,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::toInteger
+     * @dataProvider toIntegerDataProvider
+     */
+    public function testToInteger(string $string, int $expected): void
+    {
+        $str = Str::make($string);
+
+        self::assertEquals($expected, $str->toInteger());
+    }
+
+    public function toFloatDataProvider(): array
+    {
+        return [
+            [
+                '123.45',
+                123.45,
+            ],
+            [
+                '123.45G',
+                123.45,
+            ],
+            [
+                'A56.7E',
+                56.7,
+            ],
+            [
+                'A56.7',
+                56.7,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::toFloat
+     * @dataProvider toFloatDataProvider
+     */
+    public function testToFloat(string $string, float $expected): void
+    {
+        $str = new Str($string);
+
+        self::assertEquals($expected, $str->toFloat());
+    }
 }
