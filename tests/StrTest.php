@@ -435,7 +435,7 @@ class StrTest extends TestCase
      */
     public function testWords(): void
     {
-        self::assertEquals(['Test', '123'], Str::make('Test 123')->words());
+        self::assertEquals(['Test', '123'], Str::make('Test 123')->words()->getIterator()->getArrayCopy());
     }
 
     /**
@@ -523,8 +523,15 @@ class StrTest extends TestCase
      */
     public function testSentences(): void
     {
-        self::assertEquals(['hello', 'artem'], Str::make('hello.artem')->sentences());
-        self::assertEquals(['hello', 'artem'], Str::make('hello.artem.')->sentences());
+        self::assertEquals(
+            ['hello', 'artem'],
+            Str::make('hello.artem')->sentences()->getIterator()->getArrayCopy()
+        );
+
+        self::assertEquals(
+            ['hello', 'artem'],
+            Str::make('hello.artem.')->sentences()->getIterator()->getArrayCopy()
+        );
     }
 
     /**

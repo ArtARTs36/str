@@ -140,32 +140,23 @@ class Str implements \Countable, \IteratorAggregate
         return count($this->explodeLines());
     }
 
-    /**
-     * @return array<static>
-     */
-    public function lines(): array
+    public function lines(): StrCollection
     {
-        return $this->arrayToSelfInstances($this->explodeLines());
+        return $this->arrayToCollection($this->explodeLines());
     }
 
-    /**
-     * @return array<static>
-     */
-    public function words(): array
+    public function words(): StrCollection
     {
         return $this->explode(static::SEPARATOR_WORD);
     }
 
-    /**
-     * @return array<static>
-     */
-    public function sentences(): array
+    public function sentences(): StrCollection
     {
         $matches = [];
 
         preg_match_all(static::REGEX_SENTENCE, $this->string, $matches);
 
-        return $this->arrayToSelfInstances(array_values(array_filter($matches[0])));
+        return $this->arrayToCollection(array_values(array_filter($matches[0])));
     }
 
     /**
@@ -325,12 +316,9 @@ class Str implements \Countable, \IteratorAggregate
         }, $sequences)));
     }
 
-    /**
-     * @return array<static>
-     */
-    public function explode(string $sep): array
+    public function explode(string $sep): StrCollection
     {
-        return $this->arrayToSelfInstances(explode($sep, $this->string));
+        return $this->arrayToCollection(explode($sep, $this->string));
     }
 
     public function getSequencesByRepeatSymbols(): array
@@ -541,13 +529,10 @@ class Str implements \Countable, \IteratorAggregate
         throw new \LogicException('Type not access');
     }
 
-    /**
-     * @return array<static>
-     */
-    protected function arrayToSelfInstances(array $array): array
+    protected function arrayToCollection(array $array): StrCollection
     {
-        return array_map(function (string $string) {
+        return new StrCollection(array_map(function (string $string) {
             return new static($string);
-        }, $array);
+        }, $array));
     }
 }
