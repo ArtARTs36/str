@@ -101,6 +101,24 @@ class Str implements \Countable, \IteratorAggregate
         return false;
     }
 
+    /**
+     * @param array<\Stringable|string|int|float> $needles
+     */
+    public function containsAll(array $needles): bool
+    {
+        if (empty($needles)) {
+            return false;
+        }
+
+        foreach ($needles as $needle) {
+            if (! $this->contains($needle)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function multiply(int $count, string $delimiter = ''): Str
     {
         $newString = '';
