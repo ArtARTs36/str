@@ -74,6 +74,13 @@ class Str
         'createWithAppend',
         'createWithPrepend',
         'joinStrings',
+        'arrayToCollection',
+    ];
+
+    protected const STATIC_METHODS = [
+        'make',
+        'random',
+        'randomFix',
     ];
 
     public static function __callStatic($name, $arguments)
@@ -84,11 +91,11 @@ class Str
 
         // Call static Str method
 
-        if (count($arguments) <= 1) {
+        if (in_array($name, static::STATIC_METHODS)) {
             return static::prepareResponse(Root::$name(...$arguments));
         }
 
-        //
+        // Call object Str method
 
         $string = $arguments[0];
         $arguments = array_slice($arguments, 1, count($arguments) - 1);
