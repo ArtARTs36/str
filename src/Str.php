@@ -315,6 +315,14 @@ class Str implements \Countable, \IteratorAggregate
         return $this->string[0];
     }
 
+    public function shuffle(): self
+    {
+        $chars = $this->chars();
+        shuffle($chars);
+
+        return new static(implode('', $chars));
+    }
+
     public function isEmpty(): bool
     {
         return empty(trim($this->string));

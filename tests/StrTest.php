@@ -697,4 +697,14 @@ class StrTest extends TestCase
     {
         self::assertEquals(6, Str::randomFix(6)->count());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::shuffle
+     */
+    public function testShuffle(): void
+    {
+        $str = Str::randomFix(12);
+
+        self::assertNotEquals($str->__toString(), $str->shuffle()->__toString());
+    }
 }

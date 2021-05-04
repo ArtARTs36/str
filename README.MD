@@ -317,3 +317,11 @@ use ArtARTs36\Str\Str;
 var_dump(Str::randomFix(12));
 // random string 12 length
 ```
+
+### Str::shuffle()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Hello')->shuffle());
+```
