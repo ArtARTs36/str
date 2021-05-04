@@ -48,6 +48,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string upFirstSymbol(string $string)
  * @method static Root[] sentences(string $string)
  * @method static bool containsAny(string $string, string[] $needles)
+ * @method static bool containsAll(string $string, string[] $needles)
  * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root replace(string $string, string[] $replaces)
@@ -58,6 +59,9 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string deleteAllLetters(string $string)
  * @method static int toInteger(string $string)
  * @method static float toFloat(string $string)
+ * @method static string shuffle(string $string)
+ * @method static string random(int $maxLength = 6)
+ * @method static string randomFix(int $length)
  */
 class Str
 {
@@ -74,8 +78,14 @@ class Str
 
     public static function __callStatic($name, $arguments)
     {
-        if (in_array($name, static::DISALLOWED_METHODS) || !method_exists(Root::class, $name)) {
+        if (in_array($name, static::DISALLOWED_METHODS) || ! method_exists(Root::class, $name)) {
             throw new \BadMethodCallException();
+        }
+
+        // Call static Str method
+
+        if (count($arguments) <= 1) {
+            return static::prepareResponse(Root::$name(...$arguments));
         }
 
         //
@@ -85,8 +95,11 @@ class Str
 
         //
 
-        $response = Root::make($string)->$name(...$arguments);
+        return static::prepareResponse(Root::make($string)->$name(...$arguments));
+    }
 
+    protected static function prepareResponse($response)
+    {
         return $response instanceof Root ? $response->__toString() : $response;
     }
 }

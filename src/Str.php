@@ -44,7 +44,7 @@ class Str implements \Countable, \IteratorAggregate
     public static function randomFix(int $length): self
     {
         $chars = array_map(function () {
-            return chr(rand(1, 255));
+            return chr(rand(1, 120));
         }, range(1, $length));
 
         return new static(implode('', $chars));
