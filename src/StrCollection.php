@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\Str;
 
-class StrCollection implements \IteratorAggregate
+class StrCollection implements \IteratorAggregate, \Countable
 {
     protected $strings;
 
@@ -25,5 +25,20 @@ class StrCollection implements \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->strings);
+    }
+
+    public function count()
+    {
+        return count($this->strings);
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->count() === 0;
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return $this->count() > 0;
     }
 }
