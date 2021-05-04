@@ -36,6 +36,20 @@ class Str implements \Countable, \IteratorAggregate
         return new static(static::prepare($string));
     }
 
+    public static function random(int $maxLength = 6): self
+    {
+        return new static(random_bytes($maxLength));
+    }
+
+    public static function randomFix(int $length): self
+    {
+        $chars = array_map(function () {
+            return chr(rand(1, 255));
+        }, range(1, $length));
+
+        return new static(implode('', $chars));
+    }
+
     public static function fromEmpty(): self
     {
         return new static('');
@@ -183,6 +197,11 @@ class Str implements \Countable, \IteratorAggregate
     public function count(): int
     {
         return mb_strlen($this->string);
+    }
+
+    public function length(): int
+    {
+        return $this->count();
     }
 
     /**

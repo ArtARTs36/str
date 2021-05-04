@@ -664,4 +664,37 @@ class StrTest extends TestCase
 
         self::assertEquals($expected, $str->toFloat());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::containsAll
+     */
+    public function testContainsAll(): void
+    {
+        self::assertTrue(Str::make('hello.dev')->containsAll([
+            'hello',
+            'dev',
+        ]));
+
+        self::assertFalse(Str::make('hello.dev')->containsAll([
+            'hello',
+            '333',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::random
+     */
+    public function testRandom(): void
+    {
+        self::assertLessThanOrEqual(6, Str::random()->count());
+        self::assertLessThanOrEqual($length = 5, Str::random($length)->count());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::randomFix
+     */
+    public function testRandomFix(): void
+    {
+        self::assertEquals(6, Str::randomFix(6)->count());
+    }
 }
