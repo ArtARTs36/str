@@ -36,6 +36,20 @@ class Str implements \Countable, \IteratorAggregate
         return new static(static::prepare($string));
     }
 
+    public static function random(int $maxLength = 6): self
+    {
+        return new static(random_bytes($maxLength));
+    }
+
+    public static function randomFix(int $length): self
+    {
+        $chars = array_map(function () {
+            return chr(rand(1, 120));
+        }, range(1, $length));
+
+        return new static(implode('', $chars));
+    }
+
     public static function fromEmpty(): self
     {
         return new static('');
@@ -101,6 +115,24 @@ class Str implements \Countable, \IteratorAggregate
         return false;
     }
 
+    /**
+     * @param array<\Stringable|string|int|float> $needles
+     */
+    public function containsAll(array $needles): bool
+    {
+        if (empty($needles)) {
+            return false;
+        }
+
+        foreach ($needles as $needle) {
+            if (! $this->contains($needle)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function multiply(int $count, string $delimiter = ''): Str
     {
         $newString = '';
@@ -140,32 +172,23 @@ class Str implements \Countable, \IteratorAggregate
         return count($this->explodeLines());
     }
 
-    /**
-     * @return array<static>
-     */
-    public function lines(): array
+    public function lines(): StrCollection
     {
-        return $this->arrayToSelfInstances($this->explodeLines());
+        return $this->arrayToCollection($this->explodeLines());
     }
 
-    /**
-     * @return array<static>
-     */
-    public function words(): array
+    public function words(): StrCollection
     {
         return $this->explode(static::SEPARATOR_WORD);
     }
 
-    /**
-     * @return array<static>
-     */
-    public function sentences(): array
+    public function sentences(): StrCollection
     {
         $matches = [];
 
         preg_match_all(static::REGEX_SENTENCE, $this->string, $matches);
 
-        return $this->arrayToSelfInstances(array_values(array_filter($matches[0])));
+        return $this->arrayToCollection(array_values(array_filter($matches[0])));
     }
 
     /**
@@ -174,6 +197,11 @@ class Str implements \Countable, \IteratorAggregate
     public function count(): int
     {
         return mb_strlen($this->string);
+    }
+
+    public function length(): int
+    {
+        return $this->count();
     }
 
     /**
@@ -287,6 +315,14 @@ class Str implements \Countable, \IteratorAggregate
         return $this->string[0];
     }
 
+    public function shuffle(): self
+    {
+        $chars = $this->chars();
+        shuffle($chars);
+
+        return new static(implode('', $chars));
+    }
+
     public function isEmpty(): bool
     {
         return empty(trim($this->string));
@@ -325,12 +361,9 @@ class Str implements \Countable, \IteratorAggregate
         }, $sequences)));
     }
 
-    /**
-     * @return array<static>
-     */
-    public function explode(string $sep): array
+    public function explode(string $sep): StrCollection
     {
-        return $this->arrayToSelfInstances(explode($sep, $this->string));
+        return $this->arrayToCollection(explode($sep, $this->string));
     }
 
     public function getSequencesByRepeatSymbols(): array
@@ -541,13 +574,10 @@ class Str implements \Countable, \IteratorAggregate
         throw new \LogicException('Type not access');
     }
 
-    /**
-     * @return array<static>
-     */
-    protected function arrayToSelfInstances(array $array): array
+    protected function arrayToCollection(array $array): StrCollection
     {
-        return array_map(function (string $string) {
+        return new StrCollection(array_map(function (string $string) {
             return new static($string);
-        }, $array);
+        }, $array));
     }
 }

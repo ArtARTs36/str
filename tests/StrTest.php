@@ -435,7 +435,7 @@ class StrTest extends TestCase
      */
     public function testWords(): void
     {
-        self::assertEquals(['Test', '123'], Str::make('Test 123')->words());
+        self::assertEquals(['Test', '123'], Str::make('Test 123')->words()->getIterator()->getArrayCopy());
     }
 
     /**
@@ -523,8 +523,15 @@ class StrTest extends TestCase
      */
     public function testSentences(): void
     {
-        self::assertEquals(['hello', 'artem'], Str::make('hello.artem')->sentences());
-        self::assertEquals(['hello', 'artem'], Str::make('hello.artem.')->sentences());
+        self::assertEquals(
+            ['hello', 'artem'],
+            Str::make('hello.artem')->sentences()->getIterator()->getArrayCopy()
+        );
+
+        self::assertEquals(
+            ['hello', 'artem'],
+            Str::make('hello.artem.')->sentences()->getIterator()->getArrayCopy()
+        );
     }
 
     /**
@@ -656,5 +663,48 @@ class StrTest extends TestCase
         $str = new Str($string);
 
         self::assertEquals($expected, $str->toFloat());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::containsAll
+     */
+    public function testContainsAll(): void
+    {
+        self::assertTrue(Str::make('hello.dev')->containsAll([
+            'hello',
+            'dev',
+        ]));
+
+        self::assertFalse(Str::make('hello.dev')->containsAll([
+            'hello',
+            '333',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::random
+     */
+    public function testRandom(): void
+    {
+        self::assertLessThanOrEqual(6, Str::random()->count());
+        self::assertLessThanOrEqual($length = 5, Str::random($length)->count());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::randomFix
+     */
+    public function testRandomFix(): void
+    {
+        self::assertEquals(6, Str::randomFix(6)->count());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::shuffle
+     */
+    public function testShuffle(): void
+    {
+        $str = Str::randomFix(12);
+
+        self::assertNotEquals($str->__toString(), $str->shuffle()->__toString());
     }
 }

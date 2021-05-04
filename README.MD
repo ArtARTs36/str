@@ -287,3 +287,41 @@ var_dump(Str::make('hello.dev')->containsAny([
 ]));
 // true
 ```
+
+### Str::containsAll()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->containsAll([
+    'dev',
+    'hello',
+]));
+// true
+```
+
+### Str::random()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::random());
+// random string
+```
+
+### Str::randomFix()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::randomFix(12));
+// random string 12 length
+```
+
+### Str::shuffle()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Hello')->shuffle());
+```
