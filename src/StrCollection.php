@@ -32,6 +32,11 @@ class StrCollection implements \IteratorAggregate, \Countable
         return count($this->strings);
     }
 
+    public function length(): int
+    {
+        return array_sum(array_map('count', $this->strings));
+    }
+
     public function isEmpty(): bool
     {
         return $this->count() === 0;

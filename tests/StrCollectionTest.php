@@ -55,4 +55,18 @@ class StrCollectionTest extends TestCase
 
         self::assertEquals('Hello Dev', (new StrCollection($strings))->implode(' '));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\StrCollection::length
+     */
+    public function testLength(): void
+    {
+        self::assertEquals(0, (new StrCollection([]))->length());
+
+        //
+
+        $strings = [Str::make('a'), Str::make('ab'), Str::make('abc')];
+
+        self::assertEquals(6, (new StrCollection($strings))->length());
+    }
 }
