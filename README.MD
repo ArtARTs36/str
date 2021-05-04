@@ -180,16 +180,6 @@ var_dump(Str::make('TEST 123')->words()); // ['TEST', '123']
 
 ---
 
-### Str::words
-
-```php
-use ArtARTs36\Str\Str;
-
-var_dump(Str::make('TEST 123')->words()); // ['TEST', '123']
-```
-
----
-
 ### Str::isEmpty()
 
 ```php
@@ -234,7 +224,7 @@ var_dump(Str::make('hello dev')->upWords());
 
 ---
 
-### Str::upWords()
+### Str::explode()
 
 ```php
 use ArtARTs36\Str\Str;
@@ -250,7 +240,7 @@ var_dump(Str::make('hello.dev')->explode('.'));
 ```php
 use ArtARTs36\Str\Str;
 
-var_dump(Str::make('hello.dev')->sortByChars('ABCD'));
+var_dump(Str::make('ABCD')->sortByChars());
 // CDBA
 ```
 
@@ -272,7 +262,7 @@ var_dump(Str::make('BBB A DDDDD CCCC')->sortByWordsLengths());
 ```php
 use ArtARTs36\Str\Str;
 
-var_dump(Str::make('слово')->sortByWordsLengths());
+var_dump(Str::make('слово')->upFirstSymbol());
 // "Слово"
 ```
 ---
