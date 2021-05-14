@@ -63,4 +63,19 @@ class StrCollection implements \IteratorAggregate, \Countable
             return $str->trim();
         });
     }
+
+    /**
+     * @return array<int>
+     */
+    public function toIntegers(): array
+    {
+        return $this->mapToArray(function (Str $str) {
+            return $str->toInteger();
+        });
+    }
+    
+    public function mapToArray(callable $callback): array
+    {
+        return array_map($callback, $this->strs);
+    }
 }

@@ -69,4 +69,17 @@ class StrCollectionTest extends TestCase
 
         self::assertEquals(6, (new StrCollection($strings))->length());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\StrCollection::toIntegers
+     */
+    public function testToIntegers(): void
+    {
+        $strings = [Str::make('1.2'), Str::make('ff3')];
+
+        self::assertSame([
+            1,
+            3,
+        ], (new StrCollection($strings))->toIntegers());
+    }
 }
