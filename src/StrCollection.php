@@ -93,4 +93,11 @@ class StrCollection implements \IteratorAggregate, \Countable
     {
         return new static(array_slice($this->strs, $offset, $length));
     }
+
+    public function onlyNotEmpty(): self
+    {
+        return new static(array_filter($this->strs, function (Str $str) {
+            return $str->isNotEmpty();
+        }));
+    }
 }
