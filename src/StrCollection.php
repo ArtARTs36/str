@@ -78,4 +78,14 @@ class StrCollection implements \IteratorAggregate, \Countable
     {
         return array_map($callback, $this->strs);
     }
+
+    public function first(): ?string
+    {
+        return $this->strs[array_key_first($this->strs)] ?? null;
+    }
+
+    public function slice(int $offset, ?int $length = null): self
+    {
+        return new static(array_slice($this->strs, $offset, $length));
+    }
 }
