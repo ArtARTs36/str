@@ -60,7 +60,7 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function contains($needle): bool
     {
-        return mb_strpos($this->prepareToLower($this->string), $this->prepareToLower($needle)) !== false;
+        return (bool) preg_match("/{$this->prepare($needle)}/i", $this->string);
     }
 
     public function deleteUnnecessarySpaces(): Str
