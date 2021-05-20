@@ -20,7 +20,7 @@ Str
 ```php
 use ArtARTs36\Str\Str;
 
-var_dump(Str::make("test")->chars());
+var_dump(Str::make("Водка")->chars());
 //array(5) {
 //  [0] =>
 //  string(2) "В"
