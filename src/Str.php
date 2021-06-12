@@ -410,7 +410,22 @@ class Str implements \Countable, \IteratorAggregate
 
     public function reverse(): Str
     {
-        return new static(strrev($this->string));
+        return new static(implode('', array_reverse($this->chars())));
+    }
+
+    public function getNumbersCountInEnding(): int
+    {
+        $count = 0;
+
+        foreach ($this->reverse() as $char) {
+            if (is_numeric($char)) {
+                $count++;
+            } else {
+                return $count;
+            }
+        }
+
+        return $count;
     }
 
     public function getIterator(): \ArrayIterator

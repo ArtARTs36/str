@@ -352,12 +352,37 @@ class StrTest extends TestCase
         self::assertEquals($output, Str::make($input)->reverse()->__toString());
     }
 
+    public function getNumbersCountInEndingDataProvider(): array
+    {
+        return [
+            [
+                'привет.123.123',
+                3,
+                'hhhh9811',
+                4,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::getNumbersCountInEnding
+     * @dataProvider getNumbersCountInEndingDataProvider
+     */
+    public function testGetNumbersCountInEnding(string $input, int $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->getNumbersCountInEnding());
+    }
+
     public function reverseDataProvider(): array
     {
         return [
             [
                 'Artem',
                 'metrA',
+            ],
+            [
+                'Артем',
+                'метрА',
             ],
         ];
     }

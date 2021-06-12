@@ -62,6 +62,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string shuffle(string $string)
  * @method static string random(int $maxLength = 6)
  * @method static string randomFix(int $length)
+ * @method static int getNumbersCountInEnding(string $string)
  */
 class Str
 {
