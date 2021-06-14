@@ -63,6 +63,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string random(int $maxLength = 6)
  * @method static string randomFix(int $length)
  * @method static int getNumbersCountInEnding(string $string)
+ * @method static string firstWord(string $string)
  */
 class Str
 {

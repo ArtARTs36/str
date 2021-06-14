@@ -732,4 +732,23 @@ class StrTest extends TestCase
 
         self::assertNotEquals($str->__toString(), $str->shuffle()->__toString());
     }
+
+    public function firstWordDataProvider(): array
+    {
+        return [
+            [
+                'Some text',
+                'Some',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider firstWordDataProvider
+     * @covers \ArtARTs36\Str\Str::firstWord
+     */
+    public function testFirstWord(string $str, string $expectedWord): void
+    {
+        self::assertEquals($expectedWord, Str::make($str)->firstWord());
+    }
 }

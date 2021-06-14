@@ -489,6 +489,11 @@ class Str implements \Countable, \IteratorAggregate
         return ! $this->isEmpty();
     }
 
+    public function firstWord(): self
+    {
+        return new static(explode(static::SEPARATOR_WORD, $this->string)[0]);
+    }
+
     public function appendEmptyLine(): Str
     {
         return $this->appendLine('');
