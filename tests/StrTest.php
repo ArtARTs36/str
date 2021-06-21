@@ -657,4 +657,29 @@ class StrTest extends TestCase
 
         self::assertEquals($expected, $str->toFloat());
     }
+
+    public function containsDataProvider(): array
+    {
+        return [
+            [
+                'string',
+                'str',
+                true,
+            ],
+            [
+                "path '/path/to/file' already exists",
+                '/path/to/file',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::contains
+     * @dataProvider containsDataProvider
+     */
+    public function testContains(string $haystack, string $needle, bool $state): void
+    {
+        self::assertEquals($state, Str::make($haystack)->contains($needle));
+    }
 }
