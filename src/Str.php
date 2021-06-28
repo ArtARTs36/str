@@ -7,10 +7,6 @@ use ArtARTs36\Str\Support\HasChars;
 use ArtARTs36\Str\Support\LettersStat;
 use ArtARTs36\Str\Support\Sortable;
 
-/**
- * Class Str
- * @package ArtARTs36\Str
- */
 class Str implements \Countable, \IteratorAggregate
 {
     use Sortable;
@@ -60,7 +56,9 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function contains($needle): bool
     {
-        return (bool) preg_match("/{$this->prepare($needle)}/i", $this->string);
+        $needle = $this->doReplace(static::prepare($needle), ['/' => '\/']);
+
+        return (bool) preg_match("/$needle/i", $this->string);
     }
 
     public function deleteUnnecessarySpaces(): Str
@@ -445,11 +443,7 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function replace(array $replaces): Str
     {
-        return new static(str_replace(
-            array_keys($replaces),
-            array_values($replaces),
-            $this->string
-        ));
+        return new static($this->doReplace($this->string, $replaces));
     }
 
     public function upWords(): Str
@@ -599,5 +593,10 @@ class Str implements \Countable, \IteratorAggregate
         return new StrCollection(array_map(function (string $string) {
             return new static($string);
         }, $array));
+    }
+
+    protected function doReplace(string $string, array $replaces): string
+    {
+        return str_replace(array_keys($replaces), array_values($replaces), $string);
     }
 }

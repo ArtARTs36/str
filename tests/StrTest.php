@@ -690,65 +690,28 @@ class StrTest extends TestCase
         self::assertEquals($expected, $str->toFloat());
     }
 
-    /**
-     * @covers \ArtARTs36\Str\Str::containsAll
-     */
-    public function testContainsAll(): void
-    {
-        self::assertTrue(Str::make('hello.dev')->containsAll([
-            'hello',
-            'dev',
-        ]));
-
-        self::assertFalse(Str::make('hello.dev')->containsAll([
-            'hello',
-            '333',
-        ]));
-    }
-
-    /**
-     * @covers \ArtARTs36\Str\Str::random
-     */
-    public function testRandom(): void
-    {
-        self::assertLessThanOrEqual(6, Str::random()->count());
-        self::assertLessThanOrEqual($length = 5, Str::random($length)->count());
-    }
-
-    /**
-     * @covers \ArtARTs36\Str\Str::randomFix
-     */
-    public function testRandomFix(): void
-    {
-        self::assertEquals(6, Str::randomFix(6)->count());
-    }
-
-    /**
-     * @covers \ArtARTs36\Str\Str::shuffle
-     */
-    public function testShuffle(): void
-    {
-        $str = Str::randomFix(12);
-
-        self::assertNotEquals($str->__toString(), $str->shuffle()->__toString());
-    }
-
-    public function firstWordDataProvider(): array
+    public function containsDataProvider(): array
     {
         return [
             [
-                'Some text',
-                'Some',
+                'string',
+                'str',
+                true,
+            ],
+            [
+                "path '/path/to/file' already exists",
+                '/path/to/file',
+                true,
             ],
         ];
     }
 
     /**
-     * @dataProvider firstWordDataProvider
-     * @covers \ArtARTs36\Str\Str::firstWord
+     * @covers \ArtARTs36\Str\Str::contains
+     * @dataProvider containsDataProvider
      */
-    public function testFirstWord(string $str, string $expectedWord): void
+    public function testContains(string $haystack, string $needle, bool $state): void
     {
-        self::assertEquals($expectedWord, Str::make($str)->firstWord());
+        self::assertEquals($state, Str::make($haystack)->contains($needle));
     }
 }
