@@ -403,6 +403,11 @@ class Str implements \Countable, \IteratorAggregate
         return mb_strpos($this->string, $needle) === 0;
     }
 
+    public function endsWith(string $needle): bool
+    {
+        return mb_strpos($this->string, $needle, -\mb_strlen($needle)) !== false;
+    }
+
     /**
      * @param array<string, string> $replaces
      */

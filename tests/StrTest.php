@@ -726,4 +726,29 @@ class StrTest extends TestCase
     {
         self::assertSame($condition, Str::make($haystack)->startsWith($needle));
     }
+
+    public function providerForTestEndsWith(): array
+    {
+        return [
+            [
+                'Hello',
+                'lo',
+                true
+            ],
+            [
+                '__abcd',
+                'cd',
+                true,
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestEndsWith
+     * @covers \ArtARTs36\Str\Str::endsWith
+     */
+    public function testEndsWith(string $haystack, string $needle, bool $condition): void
+    {
+        self::assertSame($condition, Str::make($haystack)->endsWith($needle));
+    }
 }

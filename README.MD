@@ -305,3 +305,12 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->startsWith('hello'));
 // true
 ```
+
+### Str::endsWith()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->endsWith('dev'));
+// true
+```
