@@ -58,6 +58,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string deleteAllLetters(string $string)
  * @method static int toInteger(string $string)
  * @method static float toFloat(string $string)
+ * @method static int[] getBytes(string $string)
  */
 class Str
 {

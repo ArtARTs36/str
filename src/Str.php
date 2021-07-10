@@ -310,6 +310,14 @@ class Str implements \Countable, \IteratorAggregate
         return $this->substring(1, $this->count());
     }
 
+    /**
+     * @return array<int>
+     */
+    public function getBytes(): array
+    {
+        return array_values(unpack('C*', $this->string));
+    }
+
     public function deleteRepeatSymbolInEnding(string $symbol): Str
     {
         if ($this->lastSymbol() !== $symbol) {

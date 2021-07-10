@@ -682,4 +682,23 @@ class StrTest extends TestCase
     {
         self::assertEquals($state, Str::make($haystack)->contains($needle));
     }
+
+    public function providerForTestGetBytes(): array
+    {
+        return [
+            [
+                'Hello',
+                [72, 101, 108, 108, 111],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestGetBytes
+     * @covers \ArtARTs36\Str\Str::getBytes
+     */
+    public function testGetBytes(string $str, array $bytes): void
+    {
+        self::assertEquals($bytes, Str::make($str)->getBytes());
+    }
 }
