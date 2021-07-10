@@ -288,6 +288,8 @@ var_dump(Str::make('hello.dev')->containsAny([
 // true
 ```
 
+---
+
 ### Str::getBytes()
 
 ```php
@@ -296,6 +298,8 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->getBytes());
 // [72, 101, 108, 108, 111]
 ```
+
+---
 
 ### Str::startsWith()
 
@@ -306,6 +310,8 @@ var_dump(Str::make('hello.dev')->startsWith('hello'));
 // true
 ```
 
+---
+
 ### Str::endsWith()
 
 ```php
@@ -314,6 +320,8 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->endsWith('dev'));
 // true
 ```
+
+---
 
 ### Str::hashCode()
 
