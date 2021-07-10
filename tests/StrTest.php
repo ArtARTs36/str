@@ -759,4 +759,40 @@ class StrTest extends TestCase
     {
         self::assertEquals(69609650, Str::make('Hello')->hashCode());
     }
+
+    public function providerForTestResize(): array
+    {
+        return [
+            [
+                'Test',
+                3,
+                'Tes',
+                '0',
+                true,
+            ],
+            [
+                'Test',
+                5,
+                '0Test',
+                '0',
+                true,
+            ],
+            [
+                'Test',
+                4,
+                'Test',
+                '0',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestResize
+     * @covers \ArtARTs36\Str\Str::resize
+     */
+    public function testResize(string $input, int $length, string $expected, string $lack, bool $lackInStart): void
+    {
+        self::assertEquals($expected, Str::make($input)->resize($length, $lack, $lackInStart));
+    }
 }

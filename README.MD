@@ -331,3 +331,24 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('Hello')->hashCode());
 // 69609650
 ```
+
+---
+
+### Str::isDigit()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('123')->isDigit());
+// true
+```
+---
+
+### Str::resize()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Test')->resize(5));
+// 0Test
+```

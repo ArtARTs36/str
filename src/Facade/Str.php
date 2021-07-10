@@ -62,6 +62,8 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static bool startsWith(string $haystack, string $needle)
  * @method static bool endsWith(string $haystack, string $needle)
  * @method static int hashCode(string $string)
+ * @method static bool isDigit(string $string)
+ * @method static Root resize(string $string, int $length, string $lack = '0', bool $lackInStart = true)
  */
 class Str
 {

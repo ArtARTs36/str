@@ -462,6 +462,26 @@ class Str implements \Countable, \IteratorAggregate
         return $hash;
     }
 
+    public function isDigit(): bool
+    {
+        return is_numeric($this->string);
+    }
+
+    public function resize(int $length, string $lack = '0', bool $lackInStart = true): self
+    {
+        if ($this->count() === $length) {
+            return clone $this;
+        }
+
+        if ($length > $this->count()) {
+            $repeat = str_repeat($lack, $length - $this->count());
+
+            return new static($lackInStart ? ($repeat . $this->string) : ($this->string . $repeat));
+        }
+
+        return $this->substring(0, $length);
+    }
+
     protected function overflowInteger(int $value): int
     {
         $remainder = $value % 4294967296;
