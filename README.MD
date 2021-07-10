@@ -296,3 +296,12 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->getBytes());
 // [72, 101, 108, 108, 111]
 ```
+
+### Str::startsWith()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->startsWith('hello'));
+// true
+```

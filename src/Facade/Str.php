@@ -59,6 +59,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static int toInteger(string $string)
  * @method static float toFloat(string $string)
  * @method static int[] getBytes(string $string)
+ * @method static bool startsWith(string $haystack, string $needle)
  */
 class Str
 {

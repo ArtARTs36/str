@@ -398,6 +398,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static($trim ? trim($deleted) : $deleted);
     }
 
+    public function startsWith(string $needle): bool
+    {
+        return mb_strpos($this->string, $needle) === 0;
+    }
+
     /**
      * @param array<string, string> $replaces
      */

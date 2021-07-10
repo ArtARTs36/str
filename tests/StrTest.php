@@ -701,4 +701,29 @@ class StrTest extends TestCase
     {
         self::assertEquals($bytes, Str::make($str)->getBytes());
     }
+
+    public function providerForTestStartsWith(): array
+    {
+        return [
+            [
+                'Hello',
+                'Hel',
+                true
+            ],
+            [
+                '__abcd',
+                'ab',
+                false,
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestStartsWith
+     * @covers \ArtARTs36\Str\Str::startsWith
+     */
+    public function testStartsWith(string $haystack, string $needle, bool $condition): void
+    {
+        self::assertSame($condition, Str::make($haystack)->startsWith($needle));
+    }
 }
