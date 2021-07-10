@@ -751,4 +751,12 @@ class StrTest extends TestCase
     {
         self::assertSame($condition, Str::make($haystack)->endsWith($needle));
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::hashCode
+     */
+    public function testHashCode(): void
+    {
+        self::assertEquals(69609650, Str::make('Hello')->hashCode());
+    }
 }

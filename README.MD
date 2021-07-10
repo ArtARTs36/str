@@ -314,3 +314,12 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('hello.dev')->endsWith('dev'));
 // true
 ```
+
+### Str::hashCode()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Hello')->hashCode());
+// 69609650
+```

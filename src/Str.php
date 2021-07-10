@@ -448,6 +448,33 @@ class Str implements \Countable, \IteratorAggregate
         return new static($first . mb_substr($str, 1));
     }
 
+    /**
+     * https://stackoverflow.com/questions/8804875/php-internal-hashcode-function
+     */
+    public function hashCode(): string
+    {
+        $hash = 0;
+
+        foreach ($this->chars() as $char) {
+            $hash = $this->overflowInteger(31 * $hash + ord($char));
+        }
+
+        return $hash;
+    }
+
+    protected function overflowInteger(int $value): int
+    {
+        $remainder = $value % 4294967296;
+
+        if ($remainder > 2147483647) {
+            return $remainder - 4294967296;
+        } elseif ($remainder < -2147483648) {
+            return $remainder + 4294967296;
+        }
+
+        return $remainder;
+    }
+
     public function isNotEmpty(): bool
     {
         return ! $this->isEmpty();

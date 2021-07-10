@@ -61,6 +61,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static int[] getBytes(string $string)
  * @method static bool startsWith(string $haystack, string $needle)
  * @method static bool endsWith(string $haystack, string $needle)
+ * @method static int hashCode(string $string)
  */
 class Str
 {
