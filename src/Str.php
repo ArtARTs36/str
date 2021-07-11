@@ -456,7 +456,7 @@ class Str implements \Countable, \IteratorAggregate
         $hash = 0;
 
         foreach ($this->chars() as $char) {
-            $hash = $this->overflowInteger(31 * $hash + ord($char));
+            $hash = $this->overflowInteger(31 * $hash + mb_ord($char));
         }
 
         return $hash;
