@@ -795,4 +795,23 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($input)->resize($length, $lack, $lackInStart));
     }
+
+    public function providerForTestSwapCase(): array
+    {
+        return [
+            [
+                'HEllo',
+                'heLLO',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestSwapCase
+     * @covers \ArtARTs36\Str\Str::swapCase
+     */
+    public function testSwapCase(string $input, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->swapCase());
+    }
 }

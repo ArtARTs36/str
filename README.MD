@@ -352,3 +352,14 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('Test')->resize(5));
 // 0Test
 ```
+
+---
+
+### Str::swapCase()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Test')->swapCase());
+// tEST
+```

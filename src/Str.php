@@ -510,6 +510,11 @@ class Str implements \Countable, \IteratorAggregate
         return $this->append("\n$line");
     }
 
+    public function swapCase(): self
+    {
+        return new static(mb_strtolower($this->string) ^ mb_strtoupper($this->string) ^ $this->string);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
