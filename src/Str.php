@@ -82,7 +82,7 @@ class Str implements \Countable, \IteratorAggregate
             }
         }
 
-        return empty($number) ? null : $number;
+        return $number === '' ? null : $number;
     }
 
     /**
