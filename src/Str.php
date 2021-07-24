@@ -563,15 +563,12 @@ class Str implements \Countable, \IteratorAggregate
      */
     protected static function prepare($string): string
     {
-        if (is_string($string)) {
-            return $string;
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $string->__toString();
-        } elseif (is_numeric($string)) {
+        if (is_string($string) || is_numeric($string) ||
+            (is_object($string) && method_exists($string, '__toString'))) {
             return (string) $string;
-        } else {
-            throw new \LogicException('Type not access');
         }
+
+        throw new \LogicException('Type not access');
     }
 
     protected function explodeLines(): array
@@ -592,11 +589,8 @@ class Str implements \Countable, \IteratorAggregate
      */
     protected function edit($string, callable $edit, string $delimiter = ''): Str
     {
-        if (is_string($string)) {
-            return $edit($string, $delimiter);
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $edit($string->__toString(), $delimiter);
-        } elseif (is_numeric($string)) {
+        if (is_string($string) || is_numeric($string) ||
+            (is_object($string) && method_exists($string, '__toString'))) {
             return $edit((string) $string, $delimiter);
         } elseif (is_array($string)) {
             return $edit($this->joinStrings($string, $delimiter), $delimiter);

@@ -177,6 +177,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::append
+     * @covers \ArtARTs36\Str\Str::edit
      */
     public function testAppend(): void
     {
@@ -364,6 +365,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::prepend
+     * @covers \ArtARTs36\Str\Str::edit
      */
     public function testPrepend(): void
     {
