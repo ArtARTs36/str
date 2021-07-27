@@ -363,3 +363,21 @@ use ArtARTs36\Str\Str;
 var_dump(Str::make('Test')->swapCase());
 // tEST
 ```
+
+### Str::hasUppercaseSymbols()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Artem')->hasUppercaseSymbols()); // true
+var_dump(Str::make('artem')->hasUppercaseSymbols()); // false
+```
+
+### Str::hasLowercaseSymbols()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Artem')->hasLowercaseSymbols()); // true
+var_dump(Str::make('ARTEM')->hasLowercaseSymbols()); // false
+```

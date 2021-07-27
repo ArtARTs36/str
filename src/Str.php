@@ -462,6 +462,16 @@ class Str implements \Countable, \IteratorAggregate
         return $hash;
     }
 
+    public function hasUppercaseSymbols(): bool
+    {
+        return $this->prepareToLower($this->string) !== $this->string;
+    }
+
+    public function hasLowercaseSymbols(): bool
+    {
+        return mb_strtoupper($this->string, static::DEFAULT_ENCODING) !== $this->string;
+    }
+
     public function isDigit(): bool
     {
         return is_numeric($this->string);

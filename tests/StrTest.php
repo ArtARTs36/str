@@ -816,4 +816,44 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($input)->swapCase());
     }
+
+    public function providerForTestHasUppercaseSymbols(): array
+    {
+        return [
+            ['Artem', true],
+            ['artem', false],
+            ['артем', false],
+            ['Артем', true],
+            ['ARTEM', true],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestHasUppercaseSymbols
+     * @covers \ArtARTs36\Str\Str::hasUppercaseSymbols
+     */
+    public function testHasUppercaseSymbols(string $string, bool $state): void
+    {
+        self::assertSame($state, Str::make($string)->hasUppercaseSymbols());
+    }
+
+    public function providerForTestHasLowercaseSymbols(): array
+    {
+        return [
+            ['Artem', true],
+            ['artem', true],
+            ['артем', true],
+            ['Артем', true],
+            ['ARTEM', false],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestHasLowercaseSymbols
+     * @covers \ArtARTs36\Str\Str::hasLowercaseSymbols
+     */
+    public function testHasLowercaseSymbols(string $string, bool $state): void
+    {
+        self::assertSame($state, Str::make($string)->hasLowercaseSymbols());
+    }
 }

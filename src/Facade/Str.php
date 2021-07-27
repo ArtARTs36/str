@@ -65,6 +65,8 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static bool isDigit(string $string)
  * @method static Root resize(string $string, int $length, string $lack = '0', bool $lackInStart = true)
  * @method static Root swapCase(string $string)
+ * @method static Root hasUppercaseSymbols(string $string)
+ * @method static Root hasLowercaseSymbols(string $string)
  */
 class Str
 {
