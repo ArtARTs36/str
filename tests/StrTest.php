@@ -856,4 +856,26 @@ class StrTest extends TestCase
     {
         self::assertSame($state, Str::make($string)->hasLowercaseSymbols());
     }
+
+    public function providerForTestSlice(): array
+    {
+        return [
+            [
+                'master.branch.remote.url.one',
+                '.',
+                -1,
+                0,
+                'master.branch.remote.url',
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestSlice
+     * @covers \ArtARTs36\Str\Str::slice
+     */
+    public function testSlice(string $str, string $separator, int $length, int $offset, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->slice($separator, $length, $offset));
+    }
 }

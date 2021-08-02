@@ -67,6 +67,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static Root swapCase(string $string)
  * @method static Root hasUppercaseSymbols(string $string)
  * @method static Root hasLowercaseSymbols(string $string)
+ * @method static Root slice(string $string, string $separator, int $length, int $offset = 0)
  */
 class Str
 {

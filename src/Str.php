@@ -339,6 +339,13 @@ class Str implements \Countable, \IteratorAggregate
         return $this->arrayToSelfInstances(explode($sep, $this->string));
     }
 
+    public function slice(string $separator, int $length, int $offset = 0): self
+    {
+        $parts = explode($separator, $this->string);
+
+        return new static(implode($separator, array_slice($parts, $offset, $length)));
+    }
+
     public function getSequencesByRepeatSymbols(): array
     {
         $prev = '';
