@@ -48,7 +48,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string upFirstSymbol(string $string)
  * @method static Root[] sentences(string $string)
  * @method static bool containsAny(string $string, string[] $needles)
- * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0)
+ * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0, bool $end = true)
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root replace(string $string, string[] $replaces)
  * @method static bool hasLine(string $string, string $needle, bool $trim = true)

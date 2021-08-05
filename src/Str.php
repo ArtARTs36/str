@@ -119,13 +119,13 @@ class Str implements \Countable, \IteratorAggregate
         return $matches;
     }
 
-    public function match(string $pattern, int $flags = 0, int $offset = 0): self
+    public function match(string $pattern, int $flags = 0, int $offset = 0, bool $end = true): self
     {
         $matches = [];
 
         preg_match($pattern, $this->string, $matches, $flags, $offset);
 
-        return new static(end($matches));
+        return new static($end ? end($matches) : reset($matches));
     }
 
     public function __toString(): string
