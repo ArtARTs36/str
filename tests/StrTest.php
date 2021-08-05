@@ -878,4 +878,24 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($str)->slice($separator, $length, $offset));
     }
+
+    public function providerForTestFromArray(): array
+    {
+        return [
+            [
+                ['a1', 'b2'],
+                '.',
+                'a1.b2',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestFromArray
+     * @covers \ArtARTs36\Str\Str::fromArray
+     */
+    public function testFromArray(array $array, string $separator, string $expected): void
+    {
+        self::assertEquals($expected, Str::fromArray($array, $separator));
+    }
 }

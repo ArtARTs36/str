@@ -32,6 +32,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(static::prepare($string));
     }
 
+    public static function fromArray(array $array, string $separator = ''): self
+    {
+        return static::make(static::joinStrings($array, $separator));
+    }
+
     public static function fromEmpty(): self
     {
         return new static('');
@@ -290,7 +295,7 @@ class Str implements \Countable, \IteratorAggregate
         return empty(trim($this->string));
     }
 
-    public function cut(int $length, int $start = 0): Str
+    public function cut(?int $length, int $start = 0): Str
     {
         return new static(mb_strcut($this->string, $start, $length));
     }
@@ -542,9 +547,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static($string . $delimiter . $this->string);
     }
 
-    protected function joinStrings(array $stringable, string $delimiter = ''): string
+    protected static function joinStrings(array $stringable, string $delimiter = ''): string
     {
-        return implode($delimiter, $this->prepareArray($stringable));
+        return implode($delimiter, static::prepareArray($stringable));
     }
 
     /**
@@ -596,7 +601,7 @@ class Str implements \Countable, \IteratorAggregate
     /**
      * @return array<string>
      */
-    protected function prepareArray(array $array): array
+    protected static function prepareArray(array $array): array
     {
         return array_map('strval', $array);
     }
