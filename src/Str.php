@@ -292,7 +292,7 @@ class Str implements \Countable, \IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return empty(trim($this->string));
+        return $this->string === '';
     }
 
     public function cut(?int $length, int $start = 0): Str
