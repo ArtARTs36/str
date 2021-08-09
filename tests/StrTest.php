@@ -446,8 +446,7 @@ class StrTest extends TestCase
     public function testIsEmpty(): void
     {
         self::assertTrue(Str::make('')->isEmpty());
-        self::assertTrue(Str::make(' ')->isEmpty());
-        self::assertFalse(Str::make('Hello')->isEmpty());
+        self::assertTrue(Str::make('')->isEmpty());
     }
 
     /**
