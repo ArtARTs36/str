@@ -68,6 +68,8 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static Root hasUppercaseSymbols(string $string)
  * @method static Root hasLowercaseSymbols(string $string)
  * @method static Root slice(string $string, string $separator, int $length, int $offset = 0)
+ * @method static string deleteLastLine(string $string)
+ * @method static string getLastLine(string $string)
  */
 class Str
 {

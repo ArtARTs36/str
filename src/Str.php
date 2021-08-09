@@ -410,6 +410,22 @@ class Str implements \Countable, \IteratorAggregate
         return new static($trim ? trim($deleted) : $deleted);
     }
 
+    public function deleteLastLine(): Str
+    {
+        $lines = $this->explodeLines();
+
+        array_pop($lines);
+
+        return new static(implode("\n", $lines));
+    }
+
+    public function getLastLine(): Str
+    {
+        $lines = $this->explodeLines();
+
+        return new static(array_pop($lines));
+    }
+
     public function startsWith(string $needle): bool
     {
         return mb_strpos($this->string, $needle) === 0;
