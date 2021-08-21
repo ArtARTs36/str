@@ -21,6 +21,11 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return Str::make(implode($separator, $this->strs));
     }
 
+    public function implodeAsLines(): Str
+    {
+        return $this->implode("\n");
+    }
+
     /**
      * @return \ArrayIterator|iterable<Str>
      */
