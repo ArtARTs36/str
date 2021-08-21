@@ -81,7 +81,7 @@ class StrCollection implements \IteratorAggregate, \Countable
         return array_map($callback, $this->strs);
     }
 
-    public function first(): ?string
+    public function first(): ?Str
     {
         return $this->strs[array_key_first($this->strs)] ?? null;
     }
