@@ -4,7 +4,7 @@ namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Support\Arr;
 
-class StrCollection implements \IteratorAggregate, \Countable
+class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     protected $strs;
 
@@ -111,5 +111,25 @@ class StrCollection implements \IteratorAggregate, \Countable
     public function toArray(): array
     {
         return $this->strs;
+    }
+
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->strs);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->strs[$offset] ?? null;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new \LogicException('Str Collection is Immutable');
+    }
+
+    public function offsetUnset($offset)
+    {
+        throw new \LogicException('Str Collection is Immutable');
     }
 }
