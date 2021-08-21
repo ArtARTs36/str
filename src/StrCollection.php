@@ -107,4 +107,9 @@ class StrCollection implements \IteratorAggregate, \Countable
             return $str->isNotEmpty();
         }));
     }
+
+    public function toArray(): array
+    {
+        return $this->strs;
+    }
 }
