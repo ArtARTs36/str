@@ -4,6 +4,9 @@ namespace ArtARTs36\Str;
 
 class Tab
 {
+    /**
+     * @param non-empty-array<string> $strings
+     */
     public static function maxLength(array $strings): int
     {
         return max(array_map('mb_strlen', $strings));
