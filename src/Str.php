@@ -97,14 +97,14 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::multiply($this->string, $count, $delimiter));
     }
 
-    public function globalMatch(string $pattern, int $flags = PREG_SET_ORDER, int $offset = 0): StrCollection
+    public function globalMatch(string $pattern, int $flags = PREG_SET_ORDER, int $offset = 0): array
     {
-        return $this->arrayToCollection(StaticString::globalMatch(
+        return StaticString::globalMatch(
             $this->string,
             $pattern,
             $flags,
             $offset
-        ));
+        );
     }
 
     public function match(string $pattern, int $flags = 0, int $offset = 0, bool $end = true): self
