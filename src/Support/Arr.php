@@ -14,4 +14,9 @@ class Arr
 
         return $ords;
     }
+
+    public static function exceptKeys(array $array, array $keys): array
+    {
+        return array_diff_key($array, array_flip($keys));
+    }
 }

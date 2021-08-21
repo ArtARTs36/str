@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\Str;
 
+use ArtARTs36\Str\Support\Arr;
+
 class StrCollection implements \IteratorAggregate, \Countable
 {
     protected $strs;
@@ -92,6 +94,11 @@ class StrCollection implements \IteratorAggregate, \Countable
     public function slice(int $offset, ?int $length = null): self
     {
         return new static(array_slice($this->strs, $offset, $length));
+    }
+
+    public function exceptKeys(array $keys): self
+    {
+        return new static(Arr::exceptKeys($this->strs, $keys));
     }
 
     public function onlyNotEmpty(): self
