@@ -951,12 +951,24 @@ class StrTest extends TestCase
         self::assertEquals("a2", Str::make("a1\na2")->getLastLine());
     }
 
+    public function providerForTestFirstWord(): array
+    {
+        return [
+            ['Hello dev', 'Hello'],
+            ['Hello, dev', 'Hello'],
+            ['Hello,dev', 'Hello'],
+            ['Hello. dev', 'Hello'],
+            ['Hello.dev', 'Hello'],
+        ];
+    }
+
     /**
+     * @dataProvider providerForTestFirstWord
      * @covers \ArtARTs36\Str\Str::firstWord
      * @covers \ArtARTs36\Str\Facade\Str::firstWord
      */
-    public function testFirstWord(): void
+    public function testFirstWord(string $input, string $expected): void
     {
-        self::assertEquals("Hello", Str::make('Hello dev')->firstWord());
+        self::assertEquals($expected, Str::make($input)->firstWord());
     }
 }

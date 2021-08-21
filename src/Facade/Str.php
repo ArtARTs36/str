@@ -394,7 +394,7 @@ class Str
 
     public static function firstWord(string $string): string
     {
-        return explode(static::SEPARATOR_WORD, $string)[0];
+        return static::match($string, '#^([\w\-]+)#i');
     }
 
     public static function swapCase(string $string): string
