@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\Str\Support;
 
+use ArtARTs36\Str\Facade\Str;
+
 trait HasChars
 {
     protected $chars = null;
@@ -19,16 +21,6 @@ trait HasChars
             return $this->chars;
         }
 
-        $chars = [];
-
-        if (function_exists('mb_str_split')) {
-            return $this->chars = mb_str_split($this->__toString());
-        }
-
-        for ($i = 0; $i < $this->count(); $i++) {
-            $chars[] = mb_substr($this->__toString(), $i, 1);
-        }
-
-        return $this->chars = $chars;
+        return $this->chars = Str::chars($this->__toString());
     }
 }

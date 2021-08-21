@@ -19,4 +19,21 @@ class Arr
     {
         return array_diff_key($array, array_flip($keys));
     }
+
+    public static function uniques(array $array): array
+    {
+        return array_values(array_unique($array));
+    }
+
+    public static function withoutLastElement(array $array): array
+    {
+        array_pop($array);
+
+        return $array;
+    }
+
+    public static function last(array $array)
+    {
+        return end($array);
+    }
 }

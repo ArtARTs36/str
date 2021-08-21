@@ -285,7 +285,17 @@ class StrTest extends TestCase
     }
 
     /**
+     * @covers \ArtARTs36\Str\Str::deleteLastLine
+     * @covers \ArtARTs36\Str\Facade\Str::deleteLastLine
+     */
+    public function testDeleteLastLine(): void
+    {
+        self::assertEquals("a1", Str::make("a1\na2\n")->deleteLastLine()->__toString());
+    }
+
+    /**
      * @covers \ArtARTs36\Str\Str::getSequencesByRepeatSymbols
+     * @covers \ArtARTs36\Str\Facade\Str::getSequencesByRepeatSymbols
      */
     public function testGetSequencesByRepeatSymbols(): void
     {
@@ -332,6 +342,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::positions
+     * @covers \ArtARTs36\Str\Facade\Str::positions
      */
     public function testPositions(): void
     {
@@ -787,6 +798,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::hashCode
+     * @covers \ArtARTs36\Str\Facade\Str::hashCode
      */
     public function testHashCode(): void
     {
@@ -928,5 +940,23 @@ class StrTest extends TestCase
     public function testFromArray(array $array, string $separator, string $expected): void
     {
         self::assertEquals($expected, Str::fromArray($array, $separator));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::getLastLine
+     * @covers \ArtARTs36\Str\Facade\Str::getLastLine
+     */
+    public function testGetLastLine(): void
+    {
+        self::assertEquals("a2", Str::make("a1\na2")->getLastLine());
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::firstWord
+     * @covers \ArtARTs36\Str\Facade\Str::firstWord
+     */
+    public function testFirstWord(): void
+    {
+        self::assertEquals("Hello", Str::make('Hello dev')->firstWord());
     }
 }

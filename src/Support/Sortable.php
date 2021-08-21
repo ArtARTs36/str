@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\Str\Support;
 
+use ArtARTs36\Str\Facade\Str;
 use ArtARTs36\Str\Symbol;
 
 trait Sortable
@@ -15,19 +16,11 @@ trait Sortable
 
     public function sortByChars(int $direction = SORT_ASC): self
     {
-        $ords = array_map('ord', $this->chars());
-
-        $sorted = implode('', array_map('chr', Arr::sort($ords, $direction)));
-
-        return new static($sorted);
+        return new static(Str::sortByChars($this->string, $direction));
     }
 
     public function sortByWordsLengths(int $direction = SORT_ASC, bool $excludeDots = false): self
     {
-        $str = $excludeDots ? str_replace(Symbol::DOT, '', $this->__toString()) : $this->__toString();
-
-        $words = Arr::sort(explode(' ', $str), $direction);
-
-        return new static(implode(' ', $words));
+        return new static(Str::sortByWordsLengths($this->string, $direction, $excludeDots));
     }
 }
