@@ -333,3 +333,97 @@ use ArtARTs36\Str\Str;
 
 var_dump(Str::make('Hello')->shuffle());
 ```
+
+---
+
+### Str::getBytes()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->getBytes());
+// [72, 101, 108, 108, 111]
+```
+
+---
+
+### Str::startsWith()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->startsWith('hello'));
+// true
+```
+
+---
+
+### Str::endsWith()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('hello.dev')->endsWith('dev'));
+// true
+```
+
+---
+
+### Str::hashCode()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Hello')->hashCode());
+// 69609650
+```
+
+---
+
+### Str::isDigit()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('123')->isDigit());
+// true
+```
+---
+
+### Str::resize()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Test')->resize(5));
+// 0Test
+```
+
+---
+
+### Str::swapCase()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Test')->swapCase());
+// tEST
+```
+
+### Str::hasUppercaseSymbols()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Artem')->hasUppercaseSymbols()); // true
+var_dump(Str::make('artem')->hasUppercaseSymbols()); // false
+```
+
+### Str::hasLowercaseSymbols()
+
+```php
+use ArtARTs36\Str\Str;
+
+var_dump(Str::make('Artem')->hasLowercaseSymbols()); // true
+var_dump(Str::make('ARTEM')->hasLowercaseSymbols()); // false
+```

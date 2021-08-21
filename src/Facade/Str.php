@@ -49,7 +49,7 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static Root[] sentences(string $string)
  * @method static bool containsAny(string $string, string[] $needles)
  * @method static bool containsAll(string $string, string[] $needles)
- * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0)
+ * @method static string match(string $string, string $pattern, int $flags = 0, int $offset = 0, bool $end = true)
  * @method static Root[] globalMatch(string $string, string $pattern, int $flags = 0, int $offset = 0)
  * @method static Root replace(string $string, string[] $replaces)
  * @method static bool hasLine(string $string, string $needle, bool $trim = true)
@@ -64,6 +64,18 @@ use ArtARTs36\Str\Support\LettersStat;
  * @method static string randomFix(int $length)
  * @method static int getNumbersCountInEnding(string $string)
  * @method static string firstWord(string $string)
+ * @method static int[] getBytes(string $string)
+ * @method static bool startsWith(string $haystack, string $needle)
+ * @method static bool endsWith(string $haystack, string $needle)
+ * @method static int hashCode(string $string)
+ * @method static bool isDigit(string $string)
+ * @method static Root resize(string $string, int $length, string $lack = '0', bool $lackInStart = true)
+ * @method static Root swapCase(string $string)
+ * @method static Root hasUppercaseSymbols(string $string)
+ * @method static Root hasLowercaseSymbols(string $string)
+ * @method static Root slice(string $string, string $separator, int $length, int $offset = 0)
+ * @method static string deleteLastLine(string $string)
+ * @method static string getLastLine(string $string)
  */
 class Str
 {
@@ -76,39 +88,23 @@ class Str
         'createWithAppend',
         'createWithPrepend',
         'joinStrings',
-        'arrayToCollection',
-    ];
-
-    protected const STATIC_METHODS = [
-        'make',
-        'random',
-        'randomFix',
     ];
 
     public static function __callStatic($name, $arguments)
     {
-        if (in_array($name, static::DISALLOWED_METHODS) || ! method_exists(Root::class, $name)) {
+        if (in_array($name, static::DISALLOWED_METHODS) || !method_exists(Root::class, $name)) {
             throw new \BadMethodCallException();
         }
 
-        // Call static Str method
-
-        if (in_array($name, static::STATIC_METHODS)) {
-            return static::prepareResponse(Root::$name(...$arguments));
-        }
-
-        // Call object Str method
+        //
 
         $string = $arguments[0];
         $arguments = array_slice($arguments, 1, count($arguments) - 1);
 
         //
 
-        return static::prepareResponse(Root::make($string)->$name(...$arguments));
-    }
+        $response = Root::make($string)->$name(...$arguments);
 
-    protected static function prepareResponse($response)
-    {
         return $response instanceof Root ? $response->__toString() : $response;
     }
 }

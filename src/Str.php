@@ -46,6 +46,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(implode('', $chars));
     }
 
+    public static function fromArray(array $array, string $separator = ''): self
+    {
+        return static::make(static::joinStrings($array, $separator));
+    }
+
     public static function fromEmpty(): self
     {
         return new static('');
@@ -96,7 +101,7 @@ class Str implements \Countable, \IteratorAggregate
             }
         }
 
-        return empty($number) ? null : $number;
+        return $number === '' ? null : $number;
     }
 
     /**
@@ -151,13 +156,13 @@ class Str implements \Countable, \IteratorAggregate
         return $matches;
     }
 
-    public function match(string $pattern, int $flags = 0, int $offset = 0): self
+    public function match(string $pattern, int $flags = 0, int $offset = 0, bool $end = true): self
     {
         $matches = [];
 
         preg_match($pattern, $this->string, $matches, $flags, $offset);
 
-        return new static(end($matches));
+        return new static($end ? end($matches) : reset($matches));
     }
 
     public function __toString(): string
@@ -323,10 +328,10 @@ class Str implements \Countable, \IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return empty(trim($this->string));
+        return $this->string === '';
     }
 
-    public function cut(int $length, int $start = 0): Str
+    public function cut(?int $length, int $start = 0): Str
     {
         return new static(mb_strcut($this->string, $start, $length));
     }
@@ -346,6 +351,14 @@ class Str implements \Countable, \IteratorAggregate
         return $this->substring(1, $this->count());
     }
 
+    /**
+     * @return array<int>
+     */
+    public function getBytes(): array
+    {
+        return array_values(unpack('C*', $this->string));
+    }
+
     public function deleteRepeatSymbolInEnding(string $symbol): Str
     {
         if ($this->lastSymbol() !== $symbol) {
@@ -362,6 +375,13 @@ class Str implements \Countable, \IteratorAggregate
     public function explode(string $sep): StrCollection
     {
         return $this->arrayToCollection(explode($sep, $this->string));
+    }
+
+    public function slice(string $separator, int $length, int $offset = 0): self
+    {
+        $parts = explode($separator, $this->string);
+
+        return new static(implode($separator, array_slice($parts, $offset, $length)));
     }
 
     public function getSequencesByRepeatSymbols(): array
@@ -438,6 +458,32 @@ class Str implements \Countable, \IteratorAggregate
         return new static($trim ? trim($deleted) : $deleted);
     }
 
+    public function deleteLastLine(): Str
+    {
+        $lines = $this->explodeLines();
+
+        array_pop($lines);
+
+        return new static(implode("\n", $lines));
+    }
+
+    public function getLastLine(): Str
+    {
+        $lines = $this->explodeLines();
+
+        return new static(array_pop($lines));
+    }
+
+    public function startsWith(string $needle): bool
+    {
+        return mb_strpos($this->string, $needle) === 0;
+    }
+
+    public function endsWith(string $needle): bool
+    {
+        return mb_strpos($this->string, $needle, -\mb_strlen($needle)) !== false;
+    }
+
     /**
      * @param array<string, string> $replaces
      */
@@ -478,6 +524,63 @@ class Str implements \Countable, \IteratorAggregate
         return new static($first . mb_substr($str, 1));
     }
 
+    /**
+     * https://stackoverflow.com/questions/8804875/php-internal-hashcode-function
+     */
+    public function hashCode(): string
+    {
+        $hash = 0;
+
+        foreach ($this->chars() as $char) {
+            $hash = $this->overflowInteger(31 * $hash + mb_ord($char));
+        }
+
+        return $hash;
+    }
+
+    public function hasUppercaseSymbols(): bool
+    {
+        return $this->prepareToLower($this->string) !== $this->string;
+    }
+
+    public function hasLowercaseSymbols(): bool
+    {
+        return mb_strtoupper($this->string, static::DEFAULT_ENCODING) !== $this->string;
+    }
+
+    public function isDigit(): bool
+    {
+        return is_numeric($this->string);
+    }
+
+    public function resize(int $length, string $lack = '0', bool $lackInStart = true): self
+    {
+        if ($this->count() === $length) {
+            return clone $this;
+        }
+
+        if ($length > $this->count()) {
+            $repeat = str_repeat($lack, $length - $this->count());
+
+            return new static($lackInStart ? ($repeat . $this->string) : ($this->string . $repeat));
+        }
+
+        return $this->substring(0, $length);
+    }
+
+    protected function overflowInteger(int $value): int
+    {
+        $remainder = $value % 4294967296;
+
+        if ($remainder > 2147483647) {
+            return $remainder - 4294967296;
+        } elseif ($remainder < -2147483648) {
+            return $remainder + 4294967296;
+        }
+
+        return $remainder;
+    }
+
     public function isNotEmpty(): bool
     {
         return ! $this->isEmpty();
@@ -498,6 +601,11 @@ class Str implements \Countable, \IteratorAggregate
         return $this->append("\n$line");
     }
 
+    public function swapCase(): self
+    {
+        return new static(mb_strtolower($this->string) ^ mb_strtoupper($this->string) ^ $this->string);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
@@ -508,9 +616,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static($string . $delimiter . $this->string);
     }
 
-    protected function joinStrings(array $stringable, string $delimiter = ''): string
+    protected static function joinStrings(array $stringable, string $delimiter = ''): string
     {
-        return implode($delimiter, $this->prepareArray($stringable));
+        return implode($delimiter, static::prepareArray($stringable));
     }
 
     /**
@@ -546,15 +654,12 @@ class Str implements \Countable, \IteratorAggregate
      */
     protected static function prepare($string): string
     {
-        if (is_string($string)) {
-            return $string;
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $string->__toString();
-        } elseif (is_numeric($string)) {
+        if (is_string($string) || is_numeric($string) ||
+            (is_object($string) && method_exists($string, '__toString'))) {
             return (string) $string;
-        } else {
-            throw new \LogicException('Type not access');
         }
+
+        throw new \LogicException('Type not access');
     }
 
     protected function explodeLines(): array
@@ -565,7 +670,7 @@ class Str implements \Countable, \IteratorAggregate
     /**
      * @return array<string>
      */
-    protected function prepareArray(array $array): array
+    protected static function prepareArray(array $array): array
     {
         return array_map('strval', $array);
     }
@@ -575,11 +680,8 @@ class Str implements \Countable, \IteratorAggregate
      */
     protected function edit($string, callable $edit, string $delimiter = ''): Str
     {
-        if (is_string($string)) {
-            return $edit($string, $delimiter);
-        } elseif (is_object($string) && method_exists($string, '__toString')) {
-            return $edit($string->__toString(), $delimiter);
-        } elseif (is_numeric($string)) {
+        if (is_string($string) || is_numeric($string) ||
+            (is_object($string) && method_exists($string, '__toString'))) {
             return $edit((string) $string, $delimiter);
         } elseif (is_array($string)) {
             return $edit($this->joinStrings($string, $delimiter), $delimiter);

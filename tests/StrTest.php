@@ -177,6 +177,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::append
+     * @covers \ArtARTs36\Str\Str::edit
      */
     public function testAppend(): void
     {
@@ -389,6 +390,7 @@ class StrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\Str\Str::prepend
+     * @covers \ArtARTs36\Str\Str::edit
      */
     public function testPrepend(): void
     {
@@ -469,8 +471,7 @@ class StrTest extends TestCase
     public function testIsEmpty(): void
     {
         self::assertTrue(Str::make('')->isEmpty());
-        self::assertTrue(Str::make(' ')->isEmpty());
-        self::assertFalse(Str::make('Hello')->isEmpty());
+        self::assertTrue(Str::make('')->isEmpty());
     }
 
     /**
@@ -713,5 +714,219 @@ class StrTest extends TestCase
     public function testContains(string $haystack, string $needle, bool $state): void
     {
         self::assertEquals($state, Str::make($haystack)->contains($needle));
+    }
+
+    public function providerForTestGetBytes(): array
+    {
+        return [
+            [
+                'Hello',
+                [72, 101, 108, 108, 111],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestGetBytes
+     * @covers \ArtARTs36\Str\Str::getBytes
+     */
+    public function testGetBytes(string $str, array $bytes): void
+    {
+        self::assertEquals($bytes, Str::make($str)->getBytes());
+    }
+
+    public function providerForTestStartsWith(): array
+    {
+        return [
+            [
+                'Hello',
+                'Hel',
+                true
+            ],
+            [
+                '__abcd',
+                'ab',
+                false,
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestStartsWith
+     * @covers \ArtARTs36\Str\Str::startsWith
+     */
+    public function testStartsWith(string $haystack, string $needle, bool $condition): void
+    {
+        self::assertSame($condition, Str::make($haystack)->startsWith($needle));
+    }
+
+    public function providerForTestEndsWith(): array
+    {
+        return [
+            [
+                'Hello',
+                'lo',
+                true
+            ],
+            [
+                '__abcd',
+                'cd',
+                true,
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestEndsWith
+     * @covers \ArtARTs36\Str\Str::endsWith
+     */
+    public function testEndsWith(string $haystack, string $needle, bool $condition): void
+    {
+        self::assertSame($condition, Str::make($haystack)->endsWith($needle));
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::hashCode
+     */
+    public function testHashCode(): void
+    {
+        self::assertEquals(69609650, Str::make('Hello')->hashCode());
+    }
+
+    public function providerForTestResize(): array
+    {
+        return [
+            [
+                'Test',
+                3,
+                'Tes',
+                '0',
+                true,
+            ],
+            [
+                'Test',
+                5,
+                '0Test',
+                '0',
+                true,
+            ],
+            [
+                'Test',
+                4,
+                'Test',
+                '0',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestResize
+     * @covers \ArtARTs36\Str\Str::resize
+     */
+    public function testResize(string $input, int $length, string $expected, string $lack, bool $lackInStart): void
+    {
+        self::assertEquals($expected, Str::make($input)->resize($length, $lack, $lackInStart));
+    }
+
+    public function providerForTestSwapCase(): array
+    {
+        return [
+            [
+                'HEllo',
+                'heLLO',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestSwapCase
+     * @covers \ArtARTs36\Str\Str::swapCase
+     */
+    public function testSwapCase(string $input, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->swapCase());
+    }
+
+    public function providerForTestHasUppercaseSymbols(): array
+    {
+        return [
+            ['Artem', true],
+            ['artem', false],
+            ['артем', false],
+            ['Артем', true],
+            ['ARTEM', true],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestHasUppercaseSymbols
+     * @covers \ArtARTs36\Str\Str::hasUppercaseSymbols
+     */
+    public function testHasUppercaseSymbols(string $string, bool $state): void
+    {
+        self::assertSame($state, Str::make($string)->hasUppercaseSymbols());
+    }
+
+    public function providerForTestHasLowercaseSymbols(): array
+    {
+        return [
+            ['Artem', true],
+            ['artem', true],
+            ['артем', true],
+            ['Артем', true],
+            ['ARTEM', false],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestHasLowercaseSymbols
+     * @covers \ArtARTs36\Str\Str::hasLowercaseSymbols
+     */
+    public function testHasLowercaseSymbols(string $string, bool $state): void
+    {
+        self::assertSame($state, Str::make($string)->hasLowercaseSymbols());
+    }
+
+    public function providerForTestSlice(): array
+    {
+        return [
+            [
+                'master.branch.remote.url.one',
+                '.',
+                -1,
+                0,
+                'master.branch.remote.url',
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestSlice
+     * @covers \ArtARTs36\Str\Str::slice
+     */
+    public function testSlice(string $str, string $separator, int $length, int $offset, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->slice($separator, $length, $offset));
+    }
+
+    public function providerForTestFromArray(): array
+    {
+        return [
+            [
+                ['a1', 'b2'],
+                '.',
+                'a1.b2',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestFromArray
+     * @covers \ArtARTs36\Str\Str::fromArray
+     */
+    public function testFromArray(array $array, string $separator, string $expected): void
+    {
+        self::assertEquals($expected, Str::fromArray($array, $separator));
     }
 }
