@@ -296,9 +296,12 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::slice($this->string, $separator, $length, $offset));
     }
 
-    public function getSequencesByRepeatSymbols(): StrCollection
+    /**
+     * @return array<<array<string>>
+     */
+    public function getSequencesByRepeatSymbols(): array
     {
-        return $this->arrayToCollection(StaticString::getSequencesByRepeatSymbols($this->string));
+        return StaticString::getSequencesByRepeatSymbols($this->string);
     }
 
     /**

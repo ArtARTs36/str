@@ -274,6 +274,9 @@ class Str
         return Arr::last(static::lines($string));
     }
 
+    /**
+     * @return array<<array<string>>
+     */
     public static function getSequencesByRepeatSymbols(string $string): array
     {
         $prev = '';
