@@ -118,6 +118,11 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return $this->strs;
     }
 
+    public function maxLength(): int
+    {
+        return max(...$this->mapToArray('mb_strlen'));
+    }
+
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->strs);

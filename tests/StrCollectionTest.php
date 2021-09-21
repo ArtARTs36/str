@@ -82,4 +82,23 @@ class StrCollectionTest extends TestCase
             3,
         ], (new StrCollection($strings))->toIntegers());
     }
+
+    public function providerForTestMaxLength(): array
+    {
+        return [
+            [
+                ['1', '22', '333', '4444', '55555', 'AAA', 'ИИИИИИ'],
+                6,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\StrCollection::maxLength
+     * @dataProvider providerForTestMaxLength
+     */
+    public function testMaxLength(array $strings, int $expected): void
+    {
+        self::assertEquals($expected, (new StrCollection($strings))->maxLength());
+    }
 }
