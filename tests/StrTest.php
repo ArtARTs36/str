@@ -971,4 +971,25 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($input)->firstWord());
     }
+
+    public function providerForTestToSnakeCase(): array
+    {
+        return [
+            ['Artem', 'artem'],
+            ['Artem Ukrainsky', 'artem_ukrainsky'],
+            ['Artem-Ukrainsky', 'artem_ukrainsky'],
+            ['Artem.Ukrainsky', 'artem_ukrainsky'],
+            ['Artem+Ukrainsky', 'artem_ukrainsky'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestToSnakeCase
+     * @covers \ArtARTs36\Str\Str::toSnakeCase
+     * @covers \ArtARTs36\Str\Facade\Str::toSnakeCase
+     */
+    public function testToSnakeCase(string $input, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->toSnakeCase());
+    }
 }

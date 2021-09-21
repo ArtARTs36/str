@@ -590,4 +590,19 @@ class Str
 
         return implode(' ', $words);
     }
+
+    public static function toSnakeCase(string $string, string $separator = '_'): string
+    {
+        $matches = static::globalMatch(
+            $string,
+            '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!',
+            PREG_PATTERN_ORDER
+        )[0];
+
+        foreach ($matches as &$match) {
+            $match = static::isUpper($match) ? static::toLower($match) : lcfirst($match);
+        }
+
+        return implode($separator, $matches);
+    }
 }

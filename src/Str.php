@@ -430,6 +430,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::swapCase($this->string));
     }
 
+    public function toSnakeCase(string $separator = '_'): self
+    {
+        return new static(StaticString::toSnakeCase($this->string, $separator));
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
