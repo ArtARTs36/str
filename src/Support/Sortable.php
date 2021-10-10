@@ -3,7 +3,6 @@
 namespace ArtARTs36\Str\Support;
 
 use ArtARTs36\Str\Facade\Str;
-use ArtARTs36\Str\Symbol;
 
 trait Sortable
 {

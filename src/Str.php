@@ -327,6 +327,9 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::getNumbersCountInEnding($this->string);
     }
 
+    /**
+     * @return \ArrayIterator<string>
+     */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->chars());
