@@ -431,6 +431,16 @@ class Str implements \Countable, \IteratorAggregate
         return $this->append("\n$line");
     }
 
+    public function leftTrim(string $characters = " \t\n\r\0\x0B"): Str
+    {
+        return new static(ltrim($this->string, $characters));
+    }
+
+    public function rightTrim(string $characters = " \t\n\r\0\x0B"): Str
+    {
+        return new static(rtrim($this->string, $characters));
+    }
+
     public function swapCase(): self
     {
         return new static(StaticString::swapCase($this->string));
