@@ -128,22 +128,22 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return max(...$this->mapToArray('mb_strlen'));
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->strs);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): ?Str
     {
         return $this->strs[$offset] ?? null;
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \LogicException('Str Collection is Immutable');
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \LogicException('Str Collection is Immutable');
     }
