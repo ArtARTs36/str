@@ -101,4 +101,35 @@ class StrCollectionTest extends TestCase
     {
         self::assertEquals($expected, (new StrCollection($strings))->maxLength());
     }
+
+    public function providerForTestToSentence(): array
+    {
+        return [
+            [
+                [
+                    'hello',
+                    'dev',
+                    'Artem',
+                ],
+                'Hello dev Artem.',
+            ],
+            [
+                [
+                    'hello',
+                    'dev',
+                    'Artem.',
+                ],
+                'Hello dev Artem.',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestToSentence
+     * @covers \ArtARTs36\Str\StrCollection::toSentence
+     */
+    public function testToSentence(array $strings, string $expected): void
+    {
+        self::assertEquals($expected, (new StrCollection($strings))->toSentence());
+    }
 }

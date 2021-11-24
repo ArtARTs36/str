@@ -128,6 +128,11 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return max(...$this->mapToArray('mb_strlen'));
     }
 
+    public function toSentence(): Str
+    {
+        return $this->implode(' ')->rightTrim('.')->upFirstSymbol()->append('.');
+    }
+
     public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->strs);
