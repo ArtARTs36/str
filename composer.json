@@ -22,6 +22,11 @@
             "ArtARTs36\\Str\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ArtARTs36\\Str\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "lint": [
             "./vendor/bin/phpcs --standard=PSR2 src/",
