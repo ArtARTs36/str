@@ -992,4 +992,35 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($input)->toSnakeCase());
     }
+
+    public function providerForTestSplitByDifferentCases(): array
+    {
+        return [
+            [
+                'helloDevArtem',
+                [
+                    'hello',
+                    'Dev',
+                    'Artem',
+                ],
+            ],
+            [
+                'HelloDevArtem',
+                [
+                    'Hello',
+                    'Dev',
+                    'Artem',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestSplitByDifferentCases
+     * @covers \ArtARTs36\Str\Str::splitByDifferentCases
+     */
+    public function testSplitByDifferentCases(string $string, array $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->splitByDifferentCases()->toStrings());
+    }
 }

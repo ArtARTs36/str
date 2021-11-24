@@ -608,4 +608,16 @@ class Str
 
         return implode($separator, $matches);
     }
+
+    /**
+     * @return array<string>
+     */
+    public static function splitByDifferentCases(string $string): array
+    {
+        return static::globalMatch(
+            $string,
+            '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!',
+            PREG_PATTERN_ORDER
+        )[0] ?? [];
+    }
 }
