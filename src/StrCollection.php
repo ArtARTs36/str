@@ -96,7 +96,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return $this->strs[array_key_first($this->strs)] ?? null;
     }
 
-    public function last(): ?string
+    public function last(): ?Str
     {
         return end($this->strs);
     }
