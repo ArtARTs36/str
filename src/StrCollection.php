@@ -85,7 +85,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
             return $str->toInteger();
         });
     }
-    
+
     public function mapToArray(callable $callback): array
     {
         return array_map($callback, $this->strs);

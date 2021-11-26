@@ -334,7 +334,7 @@ class StrTest extends TestCase
                 'O',
                 'O',
                 'O',
-            ]
+            ],
         ];
 
         self::assertEquals($expected, Str::make($string)->getSequencesByRepeatSymbols());
@@ -523,7 +523,7 @@ class StrTest extends TestCase
             [
                 'Hello Artem',
                 'Hello Artem',
-            ]
+            ],
         ];
     }
 
@@ -752,13 +752,13 @@ class StrTest extends TestCase
             [
                 'Hello',
                 'Hel',
-                true
+                true,
             ],
             [
                 '__abcd',
                 'ab',
                 false,
-            ]
+            ],
         ];
     }
 
@@ -777,13 +777,13 @@ class StrTest extends TestCase
             [
                 'Hello',
                 'lo',
-                true
+                true,
             ],
             [
                 '__abcd',
                 'cd',
                 true,
-            ]
+            ],
         ];
     }
 
@@ -909,7 +909,7 @@ class StrTest extends TestCase
                 -1,
                 0,
                 'master.branch.remote.url',
-            ]
+            ],
         ];
     }
 
@@ -1022,5 +1022,35 @@ class StrTest extends TestCase
     public function testSplitByDifferentCases(string $string, array $expected): void
     {
         self::assertEquals($expected, Str::make($string)->splitByDifferentCases()->toStrings());
+    }
+
+    public function providerForTestDeleteWhenEnds(): array
+    {
+        return [
+            [
+                '12345678',
+                '78',
+                '123456',
+            ],
+            [
+                '1234',
+                '56',
+                '1234',
+            ],
+            [
+                'hello artem hello artem hello art',
+                'art',
+                'hello artem hello artem hello ',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestDeleteWhenEnds
+     * @covers \ArtARTs36\Str\Str::deleteWhenEnds
+     */
+    public function testDeleteWhenEnds(string $haystack, string $needle, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($haystack)->deleteWhenEnds($needle));
     }
 }

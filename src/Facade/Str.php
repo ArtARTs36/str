@@ -620,4 +620,15 @@ class Str
             PREG_PATTERN_ORDER
         )[0] ?? [];
     }
+
+    public static function deleteWhenEnds(string $haystack, string $needle): string
+    {
+        $pos = mb_strpos($haystack, $needle, -\mb_strlen($needle));
+
+        if ($pos === false) {
+            return $haystack;
+        }
+
+        return mb_substr($haystack, 0, $pos);
+    }
 }

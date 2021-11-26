@@ -456,6 +456,11 @@ class Str implements \Countable, \IteratorAggregate
         return $this->arrayToCollection(StaticString::splitByDifferentCases($this->string));
     }
 
+    public function deleteWhenEnds(string $needle): Str
+    {
+        return new static(StaticString::deleteWhenEnds($this->string, $needle));
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
