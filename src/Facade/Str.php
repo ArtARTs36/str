@@ -623,7 +623,13 @@ class Str
 
     public static function deleteWhenEnds(string $haystack, string $needle): string
     {
-        $pos = mb_strpos($haystack, $needle, -\mb_strlen($needle));
+        $needleLength = static::length($needle);
+
+        if (static::length($haystack) < $needleLength) {
+            return $haystack;
+        }
+
+        $pos = mb_strpos($haystack, $needle, -$needleLength);
 
         if ($pos === false) {
             return $haystack;

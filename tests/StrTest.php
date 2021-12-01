@@ -1042,6 +1042,11 @@ class StrTest extends TestCase
                 'art',
                 'hello artem hello artem hello ',
             ],
+            [
+                'hello',
+                'eeeeeeeee',
+                'hello',
+            ],
         ];
     }
 
