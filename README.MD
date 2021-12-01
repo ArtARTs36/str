@@ -53,7 +53,7 @@ var_dump(Str::make("test")->count()); // 4
 ```php
 use ArtARTs36\Str\Str;
 
-var_dump(Str::make("Test")->toLower()); // Test
+var_dump(Str::make("Test")->toLower()); // test
 ```
 
 ---
