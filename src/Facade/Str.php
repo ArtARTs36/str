@@ -631,4 +631,17 @@ class Str
 
         return mb_substr($haystack, 0, $pos);
     }
+
+    /**
+     * @link https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+     * @return array<string>
+     */
+    public static function findUris(string $string): array
+    {
+        return static::globalMatch(
+            $string,
+            '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/i',
+                PREG_PATTERN_ORDER
+        )[0] ?? [];
+    }
 }

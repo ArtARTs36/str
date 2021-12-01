@@ -1053,4 +1053,32 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($haystack)->deleteWhenEnds($needle));
     }
+
+    public function providerForTestFindUris(): array
+    {
+        return [
+            [
+                '1232423423 https://site.ru',
+                ['https://site.ru'],
+            ],
+            [
+                '1232423423 https://site.ru and http://vk.com fefwef',
+                ['https://site.ru', 'http://vk.com'],
+            ],
+            [
+                '1232423423 https://site.ru and http://vk.com/artem_arts36',
+                ['https://site.ru', 'http://vk.com/artem_arts36'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestFindUris
+     * @covers \ArtARTs36\Str\Str::findUris
+     * @covers \ArtARTs36\Str\Facade\Str::findUris
+     */
+    public function testFindUris(string $string, array $expectedLinks): void
+    {
+        self::assertEquals($expectedLinks, Str::make($string)->findUris()->toArray());
+    }
 }

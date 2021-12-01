@@ -461,6 +461,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::deleteWhenEnds($this->string, $needle));
     }
 
+    public function findUris(): StrCollection
+    {
+        return $this->arrayToCollection(StaticString::findUris($this->string));
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
