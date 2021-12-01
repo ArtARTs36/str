@@ -647,7 +647,7 @@ class Str
         return static::globalMatch(
             $string,
             '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/i',
-                PREG_PATTERN_ORDER
+            PREG_PATTERN_ORDER
         )[0] ?? [];
     }
 }
