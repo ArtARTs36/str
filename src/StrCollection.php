@@ -133,6 +133,13 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return $this->implode(' ')->rightTrim('.')->upFirstSymbol()->append('.');
     }
 
+    public function toLower(): self
+    {
+        return $this->map(function (Str $str) {
+            return $str->toLower();
+        });
+    }
+
     public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->strs);
