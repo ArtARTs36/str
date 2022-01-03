@@ -56,7 +56,7 @@ class ExampleBuilder
 
                 $testSet = $testInstance->$dataMethod()[0];
 
-                $examples[] = new Example(
+                $examples[$coversClass][] = new Example(
                     $coversClass,
                     $coversMethod,
                     array_slice($testSet, 0, -1),
