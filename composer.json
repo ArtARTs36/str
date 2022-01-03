@@ -24,7 +24,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ArtARTs36\\Str\\Tests\\": "tests/"
+            "ArtARTs36\\Str\\Tests\\": "tests/",
+            "ArtARTs36\\Str\\Docs\\": "docs/Builder"
         }
     },
     "scripts": {

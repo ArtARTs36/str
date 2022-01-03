@@ -27,6 +27,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static($string);
     }
 
+    /**
+     * Create instance from random symbols.
+     */
     public static function random(int $maxLength = 6): self
     {
         return new static(StaticString::random($maxLength));

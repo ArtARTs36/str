@@ -6,7 +6,10 @@ use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
 use ArtARTs36\Str\Str;
 use PHPUnit\Framework\TestCase;
 
-class StrTest extends TestCase
+/**
+ * @covers \ArtARTs36\Str\Str
+ */
+final class StrTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\Str\Str::make
