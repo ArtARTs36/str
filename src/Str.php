@@ -31,6 +31,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static($string);
     }
 
+    /**
+     * Create instance from random symbols.
+     */
     public static function random(int $maxLength = 6): self
     {
         return new static(StaticString::random($maxLength));
@@ -49,6 +52,9 @@ class Str implements \Countable, \IteratorAggregate
         return static::make(static::joinStrings($array, $separator));
     }
 
+    /**
+     * Create instance from empty string.
+     */
     public static function fromEmpty(): self
     {
         return new static('');
@@ -71,11 +77,17 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::deleteAllLetters($this->string));
     }
 
+    /**
+     * Cast value to integer.
+     */
     public function toInteger(): int
     {
         return StaticString::toInteger($this->string);
     }
 
+    /**
+     * Cast value to float.
+     */
     public function toFloat(): ?float
     {
         return StaticString::toFloat($this->string);

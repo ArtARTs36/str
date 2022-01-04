@@ -13,6 +13,9 @@ class Str
     public const SEPARATOR_WORD = ' ';
     public const REGEX_SENTENCE = '/([^\\'. Symbol::DOT . ']*)/';
 
+    /**
+     * Create string from random symbols.
+     */
     public static function random(int $maxLength = 6): string
     {
         return random_bytes($maxLength);
@@ -41,6 +44,9 @@ class Str
         return $replaced === null ? '' : $replaced;
     }
 
+    /**
+     * Cast value to integer.
+     */
     public static function toInteger(string $string): int
     {
         return (int) static::match($string, '/([\+-]?\d+)([eE][\+-]?\d+)?/i');
@@ -567,6 +573,9 @@ class Str
         return static::explode($string, static::SEPARATOR_WORD);
     }
 
+    /**
+     * Cast value to float.
+     */
     public static function toFloat(string $string): ?float
     {
         if (static::isDigit($string)) {
