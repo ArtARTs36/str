@@ -17,7 +17,7 @@ class Str implements \Countable, \IteratorAggregate
 
     protected $string;
 
-    public function __construct(string $string)
+    final public function __construct(string $string)
     {
         $this->string = $string;
     }
@@ -286,18 +286,24 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::deleteRepeatSymbolInEnding($this->string, $symbol));
     }
 
+    /**
+     * @param non-empty-string $sep
+     */
     public function explode(string $sep): StrCollection
     {
         return $this->arrayToCollection(StaticString::explode($this->string, $sep));
     }
 
+    /**
+     * @param non-empty-string $separator
+     */
     public function slice(string $separator, int $length, int $offset = 0): self
     {
         return new static(StaticString::slice($this->string, $separator, $length, $offset));
     }
 
     /**
-     * @return array<<array<string>>
+     * @return array<array<string>>
      */
     public function getSequencesByRepeatSymbols(): array
     {

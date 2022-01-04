@@ -215,6 +215,9 @@ class Str
         return static::toLower($string) === $string;
     }
 
+    /**
+     * @param non-empty-string $separator
+     */
     public static function slice(string $string, string $separator, int $length, int $offset = 0): string
     {
         $parts = explode($separator, $string);
@@ -223,6 +226,7 @@ class Str
     }
 
     /**
+     * @param non-empty-string $separator
      * @return array<string>
      */
     public static function explode(string $string, string $separator): array
@@ -275,7 +279,7 @@ class Str
     }
 
     /**
-     * @return array<<array<string>>
+     * @return array<array<string>>
      */
     public static function getSequencesByRepeatSymbols(string $string): array
     {
@@ -548,11 +552,11 @@ class Str
             } elseif ($input && $char === '.') {
                 $number .= '.';
             } elseif ($input) {
-                return $number;
+                return (float) $number;
             }
         }
 
-        return $number === '' ? null : $number;
+        return $number === '' ? null : (float) $number;
     }
 
     public static function hasUppercaseSymbols(string $string): bool

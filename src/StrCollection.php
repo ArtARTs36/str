@@ -11,7 +11,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * @param array<Str> $strings
      */
-    public function __construct(array $strings)
+    final public function __construct(array $strings)
     {
         $this->strs = $strings;
     }
