@@ -6,6 +6,7 @@ use ArtARTs36\Str\Facade\Str;
 
 trait HasChars
 {
+    /** @var array<string>|null */
     protected $chars = null;
 
     abstract public function __toString(): string;

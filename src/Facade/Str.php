@@ -69,6 +69,9 @@ class Str
         return mb_strlen($string);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function chars(string $string): array
     {
         $chars = [];
@@ -158,6 +161,9 @@ class Str
         return $count;
     }
 
+    /**
+     * @param array<string|\Stringable> $subs
+     */
     public static function delete(string $string, array $subs, bool $trim = false): string
     {
         $deleted = str_replace(array_map('strval', $subs), '', $string);
@@ -234,6 +240,9 @@ class Str
         return explode($separator, $string);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function lines(string $string): array
     {
         return static::explode($string, "\n");
@@ -263,11 +272,17 @@ class Str
         return static::implodeLines(Arr::withoutLastElement(static::lines(static::trim($string))));
     }
 
+    /**
+     * @param array<string> $lines
+     */
     public static function implodeLines(array $lines): string
     {
         return static::implode("\n", $lines);
     }
 
+    /**
+     * @param array<string> $parts
+     */
     public static function implode(string $separator, array $parts): string
     {
         return implode($separator, $parts);
@@ -409,6 +424,9 @@ class Str
         return mb_strtolower($string) ^ mb_strtoupper($string) ^ $string;
     }
 
+    /**
+     * @return array<string>
+     */
     public static function sentences(string $string): array
     {
         $matches = [];
@@ -418,6 +436,9 @@ class Str
         return array_values(array_filter($matches[0]));
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function globalMatch(
         string $string,
         string $pattern,
@@ -531,6 +552,9 @@ class Str
         return static::substring($string, 0, $length);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function words(string $string): array
     {
         return static::explode($string, static::SEPARATOR_WORD);

@@ -14,6 +14,7 @@ class Tab
 
     /**
      * @param non-empty-array<string> $strings
+     * @return array<string>
      */
     public static function addSpaces(array $strings, string $symbol = ' '): array
     {

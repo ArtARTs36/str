@@ -8,6 +8,9 @@ use ArtARTs36\Str\Support\LettersStat;
 use ArtARTs36\Str\Support\Sortable;
 use ArtARTs36\Str\Facade\Str as StaticString;
 
+/**
+ * @template-implements \IteratorAggregate<string>
+ */
 class Str implements \Countable, \IteratorAggregate
 {
     use Sortable;
@@ -15,6 +18,7 @@ class Str implements \Countable, \IteratorAggregate
 
     protected const DEFAULT_ENCODING = 'UTF-8';
 
+    /** @var string */
     protected $string;
 
     final public function __construct(string $string)
@@ -37,6 +41,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::randomFix($length));
     }
 
+    /**
+     * @param array<string|\Stringable> $array
+     */
     public static function fromArray(array $array, string $separator = ''): self
     {
         return static::make(static::joinStrings($array, $separator));
@@ -97,6 +104,9 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::multiply($this->string, $count, $delimiter));
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function globalMatch(string $pattern, int $flags = PREG_SET_ORDER, int $offset = 0): array
     {
         return StaticString::globalMatch(
@@ -334,13 +344,16 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator<string>
+     * @return \ArrayIterator<int, string>
      */
     public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->chars());
     }
 
+    /**
+     * @param array<string|\Stringable> $subs
+     */
     public function delete(array $subs, bool $trim = false): Str
     {
         return new static(StaticString::delete($this->string, $subs, $trim));
@@ -482,12 +495,16 @@ class Str implements \Countable, \IteratorAggregate
         return new static($string . $delimiter . $this->string);
     }
 
+    /**
+     * @param array<string|\Stringable> $stringable
+     */
     protected static function joinStrings(array $stringable, string $delimiter = ''): string
     {
         return implode($delimiter, static::prepareArray($stringable));
     }
 
     /**
+     * @param array<string|\Stringable> $array
      * @return array<string>
      */
     protected static function prepareArray(array $array): array
@@ -496,7 +513,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param string|\Stringable|int|float|array $string
+     * @param string|\Stringable|int|float|array<string> $string
      */
     protected function edit($string, callable $edit, string $delimiter = ''): Str
     {
@@ -510,6 +527,9 @@ class Str implements \Countable, \IteratorAggregate
         throw new \LogicException('Type not access');
     }
 
+    /**
+     * @param array<string> $array
+     */
     protected function arrayToCollection(array $array): StrCollection
     {
         return new StrCollection(array_map(function (string $string) {

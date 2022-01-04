@@ -2,8 +2,12 @@
 
 namespace ArtARTs36\Str\Support;
 
+/**
+ * @template-implements \IteratorAggregate<string, int>
+ */
 class LettersStat implements \Countable, \IteratorAggregate
 {
+    /** @var array<string, int> */
     protected $dict;
 
     /**
@@ -74,12 +78,18 @@ class LettersStat implements \Countable, \IteratorAggregate
         return count($this->dict);
     }
 
+    /**
+     * @return array<string, int>
+     */
     public function getDict(): array
     {
         return $this->dict;
     }
 
-    public function getIterator()
+    /**
+     * @return \Traversable<string, int>
+     */
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->dict);
     }

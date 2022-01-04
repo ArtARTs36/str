@@ -4,8 +4,13 @@ namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Support\Arr;
 
+/**
+ * @template-implements \IteratorAggregate<Str>
+ * @template-implements \ArrayAccess<int, Str>
+ */
 class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 {
+    /** @var array<Str> */
     protected $strs;
 
     /**
@@ -27,9 +32,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
-     * @return \ArrayIterator|iterable<Str>
+     * @return \Traversable<Str>
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->strs);
     }
@@ -59,6 +64,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new static(array_map($callback, $this->strs));
     }
 
+    /**
+     * @return array<string>
+     */
     public function toStrings(): array
     {
         return array_map('strval', $this->strs);
@@ -86,6 +94,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         });
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function mapToArray(callable $callback): array
     {
         return array_map($callback, $this->strs);
@@ -106,6 +117,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new static(array_slice($this->strs, $offset, $length));
     }
 
+    /**
+     * @param array<int> $keys
+     */
     public function exceptKeys(array $keys): self
     {
         return new static(Arr::exceptKeys($this->strs, $keys));
@@ -118,6 +132,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         }));
     }
 
+    /**
+     * @return array<Str>
+     */
     public function toArray(): array
     {
         return $this->strs;
@@ -140,21 +157,34 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         });
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->strs);
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetGet($offset): ?Str
     {
         return $this->strs[$offset] ?? null;
     }
 
+    /**
+     * @param int $offset
+     * @param Str $value
+     */
     public function offsetSet($offset, $value): void
     {
         throw new \LogicException('Str Collection is Immutable');
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetUnset($offset): void
     {
         throw new \LogicException('Str Collection is Immutable');
