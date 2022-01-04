@@ -81,7 +81,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function filter(?callable $callback = null): self
     {
-        return new static(array_filter($this->strs, $callback));
+        $filtered = $callback === null ? array_filter($this->strs) : array_filter($this->strs, $callback);
+
+        return new static($filtered);
     }
 
     /**

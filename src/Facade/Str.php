@@ -29,12 +29,16 @@ class Str
 
     public static function deleteUnnecessarySpaces(string $string): string
     {
-        return preg_replace('/[\\s]{2,}/i', ' ', $string);
+        $replaced = preg_replace('/[\\s]{2,}/i', ' ', $string);
+
+        return $replaced === null ? '' : $replaced;
     }
 
     public static function deleteAllLetters(string $string): string
     {
-        return preg_replace('~\D+~', '', $string);
+        $replaced = preg_replace('~\D+~', '', $string);
+
+        return $replaced === null ? '' : $replaced;
     }
 
     public static function toInteger(string $string): int
