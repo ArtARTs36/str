@@ -109,7 +109,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function last(): ?Str
     {
-        return end($this->strs);
+        $last = Arr::last($this->strs);
+
+        return $last === false ? null : $last;
     }
 
     public function slice(int $offset, ?int $length = null): self

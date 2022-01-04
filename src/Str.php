@@ -222,7 +222,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param string|Str|\Stringable|array|object[] $string
+     * @param string|Str|\Stringable|array<\Stringable> $string
      */
     public function append($string, string $delimiter = ''): Str
     {
@@ -230,7 +230,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param string|Str|\Stringable|array|object[] $string
+     * @param string|Str|\Stringable|array<\Stringable> $string
      */
     public function prepend($string, string $delimiter = ''): Str
     {
@@ -397,7 +397,7 @@ class Str implements \Countable, \IteratorAggregate
      */
     public function hasLine($needle, bool $trim = true): bool
     {
-        return StaticString::hasLine($this->string, $needle, $trim);
+        return StaticString::hasLine($this->string, (string) $needle, $trim);
     }
 
     public function upFirstSymbol(): Str
@@ -513,7 +513,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param string|\Stringable|int|float|array<string> $string
+     * @param string|\Stringable|int|float|array<string|\Stringable> $string
      */
     protected function edit($string, callable $edit, string $delimiter = ''): Str
     {

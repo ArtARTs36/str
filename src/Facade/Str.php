@@ -133,7 +133,9 @@ class Str
      */
     public static function getBytes(string $string): array
     {
-        return array_values(unpack('C*', $string));
+        $unpacked = unpack('C*', $string);
+
+        return array_values($unpacked === false ? [] : $unpacked);
     }
 
     public static function trim(string $string): string
@@ -358,7 +360,7 @@ class Str
     public static function containsAny(string $string, array $needles): bool
     {
         foreach ($needles as $needle) {
-            if (static::contains($string, $needle)) {
+            if (static::contains($string, (string) $needle)) {
                 return true;
             }
         }
@@ -372,7 +374,7 @@ class Str
     public static function regexContainsAny(string $string, array $needles): bool
     {
         foreach ($needles as $needle) {
-            if (static::regexContains($string, $needle)) {
+            if (static::regexContains($string, (string) $needle)) {
                 return true;
             }
         }
@@ -390,7 +392,7 @@ class Str
         }
 
         foreach ($needles as $needle) {
-            if (! static::contains($string, $needle)) {
+            if (! static::contains($string, (string) $needle)) {
                 return false;
             }
         }
@@ -471,6 +473,7 @@ class Str
     {
         return static::toCamel($string) === $string;
     }
+
 
     public static function hasLine(string $string, string $needle, bool $trim = true): bool
     {

@@ -65,12 +65,16 @@ class LettersStat implements \Countable, \IteratorAggregate
 
     public function getMaxInputs(): int
     {
-        return max(...array_values($this->dict));
+        $max = max(...array_values($this->dict));
+
+        return $max === false ? 0 : $max;
     }
 
     public function getMinInputs(): int
     {
-        return min(...array_values($this->dict));
+        $min = min(...array_values($this->dict));
+
+        return $min === false ? 0 : $min;
     }
 
     public function count(): int
