@@ -39,7 +39,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new \ArrayIterator($this->strs);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->strs);
     }
@@ -151,7 +151,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function toSentence(): Str
     {
-        return $this->implode(' ')->rightTrim('.')->upFirstSymbol()->append('.');
+        return $this->implode(' ')->toSentence();
     }
 
     public function toLower(): self

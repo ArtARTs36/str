@@ -497,6 +497,11 @@ class Str implements \Countable, \IteratorAggregate
         return $this->arrayToCollection(StaticString::findUris($this->string));
     }
 
+    public function toSentence(): Str
+    {
+        return $this->rightTrim('.')->upFirstSymbol()->append('.');
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
