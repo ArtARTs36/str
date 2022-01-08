@@ -131,9 +131,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function onlyNotEmpty(): self
     {
-        return new static(array_filter($this->strs, function (Str $str) {
+        return $this->filter(function (Str $str) {
             return $str->isNotEmpty();
-        }));
+        });
     }
 
     /**

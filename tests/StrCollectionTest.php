@@ -132,4 +132,44 @@ class StrCollectionTest extends TestCase
     {
         self::assertEquals($expected, (new StrCollection($strings))->toSentence());
     }
+
+    public function providerForTestOnlyNotEmpty(): array
+    {
+        return [
+            [
+                [
+                    'AA',
+                    'BB',
+                    '',
+                ],
+                [
+                    'AA',
+                    'BB',
+                ],
+            ],
+            [
+                [
+                    'AA',
+                    'BB',
+                    'CC',
+                ],
+                [
+                    'AA',
+                    'BB',
+                    'CC',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestOnlyNotEmpty
+     * @covers \ArtARTs36\Str\StrCollection::onlyNotEmpty
+     */
+    public function testOnlyNotEmpty(array $inputs, array $expected): void
+    {
+        $inputs = array_map([Str::class, 'make'], $inputs);
+
+        self::assertEquals($expected, (new StrCollection($inputs))->onlyNotEmpty()->toArray());
+    }
 }
