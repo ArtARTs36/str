@@ -1089,4 +1089,27 @@ final class StrTest extends TestCase
     {
         self::assertEquals($expectedLinks, Str::make($string)->findUris()->toArray());
     }
+
+    public function providerForTestToSentence(): array
+    {
+        return [
+            [
+                'String',
+                'String.',
+            ],
+            [
+                'String.',
+                'String.',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestToSentence
+     * @covers \ArtARTs36\Str\Str::toSentence
+     */
+    public function testToSentence(string $input, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($input)->toSentence());
+    }
 }

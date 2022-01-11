@@ -497,6 +497,9 @@ class Str implements \Countable, \IteratorAggregate
         return $this->arrayToCollection(StaticString::findUris($this->string));
     }
 
+    /**
+     * Convert to sentence.
+     */
     public function toSentence(): Str
     {
         return $this->rightTrim('.')->upFirstSymbol()->append('.');
