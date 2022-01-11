@@ -38,40 +38,45 @@ final class StrTest extends TestCase
         self::assertCount($expected, Str::make($string));
     }
 
+    public function providerForTestLinesCount(): array
+    {
+        return [
+            ['test', 1],
+            ["Hello \n World \n Hello \n World", 4],
+        ];
+    }
+
     /**
      * @covers \ArtARTs36\Str\Str::linesCount
+     * @dataProvider providerForTestLinesCount
      */
-    public function testLinesCount(): void
+    public function testLinesCount(string $string, int $expected): void
     {
-        self::assertEquals(1, Str::make('test')->linesCount());
+        self::assertEquals($expected, Str::make($string)->linesCount());
+    }
 
-        //
-
-        $text = "Hello \n World \n Hello \n World";
-
-        self::assertEquals(4, Str::make($text)->linesCount());
+    public function providerForTestLines(): array
+    {
+        return [
+            [
+                "Hello\nWorld\nHello\nWorld",
+                [
+                    'Hello',
+                    'World',
+                    'Hello',
+                    'World',
+                ],
+            ]
+        ];
     }
 
     /**
      * @covers \ArtARTs36\Str\Str::lines
+     * @dataProvider providerForTestLines
      */
-    public function testLines(): void
+    public function testLines(string $string, array $expected): void
     {
-        $str = Str::make("Hello\nWorld\nHello\nWorld");
-
-        $expected = [
-            'Hello',
-            'World',
-            'Hello',
-            'World',
-        ];
-
-        $response = $str->lines();
-
-        foreach ($response as $i => $line) {
-            self::assertInstanceOf(Str::class, $line);
-            self::assertEquals($expected[$i], $line);
-        }
+        self::assertEquals($expected, Str::make($string)->lines()->toArray());
     }
 
     /**
