@@ -3,6 +3,7 @@
 namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Support\Arr;
+use ArtARTs36\Str\Facade\Str as StaticString;
 
 /**
  * @template-implements \IteratorAggregate<Str>
@@ -23,7 +24,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function implode(string $separator): Str
     {
-        return Str::make(implode($separator, $this->strs));
+        return Str::make(StaticString::implode($separator, $this->strs));
     }
 
     public function implodeAsLines(): Str
