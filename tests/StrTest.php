@@ -21,13 +21,21 @@ final class StrTest extends TestCase
         self::assertEquals('test', $string->__toString());
     }
 
+    public function providerForTestCount(): array
+    {
+        return [
+            ['test', 4],
+            ['Артем', 5],
+        ];
+    }
+
     /**
      * @covers \ArtARTs36\Str\Str::count
+     * @dataProvider providerForTestCount
      */
-    public function testCount(): void
+    public function testCount(string $string, int $expected): void
     {
-        self::assertCount(4, Str::make('test'));
-        self::assertCount(5, Str::make('Артем'));
+        self::assertCount($expected, Str::make($string));
     }
 
     /**

@@ -160,16 +160,19 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @inheritDoc
+     * Get length of string. Alias of @see Str::length()
      */
     public function count(): int
     {
-        return mb_strlen($this->string);
+        return $this->length();
     }
 
+    /**
+     * Get length of string.
+     */
     public function length(): int
     {
-        return $this->count();
+        return mb_strlen($this->string);
     }
 
     /**
