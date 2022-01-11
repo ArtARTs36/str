@@ -112,7 +112,7 @@ class Str
             throw new EmptyStringNotAllowedOperation();
         }
 
-        return $string[0];
+        return mb_substr($string, 0, 1);
     }
 
     public static function shuffle(string $string): string
@@ -347,7 +347,7 @@ class Str
         return str_replace(array_keys($replaces), array_values($replaces), $string);
     }
 
-    public static function substring(string $string, int $start, int $length): string
+    public static function substring(string $string, int $start, ?int $length): string
     {
         return mb_substr($string, $start, $length, static::DEFAULT_ENCODING);
     }
@@ -651,6 +651,11 @@ class Str
         }
 
         return implode($separator, $matches);
+    }
+
+    public static function downFirstSymbol(string $string): string
+    {
+        return static::toLower(static::firstSymbol($string)) . static::substring($string, 1, null);
     }
 
     /**

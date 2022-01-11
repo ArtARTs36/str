@@ -229,17 +229,34 @@ final class StrTest extends TestCase
         self::assertEquals('t', $str->lastSymbol());
     }
 
+    public function providerForTestFirstSymbol(): array
+    {
+        return [
+            [
+                'test',
+                't',
+            ],
+            [
+                'абвг',
+                'а',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::firstSymbol
+     * @dataProvider providerForTestFirstSymbol
+     */
+    public function testFirstSymbol(string $string, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->firstSymbol());
+    }
+
     /**
      * @covers \ArtARTs36\Str\Str::firstSymbol
      */
-    public function testFirstSymbol(): void
+    public function testFirstSymbolOnEmpty(): void
     {
-        $str = Str::make('test');
-
-        self::assertEquals('t', $str->firstSymbol());
-
-        //
-
         $str = Str::make('');
 
         self::expectException(EmptyStringNotAllowedOperation::class);
@@ -1124,5 +1141,32 @@ final class StrTest extends TestCase
     public function testToSentence(string $input, string $expected): void
     {
         self::assertEquals($expected, Str::make($input)->toSentence());
+    }
+
+    public function providerForTestDownFirstSymbol(): array
+    {
+        return [
+            [
+                'Abcd',
+                'abcd',
+            ],
+            [
+                'ABcd',
+                'aBcd',
+            ],
+            [
+                'Абвг',
+                'абвг',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Facade\Str::downFirstSymbol
+     * @dataProvider providerForTestDownFirstSymbol
+     */
+    public function testDownFirstSymbol(string $string, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->downFirstSymbol());
     }
 }

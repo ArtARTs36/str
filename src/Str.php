@@ -77,6 +77,11 @@ class Str implements \Countable, \IteratorAggregate
         return new static(StaticString::deleteAllLetters($this->string));
     }
 
+    public function downFirstSymbol(): Str
+    {
+        return new static(StaticString::downFirstSymbol($this->string));
+    }
+
     /**
      * Cast value to integer.
      */
