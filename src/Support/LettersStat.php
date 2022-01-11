@@ -2,8 +2,12 @@
 
 namespace ArtARTs36\Str\Support;
 
+/**
+ * @template-implements \IteratorAggregate<string, int>
+ */
 class LettersStat implements \Countable, \IteratorAggregate
 {
+    /** @var array<string, int> */
     protected $dict;
 
     /**
@@ -61,12 +65,16 @@ class LettersStat implements \Countable, \IteratorAggregate
 
     public function getMaxInputs(): int
     {
-        return max(...array_values($this->dict));
+        $max = max(...array_values($this->dict));
+
+        return $max === false ? 0 : $max;
     }
 
     public function getMinInputs(): int
     {
-        return min(...array_values($this->dict));
+        $min = min(...array_values($this->dict));
+
+        return $min === false ? 0 : $min;
     }
 
     public function count(): int
@@ -74,12 +82,18 @@ class LettersStat implements \Countable, \IteratorAggregate
         return count($this->dict);
     }
 
+    /**
+     * @return array<string, int>
+     */
     public function getDict(): array
     {
         return $this->dict;
     }
 
-    public function getIterator()
+    /**
+     * @return \Traversable<string, int>
+     */
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->dict);
     }

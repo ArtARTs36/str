@@ -13,6 +13,9 @@ class Str
     public const SEPARATOR_WORD = ' ';
     public const REGEX_SENTENCE = '/([^\\'. Symbol::DOT . ']*)/';
 
+    /**
+     * Create string from random symbols.
+     */
     public static function random(int $maxLength = 6): string
     {
         return random_bytes($maxLength);
@@ -29,14 +32,21 @@ class Str
 
     public static function deleteUnnecessarySpaces(string $string): string
     {
-        return preg_replace('/[\\s]{2,}/i', ' ', $string);
+        $replaced = preg_replace('/[\\s]{2,}/i', ' ', $string);
+
+        return $replaced === null ? '' : $replaced;
     }
 
     public static function deleteAllLetters(string $string): string
     {
-        return preg_replace('~\D+~', '', $string);
+        $replaced = preg_replace('~\D+~', '', $string);
+
+        return $replaced === null ? '' : $replaced;
     }
 
+    /**
+     * Cast value to integer.
+     */
     public static function toInteger(string $string): int
     {
         return (int) static::match($string, '/([\+-]?\d+)([eE][\+-]?\d+)?/i');
@@ -69,6 +79,9 @@ class Str
         return mb_strlen($string);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function chars(string $string): array
     {
         $chars = [];
@@ -130,7 +143,9 @@ class Str
      */
     public static function getBytes(string $string): array
     {
-        return array_values(unpack('C*', $string));
+        $unpacked = unpack('C*', $string);
+
+        return array_values($unpacked === false ? [] : $unpacked);
     }
 
     public static function trim(string $string): string
@@ -158,6 +173,9 @@ class Str
         return $count;
     }
 
+    /**
+     * @param array<string|\Stringable> $subs
+     */
     public static function delete(string $string, array $subs, bool $trim = false): string
     {
         $deleted = str_replace(array_map('strval', $subs), '', $string);
@@ -215,6 +233,9 @@ class Str
         return static::toLower($string) === $string;
     }
 
+    /**
+     * @param non-empty-string $separator
+     */
     public static function slice(string $string, string $separator, int $length, int $offset = 0): string
     {
         $parts = explode($separator, $string);
@@ -223,6 +244,7 @@ class Str
     }
 
     /**
+     * @param non-empty-string $separator
      * @return array<string>
      */
     public static function explode(string $string, string $separator): array
@@ -230,6 +252,9 @@ class Str
         return explode($separator, $string);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function lines(string $string): array
     {
         return static::explode($string, "\n");
@@ -259,11 +284,17 @@ class Str
         return static::implodeLines(Arr::withoutLastElement(static::lines(static::trim($string))));
     }
 
+    /**
+     * @param array<string> $lines
+     */
     public static function implodeLines(array $lines): string
     {
         return static::implode("\n", $lines);
     }
 
+    /**
+     * @param array<string> $parts
+     */
     public static function implode(string $separator, array $parts): string
     {
         return implode($separator, $parts);
@@ -275,7 +306,7 @@ class Str
     }
 
     /**
-     * @return array<<array<string>>
+     * @return array<array<string>>
      */
     public static function getSequencesByRepeatSymbols(string $string): array
     {
@@ -339,7 +370,7 @@ class Str
     public static function containsAny(string $string, array $needles): bool
     {
         foreach ($needles as $needle) {
-            if (static::contains($string, $needle)) {
+            if (static::contains($string, (string) $needle)) {
                 return true;
             }
         }
@@ -353,7 +384,7 @@ class Str
     public static function regexContainsAny(string $string, array $needles): bool
     {
         foreach ($needles as $needle) {
-            if (static::regexContains($string, $needle)) {
+            if (static::regexContains($string, (string) $needle)) {
                 return true;
             }
         }
@@ -371,7 +402,7 @@ class Str
         }
 
         foreach ($needles as $needle) {
-            if (! static::contains($string, $needle)) {
+            if (! static::contains($string, (string) $needle)) {
                 return false;
             }
         }
@@ -405,6 +436,9 @@ class Str
         return mb_strtolower($string) ^ mb_strtoupper($string) ^ $string;
     }
 
+    /**
+     * @return array<string>
+     */
     public static function sentences(string $string): array
     {
         $matches = [];
@@ -414,6 +448,9 @@ class Str
         return array_values(array_filter($matches[0]));
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function globalMatch(
         string $string,
         string $pattern,
@@ -446,6 +483,7 @@ class Str
     {
         return static::toCamel($string) === $string;
     }
+
 
     public static function hasLine(string $string, string $needle, bool $trim = true): bool
     {
@@ -527,11 +565,17 @@ class Str
         return static::substring($string, 0, $length);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function words(string $string): array
     {
         return static::explode($string, static::SEPARATOR_WORD);
     }
 
+    /**
+     * Cast value to float.
+     */
     public static function toFloat(string $string): ?float
     {
         if (static::isDigit($string)) {
@@ -548,11 +592,11 @@ class Str
             } elseif ($input && $char === '.') {
                 $number .= '.';
             } elseif ($input) {
-                return $number;
+                return (float) $number;
             }
         }
 
-        return $number === '' ? null : $number;
+        return $number === '' ? null : (float) $number;
     }
 
     public static function hasUppercaseSymbols(string $string): bool

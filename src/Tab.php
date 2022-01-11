@@ -12,6 +12,10 @@ class Tab
         return max(array_map('mb_strlen', $strings));
     }
 
+    /**
+     * @param non-empty-array<string> $strings
+     * @return array<string>
+     */
     public static function addSpaces(array $strings, string $symbol = ' '): array
     {
         $length = static::maxLength($strings) + 1;

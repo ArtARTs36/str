@@ -7,6 +7,8 @@ Str
     <img src="https://poser.pugx.org/artarts36/str/d/total.svg" alt="Total Downloads">
 </a>
 
+This package provides string wrapper for PHP.
+
 ----
 
 ### Installation:

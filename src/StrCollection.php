@@ -4,14 +4,19 @@ namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Support\Arr;
 
+/**
+ * @template-implements \IteratorAggregate<Str>
+ * @template-implements \ArrayAccess<int, Str>
+ */
 class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 {
+    /** @var array<Str> */
     protected $strs;
 
     /**
      * @param array<Str> $strings
      */
-    public function __construct(array $strings)
+    final public function __construct(array $strings)
     {
         $this->strs = $strings;
     }
@@ -27,14 +32,14 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
-     * @return \ArrayIterator|iterable<Str>
+     * @return \Traversable<Str>
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->strs);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->strs);
     }
@@ -59,6 +64,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new static(array_map($callback, $this->strs));
     }
 
+    /**
+     * @return array<string>
+     */
     public function toStrings(): array
     {
         return array_map('strval', $this->strs);
@@ -73,7 +81,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function filter(?callable $callback = null): self
     {
-        return new static(array_filter($this->strs, $callback));
+        $filtered = $callback === null ? array_filter($this->strs) : array_filter($this->strs, $callback);
+
+        return new static($filtered);
     }
 
     /**
@@ -86,6 +96,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         });
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function mapToArray(callable $callback): array
     {
         return array_map($callback, $this->strs);
@@ -98,7 +111,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function last(): ?Str
     {
-        return end($this->strs);
+        $last = Arr::last($this->strs);
+
+        return $last === false ? null : $last;
     }
 
     public function slice(int $offset, ?int $length = null): self
@@ -106,6 +121,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         return new static(array_slice($this->strs, $offset, $length));
     }
 
+    /**
+     * @param array<int> $keys
+     */
     public function exceptKeys(array $keys): self
     {
         return new static(Arr::exceptKeys($this->strs, $keys));
@@ -113,11 +131,14 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function onlyNotEmpty(): self
     {
-        return new static(array_filter($this->strs, function (Str $str) {
+        return $this->filter(function (Str $str) {
             return $str->isNotEmpty();
-        }));
+        });
     }
 
+    /**
+     * @return array<Str>
+     */
     public function toArray(): array
     {
         return $this->strs;
@@ -130,7 +151,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function toSentence(): Str
     {
-        return $this->implode(' ')->rightTrim('.')->upFirstSymbol()->append('.');
+        return $this->implode(' ')->toSentence();
     }
 
     public function toLower(): self
@@ -140,21 +161,34 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         });
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->strs);
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetGet($offset): ?Str
     {
         return $this->strs[$offset] ?? null;
     }
 
+    /**
+     * @param int $offset
+     * @param Str $value
+     */
     public function offsetSet($offset, $value): void
     {
         throw new \LogicException('Str Collection is Immutable');
     }
 
+    /**
+     * @param int $offset
+     */
     public function offsetUnset($offset): void
     {
         throw new \LogicException('Str Collection is Immutable');
