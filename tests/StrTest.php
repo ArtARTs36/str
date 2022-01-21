@@ -1086,4 +1086,54 @@ class StrTest extends TestCase
     {
         self::assertEquals($expectedLinks, Str::make($string)->findUris()->toArray());
     }
+
+    public function providerForTestIsAnagram(): array
+    {
+        return [
+            [
+                'anagram',
+                'nagaram',
+                true,
+            ],
+            [
+                'aaagram',
+                'nagaram',
+                false,
+            ],
+            [
+                'anagram',
+                'anagrma',
+                true,
+            ],
+            [
+                'abcc',
+                'abc',
+                false,
+            ],
+            [
+                'ab',
+                '',
+                false,
+            ],
+            [
+                '',
+                'ab',
+                false,
+            ],
+            [
+                '',
+                '',
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestIsAnagram
+     * @covers \ArtARTs36\Str\Str::isAnagram
+     */
+    public function testIsAnagram(string $first, string $second, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($first)->isAnagram($second));
+    }
 }

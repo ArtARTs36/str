@@ -696,6 +696,37 @@ class Str
         )[0] ?? [];
     }
 
+    public static function isAnagram(string $first, string $second): bool
+    {
+        $firstLength = static::length($first);
+        $secondLength = static::length($second);
+
+        if ($firstLength === 0 || $secondLength === 0 || $firstLength !== $secondLength ) {
+            return false;
+        }
+
+        // Create occurrences map
+
+        $inputs = [];
+
+        for ($i = 0; $i < $firstLength; $i++) {
+            @$inputs[static::getSymbolByIndex($first, $i)][0]++;
+            @$inputs[static::getSymbolByIndex($second, $i)][1]++;
+        }
+
+        $state = false;
+
+        foreach ($inputs as $input) {
+            $state = @$input[0] === @$input[1];
+
+            if (! $state) {
+                break;
+            }
+        }
+
+        return $state;
+    }
+
     public static function getSymbolByIndex(string $string, int $index): string
     {
         return static::substring($string, $index, 1);

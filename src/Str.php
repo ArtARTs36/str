@@ -508,6 +508,11 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::getSymbolByIndex($this->string, $index);
     }
 
+    public function isAnagram(string $compared): bool
+    {
+        return StaticString::isAnagram($this, $compared);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
