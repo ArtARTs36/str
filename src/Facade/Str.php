@@ -701,7 +701,7 @@ class Str
         $firstLength = static::length($first);
         $secondLength = static::length($second);
 
-        if ($firstLength === 0 || $secondLength === 0 || $firstLength !== $secondLength ) {
+        if ($firstLength === 0 || $secondLength === 0 || $firstLength !== $secondLength) {
             return false;
         }
 
