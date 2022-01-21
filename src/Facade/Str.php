@@ -15,6 +15,7 @@ class Str
 
     /**
      * Create string from random symbols.
+     * @param positive-int $maxLength
      */
     public static function random(int $maxLength = 6): string
     {

@@ -33,6 +33,7 @@ class Str implements \Countable, \IteratorAggregate
 
     /**
      * Create instance from random symbols.
+     * @param positive-int $maxLength
      */
     public static function random(int $maxLength = 6): self
     {

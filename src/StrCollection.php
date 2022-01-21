@@ -206,17 +206,19 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
         $count = $this->count();
 
         if ($count === 1) {
-            return $this->first();
+            return $this->first(); // @phpstan-ignore-line
         }
 
-        $maxLength = $this->first()->length();
+        /** @var Str $firstStr */
+        $firstStr = $this->first();
+        $maxLength = $firstStr->length();
         $prefix = '';
 
         for ($index = 0; $index < $maxLength; $index++) {
-            $symbol = $this->first()->getSymbolByIndex($index);
+            $symbol = $firstStr->getSymbolByIndex($index);
 
             for ($comparedIndex = 1; $comparedIndex < $count; $comparedIndex++) {
-                if ($symbol !== $this[$comparedIndex]->getSymbolByIndex($index)) {
+                if ($symbol !== $this[$comparedIndex]->getSymbolByIndex($index)) { // @phpstan-ignore-line
                     break 2;
                 }
             }
