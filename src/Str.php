@@ -502,6 +502,11 @@ class Str implements \Countable, \IteratorAggregate
         return $this->rightTrim('.')->upFirstSymbol()->append('.');
     }
 
+    public function getSymbolByIndex(int $index): string
+    {
+        return StaticString::getSymbolByIndex($this->string, $index);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);

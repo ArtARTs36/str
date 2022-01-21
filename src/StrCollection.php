@@ -193,4 +193,37 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     {
         throw new \LogicException('Str Collection is Immutable');
     }
+
+    /**
+     * Get longest common prefix.
+     */
+    public function commonPrefix(): Str
+    {
+        if ($this->isEmpty()) {
+            return Str::fromEmpty();
+        }
+
+        $count = $this->count();
+
+        if ($count === 1) {
+            return $this->first();
+        }
+
+        $maxLength = $this->first()->length();
+        $prefix = '';
+
+        for ($index = 0; $index < $maxLength; $index++) {
+            $symbol = $this->first()->getSymbolByIndex($index);
+
+            for ($comparedIndex = 1; $comparedIndex < $count; $comparedIndex++) {
+                if ($symbol !== $this[$comparedIndex]->getSymbolByIndex($index)) {
+                    break 2;
+                }
+            }
+
+            $prefix .= $symbol;
+        }
+
+        return Str::make($prefix);
+    }
 }

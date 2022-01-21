@@ -172,4 +172,31 @@ class StrCollectionTest extends TestCase
 
         self::assertEquals($expected, (new StrCollection($inputs))->onlyNotEmpty()->toArray());
     }
+
+    public function providerForTestCommonPrefix(): array
+    {
+        return [
+            [[], ''], // Empty collection
+            [[Str::make('AB')], 'AB'], // Have one element
+            [
+                [
+                    Str::make('abcd'),
+                    Str::make('abc'),
+                    Str::make('abeeee'),
+                    Str::make('ab'),
+                    Str::make('abeeee'),
+                ],
+                'ab',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestCommonPrefix
+     * @covers \ArtARTs36\Str\StrCollection::commonPrefix
+     */
+    public function testCommonPrefix(array $strs, string $expected): void
+    {
+        self::assertEquals($expected, (new StrCollection($strs))->commonPrefix());
+    }
 }

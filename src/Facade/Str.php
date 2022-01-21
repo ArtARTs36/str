@@ -112,7 +112,7 @@ class Str
             throw new EmptyStringNotAllowedOperation();
         }
 
-        return $string[0];
+        return static::getSymbolByIndex($string, 0);
     }
 
     public static function shuffle(string $string): string
@@ -693,5 +693,10 @@ class Str
             '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/i',
             PREG_PATTERN_ORDER
         )[0] ?? [];
+    }
+
+    public static function getSymbolByIndex(string $string, int $index): string
+    {
+        return static::substring($string, $index, 1);
     }
 }
