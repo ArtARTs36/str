@@ -513,6 +513,15 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::isAnagram($this, $compared);
     }
 
+    /**
+     * Is one change enough for full string matching
+     * @param self|string $thatString
+     */
+    public function isOneChangeEnoughToFullMatch($thatString): bool
+    {
+        return StaticString::isOneChangeEnoughToFullMatch($this->string, $thatString);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);

@@ -1136,4 +1136,52 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($first)->isAnagram($second));
     }
+
+    public function providerForTestIsOneChangeEnoughToFullMatch(): array
+    {
+        return [
+            [
+                'cat',
+                'cut',
+                true,
+            ],
+            [
+                'cata',
+                'cute',
+                false,
+            ],
+            [
+                'cute',
+                'cut',
+                true,
+            ],
+            [
+                'cate',
+                'cut',
+                false,
+            ],
+            [
+                'cut',
+                'cate',
+                false,
+            ],
+            [
+                'cut',
+                'cute',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestIsOneChangeEnoughToFullMatch
+     */
+    public function testIsOneChangeEnoughToFullMatch(string $oneString, string $twoString, bool $expectedResult): void
+    {
+        self::assertEquals(
+            $expectedResult,
+            Str::make($oneString)->isOneChangeEnoughToFullMatch($twoString),
+            sprintf('failed on: [%s, %s, %s]', $oneString, $twoString, $expectedResult ? 'true' : 'false')
+        );
+    }
 }

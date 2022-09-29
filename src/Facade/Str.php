@@ -731,4 +731,57 @@ class Str
     {
         return static::substring($string, $index, 1);
     }
+
+    /**
+     * Is one change enough for full string matching
+     */
+    public static function isOneChangeEnoughToFullMatch(string $oneString, string $twoString): bool
+    {
+        $oneStringLength = self::length($oneString);
+        $twoStringLength = self::length($twoString);
+
+        if ($oneStringLength === $twoStringLength) {
+            $hasChanges = false;
+
+            for ($i = 0; $i < $oneStringLength; $i++) {
+                if ($oneString[$i] === $twoString[$i]) {
+                    continue;
+                }
+
+                if ($hasChanges) {
+                    return false;
+                }
+
+                $hasChanges = true;
+            }
+
+            return true;
+        }
+
+        if ($oneStringLength > $twoStringLength) {
+            for ($i = 0; $i < $twoStringLength; $i++) {
+                if ($twoString[$i] === $oneString[$i]) {
+                    continue;
+                }
+
+                if ($twoString[$i] !== $oneString[$i + 1]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        for ($i = 0; $i < $oneStringLength; $i++) {
+            if ($oneString[$i] === $twoString[$i]) {
+                continue;
+            }
+
+            if ($twoString[$i + 1] !== $oneString[$i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
