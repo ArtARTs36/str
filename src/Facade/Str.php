@@ -731,4 +731,18 @@ class Str
     {
         return static::substring($string, $index, 1);
     }
+
+    public static function isPalindrome(string $str): bool
+    {
+        $tail = static::length($str) - 1;
+        $start = 0;
+
+        while ($start < $tail) {
+            if ($str[$start++] !== $str[$tail--]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

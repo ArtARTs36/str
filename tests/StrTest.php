@@ -1136,4 +1136,23 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($first)->isAnagram($second));
     }
+
+    public function providerForTestIsPalindrome(): array
+    {
+        return [
+            ['ab', false],
+            ['aba', true],
+            ['abab', false],
+            ['ababa', true],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestIsPalindrome
+     * @covers \ArtARTs36\Str\Str::isPalindrome
+     */
+    public function testIsPalindrome(string $str, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->isPalindrome());
+    }
 }

@@ -513,6 +513,11 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::isAnagram($this, $compared);
     }
 
+    public function isPalindrome(): bool
+    {
+        return StaticString::isPalindrome($this);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
