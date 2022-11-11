@@ -406,7 +406,7 @@ class Str implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Str|string|object $needle
+     * @param Str|string|\Stringable $needle
      */
     public function hasLine($needle, bool $trim = true): bool
     {

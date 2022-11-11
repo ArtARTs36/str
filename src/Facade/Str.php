@@ -62,9 +62,16 @@ class Str
     ): string {
         $matches = [];
 
+        // @phpstan-ignore-next-line
         preg_match($pattern, $string, $matches, $flags, $offset);
 
-        return $end ? end($matches) : reset($matches);
+        $result = $end ? end($matches) : reset($matches);
+
+        if (! is_string($result)) {
+            return '';
+        }
+
+        return $result;
     }
 
     /**
