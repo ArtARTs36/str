@@ -140,6 +140,9 @@ class Str implements \Countable, \IteratorAggregate
         return $this->string;
     }
 
+    /**
+     * Get count of lines.
+     */
     public function linesCount(): int
     {
         return StaticString::linesCount($this->string);

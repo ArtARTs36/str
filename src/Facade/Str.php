@@ -429,6 +429,9 @@ class Str
         return $newString;
     }
 
+    /**
+     * Get count of lines.
+     */
     public static function linesCount(string $string): int
     {
         return count(static::lines($string));
@@ -491,7 +494,6 @@ class Str
     {
         return static::toCamel($string) === $string;
     }
-
 
     public static function hasLine(string $string, string $needle, bool $trim = true): bool
     {

@@ -8,37 +8,63 @@ use PHPUnit\Framework\TestCase;
 
 class StrTest extends TestCase
 {
+    public function providerForTestMake(): array
+    {
+        return [
+            [
+                'test',
+                'test',
+            ],
+        ];
+    }
+
     /**
+     * @dataProvider providerForTestMake
      * @covers \ArtARTs36\Str\Str::make
      */
-    public function testMake(): void
+    public function testMake(string $raw, string $expected): void
     {
-        $string = Str::make('test');
+        self::assertEquals($expected, Str::make($raw));
+    }
 
-        self::assertEquals('test', $string->__toString());
+    public function providerForTestCount(): array
+    {
+        return [
+            ['test', 4],
+            ['Артем', 5],
+        ];
     }
 
     /**
+     * @dataProvider providerForTestCount
      * @covers \ArtARTs36\Str\Str::count
      */
-    public function testCount(): void
+    public function testCount(string $str, int $expected): void
     {
-        self::assertCount(4, Str::make('test'));
-        self::assertCount(5, Str::make('Артем'));
+        self::assertCount($expected, Str::make($str));
+    }
+
+    public function providerForTestLinesCount(): array
+    {
+        return [
+            [
+                'test',
+                1,
+            ],
+            [
+                "Hello \n World \n Hello \n World",
+                4,
+            ],
+        ];
     }
 
     /**
+     * @dataProvider providerForTestLinesCount
      * @covers \ArtARTs36\Str\Str::linesCount
      */
-    public function testLinesCount(): void
+    public function testLinesCount(string $str, int $expected): void
     {
-        self::assertEquals(1, Str::make('test')->linesCount());
-
-        //
-
-        $text = "Hello \n World \n Hello \n World";
-
-        self::assertEquals(4, Str::make($text)->linesCount());
+        self::assertEquals($expected, Str::make($str)->linesCount());
     }
 
     /**
