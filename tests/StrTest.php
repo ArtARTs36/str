@@ -366,19 +366,44 @@ class StrTest extends TestCase
         self::assertEquals($expected, Str::make($string)->getSequencesByRepeatSymbols());
     }
 
+    public function providerForTestPositions(): array
+    {
+        return [
+            [
+                'Hello Hello Hello Artem Hello Artem Hello Artem Artem',
+                'artem',
+                true,
+                [18, 30, 42, 48],
+            ],
+            [
+                'Hello Hello Hello Artem Hello Artem Hello Artem Artem',
+                'Hello',
+                false,
+                [0, 6, 12, 24, 36],
+            ],
+            [
+                'hehe',
+                'he',
+                false,
+                [0, 2],
+            ],
+            [
+                'abeababnabed',
+                'ab',
+                false,
+                [0, 3, 5, 8],
+            ],
+        ];
+    }
+
     /**
+     * @dataProvider providerForTestPositions
      * @covers \ArtARTs36\Str\Str::positions
      * @covers \ArtARTs36\Str\Facade\Str::positions
      */
-    public function testPositions(): void
+    public function testPositions(string $str, string $needle, bool $ignoreCase, array $expected): void
     {
-        $string = 'Hello Hello Hello Artem Hello Artem Hello Artem Artem';
-
-        $str = Str::make($string);
-
-        self::assertEmpty($str->positions('artem'));
-        self::assertEquals([18, 30, 42, 48], $str->positions('artem', true));
-        self::assertEquals([0, 6, 12, 24, 36], $str->positions('Hello'));
+        self::assertEquals($expected, Str::make($str)->positions($needle, $ignoreCase));
     }
 
     /**

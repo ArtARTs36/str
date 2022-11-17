@@ -273,15 +273,36 @@ class Str
      */
     public static function positions(string $string, string $find, bool $ignoreCase = false): array
     {
-        $my = $ignoreCase ? static::toLower($string) : $string;
-        $find = $ignoreCase ? static::toLower($find) : $find;
-        $positions = [];
-        $last = 0;
-        $length = mb_strlen($find);
+        $haystack = $string;
+        $needle = $find;
 
-        while (($last = mb_strpos($my, $find, $last)) !== false) {
-            $positions[] = $last;
-            $last = $last + $length;
+        if ($ignoreCase) {
+            $haystack = static::toLower($string);
+            $needle = static::toLower($needle);
+        }
+
+        $haystackLength = static::length($haystack);
+        $needleLength = mb_strlen($needle);
+
+        if ($needleLength > $haystackLength) {
+            return [];
+        }
+
+        $positions = [];
+
+        for ($hi = 0; $hi < $haystackLength; $hi++) {
+            $hPos = $hi;
+            $nPos = 0;
+            $subLen = 0;
+
+            while($nPos < $needleLength && $haystack[$hPos++] === $needle[$nPos++]) {
+                $subLen++;
+            }
+
+            if ($subLen === $needleLength) {
+                $positions[] = $hi;
+                $hi += $subLen - 1;
+            }
         }
 
         return $positions;
