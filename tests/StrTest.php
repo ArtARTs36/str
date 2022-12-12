@@ -310,13 +310,24 @@ class StrTest extends TestCase
         self::assertEquals('Hello//Dev', Str::make('Hello//Dev////')->deleteRepeatSymbolInEnding('/'));
     }
 
+    public function providerForTestDeleteLastLine(): array
+    {
+        return [
+            [
+                "a1\na2\na3",
+                "a1\na2",
+            ],
+        ];
+    }
+
     /**
+     * @dataProvider providerForTestDeleteLastLine
      * @covers \ArtARTs36\Str\Str::deleteLastLine
      * @covers \ArtARTs36\Str\Facade\Str::deleteLastLine
      */
-    public function testDeleteLastLine(): void
+    public function testDeleteLastLine(string $str, string $expected): void
     {
-        self::assertEquals("a1", Str::make("a1\na2\n")->deleteLastLine()->__toString());
+        self::assertEquals($expected, Str::make($str)->deleteLastLine()->__toString());
     }
 
     /**
@@ -999,7 +1010,7 @@ class StrTest extends TestCase
      */
     public function testGetLastLine(): void
     {
-        self::assertEquals("a2", Str::make("a1\na2")->getLastLine());
+        self::assertEquals("a2", Str::make("a1\na2")->getLastLine()->__toString());
     }
 
     public function providerForTestFirstWord(): array

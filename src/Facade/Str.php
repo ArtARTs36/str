@@ -308,9 +308,31 @@ class Str
         return $positions;
     }
 
+    public static function findLastLineBreakPosition(string $string): ?int
+    {
+        $len = static::length($string);
+        $lastLinePos = null;
+
+        for ($i = $len - 1; $i > 0; $i--) {
+            if (mb_strpos($string[$i] . $string[$i - 1], PHP_EOL) !== false) {
+                $lastLinePos = $i - 1;
+
+                break;
+            }
+        }
+
+        return $lastLinePos;
+    }
+
     public static function deleteLastLine(string $string): string
     {
-        return static::implodeLines(Arr::withoutLastElement(static::lines(static::trim($string))));
+        $lastLinePos = static::findLastLineBreakPosition($string);
+
+        if ($lastLinePos === null) {
+            return $string;
+        }
+
+        return static::substring($string, 0, $lastLinePos);
     }
 
     /**
@@ -318,7 +340,7 @@ class Str
      */
     public static function implodeLines(array $lines): string
     {
-        return static::implode("\n", $lines);
+        return static::implode(PHP_EOL, $lines);
     }
 
     /**
@@ -329,9 +351,26 @@ class Str
         return implode($separator, $parts);
     }
 
+    public static function findLastLinePosition(string $string): ?int
+    {
+        $pos = self::findLastLineBreakPosition($string);
+
+        if ($pos === null) {
+            return null;
+        }
+
+        return $pos + static::length(PHP_EOL);
+    }
+
     public static function getLastLine(string $string): string
     {
-        return Arr::last(static::lines($string));
+        $pos = static::findLastLinePosition($string);
+
+        if ($pos === null) {
+            return '';
+        }
+
+        return mb_substr($string, $pos, null, self::DEFAULT_ENCODING);
     }
 
     /**
