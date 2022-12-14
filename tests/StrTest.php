@@ -1155,4 +1155,66 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($str)->isPalindrome());
     }
+
+    public function providerForTestStartsWithAnyOf(): array
+    {
+        return [
+            [
+                'abcd',
+                ['ab'],
+                true,
+            ],
+            [
+                'abcd',
+                ['ab', 'cd'],
+                true,
+            ],
+            [
+                'abcd',
+                ['cd'],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string> $needle
+     * @covers \ArtARTs36\Str\Str::startsWithAnyOf
+     * @dataProvider providerForTestStartsWithAnyOf
+     */
+    public function testStartsWithAnyOf(string $str, array $needle, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->startsWithAnyOf($needle));
+    }
+
+    public function providerForTestEndsWithAnyOf(): array
+    {
+        return [
+            [
+                'abcd',
+                ['cd'],
+                true,
+            ],
+            [
+                'abcd',
+                ['ab', 'cd'],
+                true,
+            ],
+            [
+                'abcd',
+                ['ab'],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string> $needle
+     * @covers \ArtARTs36\Str\Str::endsWithAnyOf
+     * @dataProvider providerForTestEndsWithAnyOf
+     */
+    public function testEndsWithAnyOf(string $str, array $needle, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->endsWithAnyOf($needle));
+    }
 }

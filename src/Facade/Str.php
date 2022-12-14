@@ -196,9 +196,37 @@ class Str
         return mb_strpos($haystack, $needle) === 0;
     }
 
+    /**
+     * @param array<string> $needle
+     */
+    public static function startsWithAnyOf(string $haystack, array $needle): bool
+    {
+        foreach ($needle as $val) {
+            if (self::startsWith($haystack, $val)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function endsWith(string $haystack, string $needle): bool
     {
         return mb_strpos($haystack, $needle, -\mb_strlen($needle)) !== false;
+    }
+
+    /**
+     * @param array<string> $needle
+     */
+    public static function endsWithAnyOf(string $haystack, array $needle): bool
+    {
+        foreach ($needle as $val) {
+            if (self::endsWith($haystack, $val)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function upWords(string $string): string

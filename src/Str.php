@@ -387,9 +387,25 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::startsWith($this->string, $needle);
     }
 
+    /**
+     * @param array<string> $needle
+     */
+    public function startsWithAnyOf(array $needle): bool
+    {
+        return StaticString::startsWithAnyOf($this->string, $needle);
+    }
+
     public function endsWith(string $needle): bool
     {
         return StaticString::endsWith($this->string, $needle);
+    }
+
+    /**
+     * @param array<string> $needle
+     */
+    public function endsWithAnyOf(array $needle): bool
+    {
+        return StaticString::endsWithAnyOf($this->string, $needle);
     }
 
     /**
