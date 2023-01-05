@@ -9,7 +9,9 @@ class Tab
      */
     public static function maxLength(array $strings): int
     {
-        return max(array_map('mb_strlen', $strings));
+        $max = max(array_map('mb_strlen', $strings));
+
+        return $max === false ? 0 : $max;
     }
 
     /**
