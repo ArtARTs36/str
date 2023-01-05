@@ -780,4 +780,45 @@ class Str
 
         return true;
     }
+
+    public static function containsDot(string $string): bool
+    {
+        return static::contains($string, Symbol::DOT);
+    }
+
+    public static function isInt(string $string): bool
+    {
+        return static::isDigit($string) && ! static::containsDot($string);
+    }
+
+    public static function isFloat(string $string): bool
+    {
+        return static::isDigit($string) && static::containsDot($string);
+    }
+
+    /**
+     * @return int|float|null
+     */
+    public static function toNumber(string $string)
+    {
+        if (! static::isDigit($string)) {
+            return null;
+        }
+
+        if (self::containsDot($string)) {
+            return static::toFloat($string);
+        }
+
+        return static::toInteger($string);
+    }
+
+    public static function hasPrefixAndSuffix(string $haystack, string $prefix, string $suffix): bool
+    {
+        return static::startsWith($haystack, $prefix) && static::endsWith($haystack, $suffix);
+    }
+
+    public static function between(string $haystack, string $prefix, string $suffix): string
+    {
+        return static::substring($haystack, static::length($prefix), -static::length($suffix));
+    }
 }

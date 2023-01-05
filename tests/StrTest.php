@@ -1217,4 +1217,145 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($str)->endsWithAnyOf($needle));
     }
+
+    public function providerForTestContainsDot(): array
+    {
+        return [
+            ['string', false],
+            ['string.', true],
+            ['strin.g', true],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Facade\Str::containsDot
+     * @covers \ArtARTs36\Str\Str::containsDot
+     * @dataProvider providerForTestContainsDot
+     */
+    public function testContainsDot(string $str, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->containsDot());
+    }
+
+    public function providerForTestIsInt(): array
+    {
+        return [
+            ['1.0', false],
+            ['1', true],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Facade\Str::isInt
+     * @covers \ArtARTs36\Str\Str::isInt
+     * @dataProvider providerForTestIsInt
+     */
+    public function testTestIsInt(string $str, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->isInt());
+    }
+
+    public function providerForTestIsFloat(): array
+    {
+        return [
+            ['1.0', true],
+            ['1', false],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Facade\Str::isFloat
+     * @covers \ArtARTs36\Str\Str::isFloat
+     * @dataProvider providerForTestIsFloat
+     */
+    public function testTestIsFloat(string $str, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($str)->isFloat());
+    }
+
+    public function providerForTestToNumber(): array
+    {
+        return [
+            ['1.0', 1.0],
+            ['1', 1],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Facade\Str::isFloat
+     * @covers \ArtARTs36\Str\Str::isFloat
+     * @dataProvider providerForTestToNumber
+     * @param int|float $expected
+     */
+    public function testTestToNumber(string $str, $expected): void
+    {
+        self::assertTrue($expected === Str::make($str)->toNumber(), sprintf(
+            'String "%s" not equals %s %s',
+            $str,
+            gettype($expected),
+            $expected
+        ));
+    }
+
+    public function providerForTestHasPrefixAndSuffix(): array
+    {
+        return [
+            [
+                'func(a)',
+                'func(',
+                ')',
+                true,
+            ],
+            [
+                'func(a)',
+                'func(',
+                ')1',
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::hasPrefixAndSuffix
+     * @covers \ArtARTs36\Str\Facade\Str::hasPrefixAndSuffix
+     * @dataProvider providerForTestHasPrefixAndSuffix
+     */
+    public function testHasPrefixAndSuffix(string $str, string $prefix, string $suffix, bool $expected): void
+    {
+        self::assertEquals(
+            $expected,
+            Str::make($str)->hasPrefixAndSuffix($prefix, $suffix)
+        );
+    }
+
+    public function providerForTestBetween(): array
+    {
+        return [
+            [
+                'func(a)',
+                'func(',
+                ')',
+                'a',
+            ],
+            [
+                'func(a)',
+                'func(',
+                ')1',
+                '',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::hasPrefixAndSuffix
+     * @covers \ArtARTs36\Str\Facade\Str::hasPrefixAndSuffix
+     * @dataProvider providerForTestBetween
+     */
+    public function testBetween(string $str, string $prefix, string $suffix, string $expected): void
+    {
+        self::assertEquals(
+            $expected,
+            Str::make($str)->between($prefix, $suffix)
+        );
+    }
 }

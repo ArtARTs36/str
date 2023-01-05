@@ -534,6 +534,39 @@ class Str implements \Countable, \IteratorAggregate
         return StaticString::isPalindrome($this);
     }
 
+    public function containsDot(): bool
+    {
+        return StaticString::containsDot($this->string);
+    }
+
+    public function isInt(): bool
+    {
+        return StaticString::isInt($this->string);
+    }
+
+    public function isFloat(): bool
+    {
+        return StaticString::isFloat($this->string);
+    }
+
+    public function hasPrefixAndSuffix(string $prefix, string $suffix): bool
+    {
+        return StaticString::hasPrefixAndSuffix($this->string, $prefix, $suffix);
+    }
+
+    public function between(string $prefix, string $suffix): string
+    {
+        return StaticString::between($this->string, $prefix, $suffix);
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function toNumber()
+    {
+        return StaticString::toNumber($this->string);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
