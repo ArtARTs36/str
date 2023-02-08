@@ -3,6 +3,7 @@
 namespace ArtARTs36\Str\Tests;
 
 use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
+use ArtARTs36\Str\Exceptions\InvalidRegexException;
 use ArtARTs36\Str\Str;
 use PHPUnit\Framework\TestCase;
 
@@ -1357,5 +1358,16 @@ class StrTest extends TestCase
             $expected,
             Str::make($str)->between($prefix, $suffix)
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::match
+     * @covers \ArtARTs36\Str\Facade\Str::match
+     */
+    public function testMatchOnInvalidRegexException(): void
+    {
+        self::expectException(InvalidRegexException::class);
+
+        Str::make('test')->match('invalid-pattern');
     }
 }

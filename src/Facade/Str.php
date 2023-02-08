@@ -3,6 +3,7 @@
 namespace ArtARTs36\Str\Facade;
 
 use ArtARTs36\Str\Exceptions\EmptyStringNotAllowedOperation;
+use ArtARTs36\Str\Exceptions\InvalidRegexException;
 use ArtARTs36\Str\Support\Arr;
 use ArtARTs36\Str\Support\LettersStat;
 use ArtARTs36\Str\Symbol;
@@ -53,6 +54,9 @@ class Str
         return (int) static::match($string, '/([\+-]?\d+)([eE][\+-]?\d+)?/i');
     }
 
+    /**
+     * @throws InvalidRegexException
+     */
     public static function match(
         string $string,
         string $pattern,
@@ -62,8 +66,14 @@ class Str
     ): string {
         $matches = [];
 
+        set_error_handler(function () use ($pattern) {
+            throw InvalidRegexException::create($pattern);
+        });
+
         // @phpstan-ignore-next-line
         preg_match($pattern, $string, $matches, $flags, $offset);
+
+        restore_error_handler();
 
         $result = $end ? end($matches) : reset($matches);
 

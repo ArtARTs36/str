@@ -130,6 +130,9 @@ class Str implements \Countable, \IteratorAggregate
         );
     }
 
+    /**
+     * @throws Exceptions\InvalidRegexException
+     */
     public function match(string $pattern, int $flags = 0, int $offset = 0, bool $end = true): self
     {
         return new static(StaticString::match($this->string, $pattern, $flags, $offset, $end));
