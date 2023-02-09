@@ -785,6 +785,11 @@ class StrTest extends TestCase
                 'cd',
                 true,
             ],
+            [
+                'str',
+                'long-prefix',
+                false,
+            ],
         ];
     }
 

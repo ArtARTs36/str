@@ -222,7 +222,13 @@ class Str
 
     public static function endsWith(string $haystack, string $needle): bool
     {
-        return mb_strpos($haystack, $needle, -\mb_strlen($needle)) !== false;
+        $needleLen = \mb_strlen($needle);
+
+        if ($needleLen > \mb_strlen($haystack)) {
+            return false;
+        }
+
+        return mb_strpos($haystack, $needle, -$needleLen) !== false;
     }
 
     /**
