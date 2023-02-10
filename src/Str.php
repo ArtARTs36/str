@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\Str;
 
+use ArtARTs36\EmptyContracts\MayBeEmpty;
 use ArtARTs36\Str\Support\Arr;
 use ArtARTs36\Str\Support\HasChars;
 use ArtARTs36\Str\Support\LettersStat;
@@ -11,7 +12,7 @@ use ArtARTs36\Str\Facade\Str as StaticString;
 /**
  * @template-implements \IteratorAggregate<string>
  */
-class Str implements \Countable, \IteratorAggregate
+class Str implements \Countable, \IteratorAggregate, MayBeEmpty
 {
     use Sortable;
     use HasChars;
