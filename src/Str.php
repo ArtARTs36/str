@@ -571,6 +571,16 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty
         return StaticString::toNumber($this->string);
     }
 
+    public function isSnakeCase(): bool
+    {
+        return StaticString::isSnakeCase($this->string);
+    }
+
+    public function isKebabCase(): bool
+    {
+        return StaticString::isKebabCase($this->string);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);

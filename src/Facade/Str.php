@@ -837,4 +837,37 @@ class Str
     {
         return static::substring($haystack, static::length($prefix), -static::length($suffix));
     }
+
+    public static function isSnakeCase(string $string): bool
+    {
+        return self::doIsSnakeCase($string, '_');
+    }
+
+    public static function isKebabCase(string $string): bool
+    {
+        return self::doIsSnakeCase($string, '-');
+    }
+
+    private static function doIsSnakeCase(string $string, string $separator): bool
+    {
+        $invalidChars = [
+            '-' => true,
+            '_' => true,
+            ',' => true,
+        ];
+
+        unset($invalidChars[$separator]);
+
+        $len = self::length($string);
+
+        for ($i = 0; $i < $len; $i++) {
+            $char = $string[$i];
+
+            if ($char === ' ' || ! self::isLower($char) || isset($invalidChars[$char])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

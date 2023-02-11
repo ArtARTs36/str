@@ -1375,4 +1375,42 @@ class StrTest extends TestCase
 
         Str::make('test')->match('invalid-pattern');
     }
+
+    public function providerForTestIsSnakeCase(): array
+    {
+        return [
+            ['ab_cd', true],
+            ['ab-cd', false],
+            ['abCd', false],
+            ['Abcd', false],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::isSnakeCase
+     * @dataProvider providerForTestIsSnakeCase
+     */
+    public function testIsSnakeCase(string $string, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->isSnakeCase());
+    }
+
+    public function providerForTestIsKebabCase(): array
+    {
+        return [
+            ['ab_cd', false],
+            ['ab-cd', true],
+            ['abCd', false],
+            ['Abcd', false],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::isKebabCase
+     * @dataProvider providerForTestIsKebabCase
+     */
+    public function testIsKebabCase(string $string, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->isKebabCase());
+    }
 }
