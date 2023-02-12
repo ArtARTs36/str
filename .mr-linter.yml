@@ -8,5 +8,5 @@ rules:
       - Optimization
 
 credentials:
-  github_actions: ""
+  github_actions: "env(MR_LINTER_GITHUB_TOKEN)"
   
