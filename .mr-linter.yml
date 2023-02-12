@@ -7,6 +7,14 @@ rules:
       - Tests
       - Optimization
 
+  "@mr-linter/description_not_empty": { }
+
+  custom:
+    - definition: "Branch must be in kebab-case"
+      rules:
+        sourceBranch:
+          isKebabCase: true
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_TOKEN)"
   
