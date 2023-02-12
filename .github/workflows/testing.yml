@@ -2,7 +2,7 @@ name: Testing
 
 on:
   push:
-    branches: [ master, '1.x', '2.x', 'use-mr-linter' ]
+    branches: [ master, '1.x', '2.x' ]
   pull_request:
     branches: [ master, '1.x', '2.x' ]
 
@@ -13,11 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Lint Pull Request
-      uses: mr-linter/mr-linter-ga@v0.1.0
-      env:
-        MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_TOKEN }}
 
     - uses: nanasess/setup-php@master
       with:
