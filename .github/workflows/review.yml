@@ -16,6 +16,6 @@ jobs:
         uses: mr-linter/mr-linter-ga@v0.1.9
         with:
           debug: false
-          metrics: false
+          metrics: true
         env:
           MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_TOKEN }}
