@@ -15,7 +15,7 @@ jobs:
       - name: Lint Pull Request
         uses: mr-linter/mr-linter-ga@v0.1.6
         with:
-          debug: true
-          metrics: true
+          debug: false
+          metrics: false
         env:
           MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_TOKEN }}
