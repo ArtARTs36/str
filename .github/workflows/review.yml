@@ -15,6 +15,7 @@ jobs:
       - name: Lint Pull Request
         uses: mr-linter/mr-linter-ga@v0.1.9
         with:
+          config: non-real-path
           debug: false
           metrics: true
         env:
