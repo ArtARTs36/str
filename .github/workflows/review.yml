@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Lint Pull Request
-        uses: mr-linter/mr-linter-ga@v0.1.4
+        uses: mr-linter/mr-linter-ga@v0.1.5
         with:
           debug: true
           metrics: true
