@@ -581,6 +581,11 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty
         return StaticString::isKebabCase($this->string);
     }
 
+    public function markdown(): Markdown
+    {
+        return new Markdown($this);
+    }
+
     protected function createWithAppend(string $string, string $delimiter = ''): self
     {
         return new static($this->string . $delimiter . $string);
