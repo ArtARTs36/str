@@ -513,6 +513,11 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty
         return new static(StaticString::deleteWhenEnds($this->string, $needle));
     }
 
+    public function deleteWhenStarts(string $needle): Str
+    {
+        return new static(StaticString::deleteWhenStarts($this->string, $needle));
+    }
+
     public function findUris(): StrCollection
     {
         return $this->arrayToCollection(StaticString::findUris($this->string));

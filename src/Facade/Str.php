@@ -734,6 +734,23 @@ class Str
         return mb_substr($haystack, 0, $pos);
     }
 
+    public static function deleteWhenStarts(string $haystack, string $needle): string
+    {
+        $needleLength = static::length($needle);
+
+        if (static::length($haystack) < $needleLength) {
+            return $haystack;
+        }
+
+        $pos = mb_strpos($haystack, $needle);
+
+        if ($pos === false) {
+            return $haystack;
+        }
+
+        return mb_substr($haystack, $needleLength);
+    }
+
     /**
      * @link https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
      * @return array<string>

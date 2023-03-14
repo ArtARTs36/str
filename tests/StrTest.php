@@ -1065,6 +1065,41 @@ class StrTest extends TestCase
         self::assertEquals($expected, Str::make($haystack)->deleteWhenEnds($needle));
     }
 
+    public function providerForTestDeleteWhenStarts(): array
+    {
+        return [
+            [
+                '12345678',
+                '12',
+                '345678',
+            ],
+            [
+                '1234',
+                '56',
+                '1234',
+            ],
+            [
+                'hello artem hello artem hello art',
+                'hello',
+                ' artem hello artem hello art',
+            ],
+            [
+                'hello',
+                'eeeeeeeee',
+                'hello',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestDeleteWhenStarts
+     * @covers \ArtARTs36\Str\Str::deleteWhenStarts
+     */
+    public function testDeleteWhenStarts(string $haystack, string $needle, string $expected): void
+    {
+        self::assertEquals($expected, Str::make($haystack)->deleteWhenStarts($needle)->__toString());
+    }
+
     public function providerForTestFindUris(): array
     {
         return [
