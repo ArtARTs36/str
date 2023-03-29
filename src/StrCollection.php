@@ -97,7 +97,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
-     * @return array<mixed>
+     * @template T
+     * @param callable(Str): T $callback
+     * @return array<T>
      */
     public function mapToArray(callable $callback): array
     {
@@ -146,7 +148,15 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
 
     public function maxLength(): int
     {
-        return max(...$this->mapToArray('mb_strlen'));
+        $lengths = $this->mapToArray(function (Str $str) {
+            return $str->length();
+        });
+
+        if (count($lengths) === 0) {
+            return 0;
+        }
+
+        return max(...$lengths);
     }
 
     public function toSentence(): Str

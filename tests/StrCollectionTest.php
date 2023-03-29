@@ -99,7 +99,9 @@ class StrCollectionTest extends TestCase
      */
     public function testMaxLength(array $strings, int $expected): void
     {
-        self::assertEquals($expected, (new StrCollection($strings))->maxLength());
+        self::assertEquals($expected, (new StrCollection(array_map(function (string $str) {
+            return Str::make($str);
+        }, $strings)))->maxLength());
     }
 
     public function providerForTestToSentence(): array
