@@ -1448,4 +1448,14 @@ class StrTest extends TestCase
     {
         self::assertEquals($expected, Str::make($string)->isKebabCase());
     }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::jsonSerialize
+     */
+    public function testJsonSerialize(): void
+    {
+        $str = Str::make('test-string');
+
+        self::assertEquals('test-string', $str->jsonSerialize());
+    }
 }

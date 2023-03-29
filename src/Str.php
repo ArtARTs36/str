@@ -12,7 +12,7 @@ use ArtARTs36\Str\Facade\Str as StaticString;
 /**
  * @template-implements \IteratorAggregate<string>
  */
-class Str implements \Countable, \IteratorAggregate, MayBeEmpty
+class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializable
 {
     use Sortable;
     use HasChars;
@@ -30,6 +30,11 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty
     public static function make(string $string): self
     {
         return new static($string);
+    }
+
+    public function jsonSerialize(): string
+    {
+        return $this->string;
     }
 
     /**
