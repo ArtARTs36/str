@@ -3,6 +3,7 @@
 namespace ArtARTs36\Str;
 
 use ArtARTs36\EmptyContracts\MayBeEmpty;
+use ArtARTs36\Str\Concerns\Randomize;
 use ArtARTs36\Str\Support\Arr;
 use ArtARTs36\Str\Support\HasChars;
 use ArtARTs36\Str\Support\LettersStat;
@@ -14,6 +15,7 @@ use ArtARTs36\Str\Facade\Str as StaticString;
  */
 class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializable
 {
+    use Randomize;
     use Sortable;
     use HasChars;
 
@@ -35,20 +37,6 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializab
     public function jsonSerialize(): string
     {
         return $this->string;
-    }
-
-    /**
-     * Create instance from random symbols.
-     * @param positive-int $maxLength
-     */
-    public static function random(int $maxLength = 6): self
-    {
-        return new static(StaticString::random($maxLength));
-    }
-
-    public static function randomFix(int $length): self
-    {
-        return new static(StaticString::randomFix($length));
     }
 
     /**
