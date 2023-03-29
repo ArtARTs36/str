@@ -201,4 +201,32 @@ class StrCollectionTest extends TestCase
     {
         self::assertEquals($expected, (new StrCollection($strs))->commonPrefix());
     }
+
+    public function providerForCommonLength(): array
+    {
+        return [
+            [
+                [
+                    '1',
+                    '22',
+                    '333',
+                    '4444',
+                ],
+                10,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\StrCollection::commonLength
+     * @dataProvider providerForCommonLength
+     */
+    public function testCommonLength(array $strings, int $expected): void
+    {
+        $collection = new StrCollection(array_map(function (string $string) {
+            return Str::make($string);
+        }, $strings));
+
+        self::assertEquals($expected, $collection->commonLength());
+    }
 }

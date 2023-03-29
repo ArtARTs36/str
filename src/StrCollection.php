@@ -251,4 +251,15 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
 
         return Str::make($prefix);
     }
+
+    public function commonLength(): int
+    {
+        $length = 0;
+
+        foreach ($this->strs as $str) {
+            $length += $str->length();
+        }
+
+        return $length;
+    }
 }
