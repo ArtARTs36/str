@@ -8,7 +8,7 @@ use ArtARTs36\Str\Support\Arr;
  * @template-implements \IteratorAggregate<Str>
  * @template-implements \ArrayAccess<int, Str>
  */
-class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
+class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \JsonSerializable
 {
     /** @var array<Str> */
     protected $strs;
@@ -19,6 +19,11 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess
     final public function __construct(array $strings)
     {
         $this->strs = $strings;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toStrings();
     }
 
     public function implode(string $separator): Str
