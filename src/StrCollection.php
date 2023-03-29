@@ -22,6 +22,9 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
         $this->strs = $strings;
     }
 
+    /**
+     * @return string[]
+     */
     public function jsonSerialize(): array
     {
         return $this->toStrings();
@@ -85,6 +88,10 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
         });
     }
 
+    /**
+     * @param null|callable(Str): bool $callback
+     * @return static
+     */
     public function filter(?callable $callback = null): self
     {
         $filtered = $callback === null ? array_filter($this->strs) : array_filter($this->strs, $callback);
