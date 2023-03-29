@@ -2,13 +2,14 @@
 
 namespace ArtARTs36\Str;
 
+use ArtARTs36\EmptyContracts\MayBeEmpty;
 use ArtARTs36\Str\Support\Arr;
 
 /**
  * @template-implements \IteratorAggregate<Str>
  * @template-implements \ArrayAccess<int, Str>
  */
-class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \JsonSerializable
+class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \JsonSerializable, MayBeEmpty
 {
     /** @var array<Str> */
     protected $strs;
