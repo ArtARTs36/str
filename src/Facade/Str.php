@@ -25,11 +25,13 @@ class Str
 
     public static function randomFix(int $length): string
     {
-        $chars = array_map(function () {
-            return chr(rand(1, 120));
-        }, range(1, $length));
+        $str = '';
 
-        return implode('', $chars);
+        for ($i = 0; $i < $length; $i++) {
+            $str .= chr(rand(1, 120));
+        }
+
+        return $str;
     }
 
     public static function deleteUnnecessarySpaces(string $string): string
