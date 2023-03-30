@@ -262,4 +262,13 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
 
         return $length;
     }
+
+    public function shuffle(): self
+    {
+        $items = $this->strs;
+
+        shuffle($items);
+
+        return new static($items);
+    }
 }
