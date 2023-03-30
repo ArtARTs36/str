@@ -57,20 +57,6 @@ class StrCollectionTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\Str\StrCollection::length
-     */
-    public function testLength(): void
-    {
-        self::assertEquals(0, (new StrCollection([]))->length());
-
-        //
-
-        $strings = [Str::make('a'), Str::make('ab'), Str::make('abc')];
-
-        self::assertEquals(6, (new StrCollection($strings))->length());
-    }
-
-    /**
      * @covers \ArtARTs36\Str\StrCollection::toIntegers
      */
     public function testToIntegers(): void
@@ -202,7 +188,7 @@ class StrCollectionTest extends TestCase
         self::assertEquals($expected, (new StrCollection($strs))->commonPrefix());
     }
 
-    public function providerForCommonLength(): array
+    public function providerForLength(): array
     {
         return [
             [
@@ -218,8 +204,8 @@ class StrCollectionTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\Str\StrCollection::commonLength
-     * @dataProvider providerForCommonLength
+     * @covers \ArtARTs36\Str\StrCollection::length
+     * @dataProvider providerForLength
      */
     public function testCommonLength(array $strings, int $expected): void
     {
@@ -227,6 +213,6 @@ class StrCollectionTest extends TestCase
             return Str::make($string);
         }, $strings));
 
-        self::assertEquals($expected, $collection->commonLength());
+        self::assertEquals($expected, $collection->length());
     }
 }

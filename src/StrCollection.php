@@ -53,11 +53,6 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
         return count($this->strs);
     }
 
-    public function length(): int
-    {
-        return array_sum(array_map('count', $this->strs));
-    }
-
     public function isEmpty(): bool
     {
         return $this->count() === 0;
@@ -252,7 +247,7 @@ class StrCollection implements \IteratorAggregate, \Countable, \ArrayAccess, \Js
         return Str::make($prefix);
     }
 
-    public function commonLength(): int
+    public function length(): int
     {
         $length = 0;
 
