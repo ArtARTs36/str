@@ -2,7 +2,10 @@
 
 namespace ArtARTs36\Str;
 
-class MarkdownHeadings implements \IteratorAggregate
+/**
+ * @template-implements \IteratorAggregate<MarkdownHeading>
+ */
+class MarkdownHeadings implements \IteratorAggregate, \Countable
 {
     /** @var array<MarkdownHeading> */
     private $headings;
@@ -24,6 +27,9 @@ class MarkdownHeadings implements \IteratorAggregate
         return $this->headings;
     }
 
+    /**
+     * @return array{headings: array<array{title: string, level: int}>}
+     */
     public function toArray(): array
     {
         $array = [
@@ -57,12 +63,20 @@ class MarkdownHeadings implements \IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return count($this->headings);
+        return $this->count() > 0;
     }
 
     public function isNotEmpty(): bool
     {
         return ! $this->isEmpty();
+    }
+
+    /**
+     * @return int<0, max>
+     */
+    public function count(): int
+    {
+        return count($this->headings);
     }
 
     public function getIterator(): \Traversable
