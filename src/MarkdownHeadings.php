@@ -63,7 +63,7 @@ class MarkdownHeadings implements \IteratorAggregate, \Countable
 
     public function isEmpty(): bool
     {
-        return $this->count() > 0;
+        return $this->count() === 0;
     }
 
     public function isNotEmpty(): bool
