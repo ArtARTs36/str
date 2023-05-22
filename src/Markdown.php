@@ -53,8 +53,10 @@ class Markdown
         $headings = [];
 
         foreach ($matches as [$_, $gratings, $title]) {
+            $title = Str::make($title);
+
             $headings[] = new MarkdownHeading(
-                $trim ? trim($title) : $title,
+                $trim ? $title->trim() : $title,
                 mb_strlen($gratings)
             );
         }

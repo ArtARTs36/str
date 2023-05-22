@@ -4,14 +4,14 @@ namespace ArtARTs36\Str;
 
 class MarkdownHeading
 {
-    /** @var string */
+    /** @var Str */
     public $title;
 
     /** @var int */
     public $level;
 
     public function __construct(
-        string $title,
+        Str $title,
         int $level
     ) {
         $this->title = $title;
