@@ -99,4 +99,36 @@ aa ### String',
 
         $markdown->containsHeadingWithLevel($title, $level);
     }
+
+    public function providerForTestHeadings(): array
+    {
+        return [
+            [
+                "## AA\n### BB",
+                [
+                    'headings' => [
+                        [
+                            'title' => 'AA',
+                            'level' => 2,
+                        ],
+                        [
+                            'title' => 'BB',
+                            'level' => 3,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Markdown::headings
+     * @dataProvider providerForTestHeadings
+     */
+    public function testHeadings(string $content, array $expected): void
+    {
+        $markdown = Str::make($content)->markdown();
+
+        self::assertEquals($expected, $markdown->headings(true)->toArray());
+    }
 }

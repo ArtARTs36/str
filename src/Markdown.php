@@ -43,4 +43,22 @@ class Markdown
 
         return $this->str->match($regex)->isNotEmpty();
     }
+
+    public function headings(bool $trim = false): MarkdownHeadings
+    {
+        $matches = [];
+
+        preg_match_all('/^(#*)(.*)/m', $this->str, $matches, PREG_SET_ORDER);
+
+        $headings = [];
+
+        foreach ($matches as [$_, $gratings, $title]) {
+            $headings[] = new MarkdownHeading(
+                $trim ? trim($title) : $title,
+                mb_strlen($gratings)
+            );
+        }
+
+        return new MarkdownHeadings($headings);
+    }
 }
