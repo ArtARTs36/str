@@ -380,6 +380,22 @@ class Str
         return array_values($sequences);
     }
 
+    public static function countOfSymbolRepeatsInStart(string $string, string $symbol, int $start = 0, ?int $end = null): int
+    {
+        $end = $end === null ? self::length($string) : $end;
+        $repeats = 0;
+
+        for ($i = $start; $i < $end; $i++) {
+            if (self::getSymbolByIndex($string, $i) === $symbol) {
+                $repeats++;
+            } else {
+                break;
+            }
+        }
+
+        return $repeats;
+    }
+
     public static function deleteRepeatSymbolInEnding(string $string, string $symbol): string
     {
         if (static::lastSymbol($symbol) !== $symbol) {

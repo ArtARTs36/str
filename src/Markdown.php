@@ -3,6 +3,10 @@
 namespace ArtARTs36\Str;
 
 use ArtARTs36\Str\Exceptions\InvalidRegexException;
+use ArtARTs36\Str\Markdown\MarkdownElement;
+use ArtARTs36\Str\Markdown\MarkdownList;
+use ArtARTs36\Str\Markdown\MarkdownString;
+use ArtARTs36\Str\Markdown\WhitespaceLine;
 
 class Markdown
 {
@@ -62,5 +66,62 @@ class Markdown
         }
 
         return new MarkdownHeadings($headings);
+    }
+
+    /**
+     * @return array<MarkdownElement>
+     */
+    public function elements(bool $ignoreWhitespaceLines = false): array
+    {
+        $elements = [];
+        $list = null;
+
+        foreach ($this->str->lines() as $line) {
+            $line = $line->trim();
+
+            if ($line->isEmpty()) {
+                if (! $ignoreWhitespaceLines) {
+                    $elements[] = new WhitespaceLine();
+                }
+
+                $list = null;
+
+                continue;
+            }
+
+            if ($line->startsWith('#')) {
+                $headingLevel = 1;
+                $list = null;
+                $maxLength = 5;
+
+                if ($line->length() < $maxLength) {
+                    $maxLength = $line->length();
+                }
+
+                $headingLevel += $line->countOfSymbolRepeatsInStart('#', 1, $maxLength);
+
+                $elements[] = new MarkdownHeading(
+                    $line->cut(null, $headingLevel + 1),
+                    $headingLevel
+                );
+
+                continue;
+            }
+
+            if ($line->startsWithAnyOf(['*', '-'])) {
+                if ($list === null) {
+                    $list = new MarkdownList([]);
+                    $elements[] = $list;
+                }
+
+                $list->items[] = new MarkdownString($line->cut(null, 2));
+
+                continue;
+            }
+
+            $elements[] = new MarkdownString($line);
+        }
+
+        return $elements;
     }
 }

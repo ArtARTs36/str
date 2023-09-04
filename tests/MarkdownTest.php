@@ -2,6 +2,10 @@
 
 namespace ArtARTs36\Str\Tests;
 
+use ArtARTs36\Str\Markdown\MarkdownList;
+use ArtARTs36\Str\Markdown\MarkdownString;
+use ArtARTs36\Str\Markdown\WhitespaceLine;
+use ArtARTs36\Str\MarkdownHeading;
 use ArtARTs36\Str\Str;
 use PHPUnit\Framework\TestCase;
 
@@ -130,5 +134,80 @@ aa ### String',
         $markdown = Str::make($content)->markdown();
 
         self::assertEquals($expected, $markdown->headings(true)->toArray());
+    }
+
+    public static function providerForTestElements(): array
+    {
+        return [
+            [
+                'markdownText' => <<<HTML
+## v1.0.0
+
+### Added
+* item 1
+* item 2
+
+### Added
+* item 1
+* item 2
+* item 3
+
+### Added
+* item 1
+* item 2
+
+Other text
+HTML,
+                'expected' => [
+                    new MarkdownHeading(
+                        new Str('v1.0.0'),
+                        2
+                    ),
+                    new WhitespaceLine(),
+                    new MarkdownHeading(
+                        new Str('Added'),
+                        3
+                    ),
+                    new MarkdownList([
+                        new MarkdownString(new Str('item 1')),
+                        new MarkdownString(new Str('item 2')),
+                    ]),
+                    new WhitespaceLine(),
+                    new MarkdownHeading(
+                        new Str('Added'),
+                        3
+                    ),
+                    new MarkdownList([
+                        new MarkdownString(new Str('item 1')),
+                        new MarkdownString(new Str('item 2')),
+                        new MarkdownString(new Str('item 3')),
+                    ]),
+                    new WhitespaceLine(),
+                    new MarkdownHeading(
+                        new Str('Added'),
+                        3
+                    ),
+                    new MarkdownList([
+                        new MarkdownString(new Str('item 1')),
+                        new MarkdownString(new Str('item 2')),
+                    ]),
+                    new WhitespaceLine(),
+                    new MarkdownString(new Str('Other text')),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Markdown::elements
+     *
+     * @dataProvider providerForTestElements
+     */
+    public function testElements(string $markdownText, array $expected): void
+    {
+        self::assertSame(
+            serialize($expected),
+            serialize(Str::make($markdownText)->markdown()->elements())
+        );
     }
 }

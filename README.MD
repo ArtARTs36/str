@@ -13,7 +13,7 @@ This package provides string wrapper for PHP.
 
 ### Installation:
 
-`composer require artarts36/str`
+Run `composer require artarts36/str`
 
 ---
 

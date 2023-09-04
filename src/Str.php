@@ -561,6 +561,16 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializab
         return StaticString::between($this->string, $prefix, $suffix);
     }
 
+    public function countOfSymbolRepeatsInStart(string $symbol, int $start = 0, ?int $end = null): int
+    {
+        return StaticString::countOfSymbolRepeatsInStart(
+            $this->string,
+            $symbol,
+            $start,
+            $end ?? $this->length(),
+        );
+    }
+
     /**
      * @return float|int|null
      */
