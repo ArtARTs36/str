@@ -7,12 +7,20 @@ use ArtARTs36\Str\Exceptions\InvalidRegexException;
 use ArtARTs36\Str\Support\Arr;
 use ArtARTs36\Str\Support\LettersStat;
 use ArtARTs36\Str\Symbol;
+use ArtARTs36\Str\Template\MatchTemplateResult;
+use ArtARTs36\Str\Template\TemplatePlaceholders;
 
 class Str
 {
     public const DEFAULT_ENCODING = 'UTF-8';
     public const SEPARATOR_WORD = ' ';
     public const REGEX_SENTENCE = '/([^\\'. Symbol::DOT . ']*)/';
+    public const TEMPLATE_DEFAULT_REGEXES = [
+        '\{word\}' => '(\w+)',
+        '\{text_line\}' => '(.*)',
+        '\{text_multiline\}' => '((.|\n)*)',
+        '\{number\}' => '(\d+\.\d+)|(\d+)',
+    ];
 
     /**
      * Create string from random symbols.
@@ -881,6 +889,22 @@ class Str
     public static function isKebabCase(string $string): bool
     {
         return self::doIsSnakeCase($string, '-');
+    }
+
+    /**
+     * @throws InvalidRegexException
+     */
+    public static function matchTemplate(string $string, string $template, ?TemplatePlaceholders $placeholders = null): MatchTemplateResult
+    {
+        if ($placeholders === null) {
+            $placeholders = TemplatePlaceholders::default();
+        }
+
+        $template = preg_quote($template);
+        $template = Str::replace($template, $placeholders->toArray());
+        $template = "/$template/";
+
+        return new MatchTemplateResult(Str::match($string, $template) !== '');
     }
 
     private static function doIsSnakeCase(string $string, string $separator): bool

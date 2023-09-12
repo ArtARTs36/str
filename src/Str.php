@@ -4,11 +4,13 @@ namespace ArtARTs36\Str;
 
 use ArtARTs36\EmptyContracts\MayBeEmpty;
 use ArtARTs36\Str\Concerns\Randomize;
+use ArtARTs36\Str\Facade\Str as StaticString;
 use ArtARTs36\Str\Support\Arr;
 use ArtARTs36\Str\Support\HasChars;
 use ArtARTs36\Str\Support\LettersStat;
 use ArtARTs36\Str\Support\Sortable;
-use ArtARTs36\Str\Facade\Str as StaticString;
+use ArtARTs36\Str\Template\MatchTemplateResult;
+use ArtARTs36\Str\Template\TemplatePlaceholders;
 
 /**
  * @template-implements \IteratorAggregate<string>
@@ -140,6 +142,11 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializab
     public function linesCount(): int
     {
         return StaticString::linesCount($this->string);
+    }
+
+    public function matchTemplate(string $template, ?TemplatePlaceholders $placeholders = null): MatchTemplateResult
+    {
+        return StaticString::matchTemplate($this->string, $template, $placeholders);
     }
 
     public function lines(): StrCollection

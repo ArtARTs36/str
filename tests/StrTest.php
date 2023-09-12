@@ -1458,4 +1458,48 @@ class StrTest extends TestCase
 
         self::assertEquals('test-string', $str->jsonSerialize());
     }
+
+    public static function providerForTestMatchTemplate(): array
+    {
+        return [
+            [
+                'string' => '123',
+                'template' => '{number}',
+                'expected' => true,
+            ],
+            [
+                'string' => 'abc',
+                'template' => '{number}',
+                'expected' => false,
+            ],
+            [
+                'string' => <<<HTML
+### abc ff
+ffdfcfd fd fdc fd
+ffdfcfd fd fdc fd
+### 123
+### 123
+HTML,
+                'template' => <<<HTML
+### {text_line}
+{text_multiline}
+### {number}
+HTML,
+                'expected' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::matchTemplate
+     *
+     * @dataProvider providerForTestMatchTemplate
+     */
+    public function testMatchTemplate(string $string, string $template, bool $expected): void
+    {
+        self::assertEquals(
+            $expected,
+            Str::make($string)->matchTemplate($template)->matched,
+        );
+    }
 }
