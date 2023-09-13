@@ -548,6 +548,11 @@ class Str implements \Countable, \IteratorAggregate, MayBeEmpty, \JsonSerializab
         return StaticString::containsDot($this->string);
     }
 
+    public function containsDigit(): bool
+    {
+        return StaticString::containsDigit($this->string);
+    }
+
     public function isInt(): bool
     {
         return StaticString::isInt($this->string);

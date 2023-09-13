@@ -845,6 +845,11 @@ class Str
         return static::contains($string, Symbol::DOT);
     }
 
+    public static function containsDigit(string $string): bool
+    {
+        return static::regexContains($string, '(\d+.\d|\d)');
+    }
+
     public static function isInt(string $string): bool
     {
         return static::isDigit($string) && ! static::containsDot($string);

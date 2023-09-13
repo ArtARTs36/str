@@ -1502,4 +1502,48 @@ HTML,
             Str::make($string)->matchTemplate($template)->matched,
         );
     }
+
+    public static function providerForTestContainsDigit(): array
+    {
+        return [
+            'check empty string' => [
+                'string' => '',
+                'expected' => false,
+            ],
+            'check string of integer' => [
+                'string' => '1',
+                'expected' => true,
+            ],
+            'check string of float' => [
+                'string' => '1.0',
+                'expected' => true,
+            ],
+            'check string starts with integer' => [
+                'string' => '1a',
+                'expected' => true,
+            ],
+            'check string starts with float' => [
+                'string' => '1.0a',
+                'expected' => true,
+            ],
+            'check string ends with integer' => [
+                'string' => 'a1',
+                'expected' => true,
+            ],
+            'check string ends with float' => [
+                'string' => 'a1.0',
+                'expected' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\Str\Str::containsDigit
+     *
+     * @dataProvider providerForTestContainsDigit
+     */
+    public function testContainsDigit(string $string, bool $expected): void
+    {
+        self::assertEquals($expected, Str::make($string)->containsDigit());
+    }
 }
